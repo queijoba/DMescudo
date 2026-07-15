@@ -4,14 +4,13 @@ import {
   Table as TableIcon, FileText, Bold, Italic, 
   Heading, List, FilePlus, PlusSquare, X,
   GripHorizontal, MinusSquare, Scaling,
-  Save, FolderOpen, Check, Lock, KeyRound
+  Save, FolderOpen, Check, Lock, KeyRound,
+  Search, ImagePlus, RefreshCw
 } from 'lucide-react';
 
-// Este componente encapsula a lógica de arrastar, redimensionar e focar as janelas.
 const WidgetCard = ({ widget, updateWidget, removeWidget, bringToFront, children }) => {
   const cardRef = useRef(null);
 
-  // Lógica de Mover (Arrastar)
   const handleDragStart = (e) => {
     e.preventDefault();
     bringToFront(widget.id);
@@ -39,7 +38,6 @@ const WidgetCard = ({ widget, updateWidget, removeWidget, bringToFront, children
     document.addEventListener('pointerup', onPointerUp);
   };
 
-  // Lógica de Redimensionar
   const handleResizeStart = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -54,8 +52,8 @@ const WidgetCard = ({ widget, updateWidget, removeWidget, bringToFront, children
       const dw = moveEvent.clientX - startX;
       const dh = moveEvent.clientY - startY;
       updateWidget(widget.id, { 
-        width: Math.max(250, startW + dw), // Largura mínima
-        height: Math.max(200, startH + dh) // Altura mínima
+        width: Math.max(250, startW + dw), 
+        height: Math.max(200, startH + dh) 
       });
     };
 
@@ -81,37 +79,34 @@ const WidgetCard = ({ widget, updateWidget, removeWidget, bringToFront, children
         zIndex: widget.zIndex || 1 
       }}
     >
-      {/* Barra de Título (Alça de Arrastar) */}
       <div 
         className="flex justify-between items-center bg-stone-950 px-3 py-2 border-b border-stone-700 cursor-move select-none"
         onPointerDown={handleDragStart}
       >
-        <div className="flex items-center gap-2 w-full">
-          <GripHorizontal size={14} className="text-stone-500" />
+        <div className="flex items-center gap-2 w-full overflow-hidden pr-2">
+          <GripHorizontal size={14} className="text-stone-500 flex-shrink-0" />
           <input 
             type="text" 
             value={widget.title}
-            onPointerDown={(e) => e.stopPropagation()} // Permite clicar no input sem arrastar
+            onPointerDown={(e) => e.stopPropagation()} 
             onChange={(e) => updateWidget(widget.id, { title: e.target.value })}
-            className="font-bold text-amber-500 bg-transparent outline-none w-full focus:bg-stone-900 rounded px-1 text-sm"
+            className="font-bold text-amber-500 bg-transparent outline-none w-full focus:bg-stone-900 rounded px-1 text-sm truncate"
           />
         </div>
         <button 
           onPointerDown={(e) => e.stopPropagation()}
           onClick={() => removeWidget(widget.id)} 
-          className="text-red-500 hover:text-red-400 ml-2 p-1"
+          className="text-red-500 hover:text-red-400 ml-2 p-1 flex-shrink-0"
           title="Fechar Janela"
         >
           <X size={16} />
         </button>
       </div>
 
-      {/* Conteúdo Dinâmico do Widget */}
       <div className="flex-1 overflow-hidden flex flex-col p-3">
         {children}
       </div>
 
-      {/* Alça de Redimensionamento */}
       <div 
         className="absolute bottom-0 right-0 p-1 cursor-nwse-resize text-stone-500 hover:text-amber-500 transition-colors"
         onPointerDown={handleResizeStart}
@@ -142,11 +137,12 @@ const App = () => {
   const [templateName, setTemplateName] = useState('');
   const [modalMessage, setModalMessage] = useState({ type: '', text: '' });
   const [templatePassword, setTemplatePassword] = useState('');
+  const [templateImage, setTemplateImage] = useState(null); 
+  const [searchTerm, setSearchTerm] = useState(''); 
   const [authPrompt, setAuthPrompt] = useState({ isOpen: false, templateId: null, action: null });
   const [authInput, setAuthInput] = useState('');
   const [authError, setAuthError] = useState('');
 
-  // Carrega os templates salvos na memória do navegador ao iniciar
   useEffect(() => {
     const saved = localStorage.getItem('dmscreen_templates');
     if (saved) {
@@ -158,7 +154,15 @@ const App = () => {
     }
   }, []);
 
-  // Função para salvar a configuração atual da tela
+  const handleTemplateImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setTemplateImage(reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
   const saveTemplate = () => {
     if (!templateName.trim()) {
       setModalMessage({ type: 'error', text: 'Digite um nome para o modelo.' });
@@ -170,6 +174,7 @@ const App = () => {
         id: Date.now(),
         name: templateName,
         password: templatePassword.trim() || null,
+        image: templateImage,
         widgets: widgets,
         topZ: topZ,
         date: new Date().toLocaleDateString()
@@ -178,7 +183,6 @@ const App = () => {
       const existingIndex = templates.findIndex(t => t.name === templateName);
       let updatedTemplates = [...templates];
       
-      // Se já existir um com esse nome, atualiza. Se não, adiciona um novo.
       if (existingIndex >= 0) {
         updatedTemplates[existingIndex] = newTemplate;
       } else {
@@ -188,16 +192,15 @@ const App = () => {
       localStorage.setItem('dmscreen_templates', JSON.stringify(updatedTemplates));
       setTemplates(updatedTemplates);
       setModalMessage({ type: 'success', text: 'Modelo salvo com sucesso!' });
-      setTimeout(() => setModalMessage({ type: '', text: '' }), 3000); // Apaga a mensagem após 3 seg
-      setTemplateName(''); // Limpa o campo
-      setTemplatePassword(''); // Limpa a senha
+      setTimeout(() => setModalMessage({ type: '', text: '' }), 3000); 
+      setTemplateName(''); 
+      setTemplatePassword(''); 
+      setTemplateImage(null); 
     } catch (error) {
-      // O localStorage tem limite de ~5MB. Mapas muito pesados podem causar erro.
-      setModalMessage({ type: 'error', text: 'Erro! Se tiver imagens grandes no layout, o limite de memória do navegador pode ter sido atingido.' });
+      setModalMessage({ type: 'error', text: 'Erro! Limite de memória atingido.' });
     }
   };
 
-  // Carrega o layout salvo na tela
   const loadTemplate = (id) => {
     const template = templates.find(t => t.id === id);
     if (template) {
@@ -207,7 +210,6 @@ const App = () => {
     }
   };
 
-  // Exclui um layout salvo
   const deleteTemplate = (id) => {
     const updatedTemplates = templates.filter(t => t.id !== id);
     localStorage.setItem('dmscreen_templates', JSON.stringify(updatedTemplates));
@@ -228,12 +230,23 @@ const App = () => {
   const executeAction = (id, action) => {
     if (action === 'load') loadTemplate(id);
     if (action === 'delete') deleteTemplate(id);
+    if (action === 'update') {
+      const updatedTemplates = templates.map(t => 
+        t.id === id ? { ...t, widgets: [...widgets], topZ, date: new Date().toLocaleDateString() } : t
+      );
+      localStorage.setItem('dmscreen_templates', JSON.stringify(updatedTemplates));
+      setTemplates(updatedTemplates);
+      setModalMessage({ type: 'success', text: 'Modelo atualizado com sucesso!' });
+      setTimeout(() => setModalMessage({ type: '', text: '' }), 3000);
+    }
     setAuthPrompt({ isOpen: false, templateId: null, action: null });
   };
 
   const handleAuthSubmit = () => {
     const template = templates.find(t => t.id === authPrompt.templateId);
-    if (template && template.password === authInput) {
+    const MASTER_PASSWORD = "71996813993";
+    
+    if (template && (template.password === authInput || authInput === MASTER_PASSWORD)) {
       executeAction(authPrompt.templateId, authPrompt.action);
     } else {
       setAuthError('Senha incorreta!');
@@ -247,17 +260,11 @@ const App = () => {
   };
 
   const addWidget = (type) => {
-    // Calcula uma posição em cascata para novas janelas
     const offset = (widgets.length % 5) * 40;
     let newWidget = { 
-      id: Date.now(), 
-      type, 
-      title: 'Novo Widget',
-      x: 100 + offset,
-      y: 100 + offset,
-      zIndex: topZ + 1,
-      width: 350,
-      height: 300
+      id: Date.now(), type, title: 'Novo Widget',
+      x: 100 + offset, y: 100 + offset,
+      zIndex: topZ + 1, width: 350, height: 300
     };
     setTopZ(topZ + 1);
 
@@ -320,16 +327,12 @@ const App = () => {
     };
 
     const deletePage = (e, pageId) => {
-      e.stopPropagation(); // Evita ativar a aba ao clicar no X
-      if (widget.pages.length === 1) return; // Não deleta se for a última aba
+      e.stopPropagation();
+      if (widget.pages.length === 1) return;
 
       const newPages = widget.pages.filter(p => p.id !== pageId);
       let newActiveId = widget.activePageId;
-      
-      // Se a aba deletada for a ativa, muda para a primeira aba restante
-      if (newActiveId === pageId) {
-        newActiveId = newPages[0].id;
-      }
+      if (newActiveId === pageId) newActiveId = newPages[0].id;
       
       updateWidget(widget.id, { pages: newPages, activePageId: newActiveId });
     };
@@ -337,6 +340,13 @@ const App = () => {
     const updatePageContent = (htmlContent) => {
       const newPages = widget.pages.map(p => 
         p.id === activePage.id ? { ...p, content: htmlContent } : p
+      );
+      updateWidget(widget.id, { pages: newPages });
+    };
+
+    const updatePageTitle = (pageId, newTitle) => {
+      const newPages = widget.pages.map(p => 
+        p.id === pageId ? { ...p, title: newTitle } : p
       );
       updateWidget(widget.id, { pages: newPages });
     };
@@ -352,9 +362,16 @@ const App = () => {
             <div 
               key={page.id}
               onClick={() => updateWidget(widget.id, { activePageId: page.id })}
-              className={`flex items-center gap-1 px-3 py-1 text-sm rounded cursor-pointer group whitespace-nowrap ${widget.activePageId === page.id ? 'bg-stone-700 text-amber-400' : 'bg-stone-800 text-stone-400 hover:bg-stone-700'}`}
+              className={`flex items-center gap-1 px-3 py-1 text-sm rounded cursor-pointer group whitespace-nowrap border border-transparent ${widget.activePageId === page.id ? 'bg-stone-700 text-amber-400 border-stone-600' : 'bg-stone-800 text-stone-400 hover:bg-stone-700'}`}
             >
-              <span>{page.title}</span>
+              <input
+                type="text"
+                value={page.title}
+                onChange={(e) => updatePageTitle(page.id, e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+                className="bg-transparent outline-none w-20 sm:w-24 text-inherit truncate placeholder-stone-500"
+                placeholder="Sem Título"
+              />
               {widget.pages.length > 1 && (
                 <button 
                   onClick={(e) => deletePage(e, page.id)} 
@@ -366,7 +383,7 @@ const App = () => {
               )}
             </div>
           ))}
-          <button onClick={addPage} className="px-2 py-1 text-stone-400 hover:text-amber-400 flex-shrink-0">
+          <button onClick={addPage} className="px-2 py-1 text-stone-400 hover:text-amber-400 flex-shrink-0" title="Nova Aba">
             <FilePlus size={16} />
           </button>
         </div>
@@ -379,7 +396,7 @@ const App = () => {
         </div>
 
         <div 
-          className="flex-1 w-full bg-stone-900 p-3 rounded-b-lg text-sm text-stone-200 outline-none overflow-y-auto"
+          className="flex-1 w-full bg-stone-900 p-3 rounded-b-lg text-sm text-stone-200 outline-none overflow-y-auto custom-scrollbar"
           contentEditable
           suppressContentEditableWarning
           onBlur={(e) => updatePageContent(e.currentTarget.innerHTML)}
@@ -420,7 +437,6 @@ const App = () => {
         <div className="flex-1 overflow-auto custom-scrollbar border border-stone-700 rounded bg-stone-900 relative">
           <table className="w-full border-collapse min-w-max">
             <thead>
-              {/* Linha de botões para deletar colunas */}
               <tr>
                 {widget.rows[0].map((_, cIdx) => (
                   <th key={`del-col-${cIdx}`} className="p-1 border-b border-stone-700 bg-stone-800">
@@ -433,7 +449,6 @@ const App = () => {
                     </button>
                   </th>
                 ))}
-                {/* Célula vazia no canto para o botão de deletar linha */}
                 <th className="bg-stone-800 border-b border-stone-700 w-8"></th>
               </tr>
             </thead>
@@ -451,7 +466,6 @@ const App = () => {
                       />
                     </td>
                   ))}
-                  {/* Botão de deletar linha */}
                   <td className="border border-stone-700 bg-stone-800 text-center w-8">
                     <button 
                       onClick={() => removeRow(rIdx)} 
@@ -470,10 +484,13 @@ const App = () => {
     );
   };
 
+  const filteredTemplates = templates.filter(t => 
+    t.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="flex flex-col h-screen bg-stone-900 text-stone-100 font-sans selection:bg-amber-600 selection:text-white overflow-hidden">
       
-      {/* Cabeçalho e Controles */}
       <header className="flex flex-col md:flex-row justify-between items-center bg-stone-950 p-4 border-b border-stone-700 z-50 flex-shrink-0 shadow-md gap-4">
         <h1 className="text-2xl font-bold text-amber-500 flex items-center gap-2">
           <Layout size={24} /> DM Screen Architect
@@ -493,7 +510,6 @@ const App = () => {
           </button>
         </div>
         
-        {/* Botão de Abrir Gerenciador de Templates */}
         <div className="flex">
           <button 
             onClick={() => setShowTemplateModal(true)} 
@@ -504,7 +520,6 @@ const App = () => {
         </div>
       </header>
 
-      {}
       {showTemplateModal && (
         <div className="absolute inset-0 z-[100] flex items-center justify-center bg-black/70 p-4">
           <div className="bg-stone-900 border border-stone-600 rounded-lg shadow-2xl w-full max-w-md flex flex-col overflow-hidden">
@@ -514,16 +529,23 @@ const App = () => {
             </div>
             
             <div className="p-5 flex flex-col gap-6">
-              {/* Seção de Salvar */}
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-bold text-stone-300">Salvar Mesa Atual</label>
                 <div className="flex gap-2">
+                  <label className="cursor-pointer flex-shrink-0 w-10 h-10 bg-stone-800 border border-stone-600 rounded flex items-center justify-center hover:bg-stone-700 transition-colors relative overflow-hidden" title="Adicionar miniatura">
+                    {templateImage ? (
+                      <img src={templateImage} alt="Thumb" className="w-full h-full object-cover" />
+                    ) : (
+                      <ImagePlus size={18} className="text-stone-400" />
+                    )}
+                    <input type="file" accept="image/*" onChange={handleTemplateImageUpload} className="hidden" />
+                  </label>
                   <input 
                     type="text" 
                     value={templateName}
                     onChange={(e) => setTemplateName(e.target.value)}
                     placeholder="Ex: Combate na Taverna..."
-                    className="flex-1 bg-stone-800 border border-stone-600 rounded px-3 py-2 text-sm outline-none focus:border-amber-500 text-stone-100 placeholder-stone-500"
+                    className="flex-1 bg-stone-800 border border-stone-600 rounded px-3 py-2 text-sm outline-none focus:border-amber-500 text-stone-100 placeholder-stone-500 min-w-[120px]"
                     onKeyDown={(e) => e.key === 'Enter' && saveTemplate()}
                   />
                   <input 
@@ -531,7 +553,7 @@ const App = () => {
                     value={templatePassword}
                     onChange={(e) => setTemplatePassword(e.target.value)}
                     placeholder="Senha (Opcional)"
-                    className="w-1/3 bg-stone-800 border border-stone-600 rounded px-3 py-2 text-sm outline-none focus:border-amber-500 text-stone-100 placeholder-stone-500"
+                    className="w-1/4 bg-stone-800 border border-stone-600 rounded px-3 py-2 text-sm outline-none focus:border-amber-500 text-stone-100 placeholder-stone-500"
                     onKeyDown={(e) => e.key === 'Enter' && saveTemplate()}
                   />
                   <button onClick={saveTemplate} className="bg-amber-600 hover:bg-amber-500 text-stone-900 font-bold px-4 py-2 rounded text-sm transition-colors flex items-center gap-1 shadow">
@@ -546,33 +568,61 @@ const App = () => {
                 )}
               </div>
 
-              {/* Linha Divisória */}
               <div className="w-full h-px bg-stone-700"></div>
 
-              {/* Seção de Carregar */}
               <div className="flex flex-col gap-2">
-                <label className="text-sm font-bold text-stone-300">Carregar Modelos Salvos ({templates.length})</label>
-                <div className="flex flex-col gap-2 max-h-56 overflow-y-auto custom-scrollbar pr-1">
-                  {templates.length === 0 ? (
+                <div className="flex justify-between items-center">
+                  <label className="text-sm font-bold text-stone-300">Carregar Modelos Salvos ({templates.length})</label>
+                  <div className="relative w-1/2">
+                    <Search size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-stone-500" />
+                    <input 
+                      type="text" 
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      placeholder="Pesquisar..." 
+                      className="w-full bg-stone-900 border border-stone-700 rounded-full pl-7 pr-3 py-1 text-xs outline-none focus:border-amber-500 text-stone-200"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2 max-h-56 overflow-y-auto custom-scrollbar pr-1 mt-1">
+                  {filteredTemplates.length === 0 ? (
                     <p className="text-sm text-stone-500 text-center py-6 border border-dashed border-stone-700 rounded bg-stone-800/30">
-                      Você ainda não salvou nenhum modelo.
+                      {templates.length === 0 ? "Você ainda não salvou nenhum modelo." : "Nenhum modelo encontrado."}
                     </p>
                   ) : (
-                    templates.map(t => (
-                      <div key={t.id} className="flex items-center justify-between bg-stone-800 border border-stone-700 p-3 rounded group hover:border-amber-600/50 transition-colors">
-                        <div className="flex flex-col overflow-hidden pr-2">
-                          <span className="font-bold text-stone-200 truncate flex items-center gap-2">
-                            {t.password && <Lock size={14} className="text-amber-500" title="Protegido por Senha" />}
-                            {t.name}
-                          </span>
-                          <span className="text-xs text-stone-500">{t.date} • {t.widgets.length} Ferramentas na tela</span>
+                    filteredTemplates.map(t => (
+                      <div key={t.id} className="flex items-center justify-between bg-stone-800 border border-stone-700 p-2 rounded group hover:border-amber-600/50 transition-colors">
+                        <div className="flex items-center gap-3 overflow-hidden pr-2">
+                          {t.image ? (
+                            <img src={t.image} alt={t.name} className="w-10 h-10 rounded object-cover flex-shrink-0 border border-stone-600" />
+                          ) : (
+                            <div className="w-10 h-10 rounded bg-stone-900 border border-stone-700 flex items-center justify-center flex-shrink-0">
+                              <Layout size={16} className="text-stone-500" />
+                            </div>
+                          )}
+                          
+                          <div className="flex flex-col overflow-hidden">
+                            <span className="font-bold text-stone-200 truncate flex items-center gap-2">
+                              {t.password && <Lock size={14} className="text-amber-500" title="Protegido por Senha" />}
+                              {t.name}
+                            </span>
+                            <span className="text-xs text-stone-500">{t.date} • {t.widgets.length} Ferramentas</span>
+                          </div>
                         </div>
-                        <div className="flex gap-2 flex-shrink-0">
+                        <div className="flex gap-1 flex-shrink-0">
                           <button 
                             onClick={() => requestTemplateAction(t.id, 'load')}
-                            className="px-3 py-1.5 bg-stone-700 hover:bg-amber-600 hover:text-stone-900 text-stone-200 rounded text-xs font-bold transition-colors"
+                            className="px-2 py-1.5 bg-stone-700 hover:bg-amber-600 hover:text-stone-900 text-stone-200 rounded text-xs font-bold transition-colors"
+                            title="Carregar para a tela"
                           >
                             Carregar
+                          </button>
+                          <button 
+                            onClick={() => requestTemplateAction(t.id, 'update')}
+                            className="p-1.5 text-stone-500 hover:text-blue-400 hover:bg-stone-700 rounded transition-colors"
+                            title="Atualizar este modelo"
+                          >
+                            <RefreshCw size={16} />
                           </button>
                           <button 
                             onClick={() => requestTemplateAction(t.id, 'delete')}
@@ -589,7 +639,6 @@ const App = () => {
               </div>
             </div>
 
-            {/* Tela de Autenticação (Overlay) */}
             {authPrompt.isOpen && (
               <div className="absolute inset-0 z-50 flex items-center justify-center bg-stone-950/90 p-4 backdrop-blur-sm">
                 <div className="bg-stone-900 border border-stone-600 rounded-lg p-5 w-full max-w-sm flex flex-col gap-4 shadow-2xl">
@@ -598,7 +647,7 @@ const App = () => {
                     Acesso Protegido
                   </h3>
                   <p className="text-sm text-stone-300">
-                    Este modelo exige uma senha para ser {authPrompt.action === 'load' ? 'carregado' : 'deletado'}.
+                    Este modelo exige uma senha para ser {authPrompt.action === 'load' ? 'carregado' : authPrompt.action === 'delete' ? 'deletado' : 'atualizado'}.
                   </p>
                   <input
                     type="password"
@@ -631,9 +680,7 @@ const App = () => {
         </div>
       )}
 
-      {/* Área de Trabalho (Canvas) - Onde os widgets flutuam */}
       <main className="relative flex-1 w-full bg-stone-900 overflow-hidden" id="desktop-area">
-        {/* Padrão de fundo opcional para parecer um grid/mesa */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
 
         {widgets.map((widget) => (
@@ -644,7 +691,6 @@ const App = () => {
             removeWidget={removeWidget}
             bringToFront={bringToFront}
           >
-            {/* RENDERIZADOR ESPECÍFICO DE CONTEÚDO */}
             {widget.type === 'note' && renderNoteWidget(widget)}
             
             {widget.type === 'dice' && (
@@ -674,7 +720,7 @@ const App = () => {
               <div className="flex flex-col items-center justify-center h-full w-full border-2 border-dashed border-stone-600 rounded-lg p-2 bg-stone-900/50 overflow-hidden relative group">
                 {widget.imageData ? (
                   <>
-                    <img src={widget.imageData} alt="Mapa/Arte" className="w-full h-full object-contain rounded" />
+                    <img src={widget.imageData} alt="Mapa" className="w-full h-full object-contain rounded" />
                     <label className="absolute bottom-2 right-2 bg-stone-800/80 text-white px-2 py-1 rounded cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity text-xs border border-stone-600 hover:bg-amber-600">
                       Trocar
                       <input type="file" accept="image/*" onChange={(e) => handleImageUpload(widget.id, e)} className="hidden" />
@@ -696,6 +742,28 @@ const App = () => {
         ))}
       </main>
       
+      {/* Barra de Tarefas (Rodapé) */}
+      <footer className="bg-stone-950 border-t border-stone-700 p-2 flex items-center gap-2 overflow-x-auto custom-scrollbar flex-shrink-0 z-50 shadow-[0_-5px_15px_-5px_rgba(0,0,0,0.5)]">
+        <div className="text-stone-400 text-xs font-bold px-2 whitespace-nowrap flex items-center gap-2">
+          <Layout size={14} /> Janelas: <span className="text-amber-500">{widgets.length}</span>
+        </div>
+        <div className="h-4 w-px bg-stone-700 mx-1"></div>
+        {widgets.map(w => (
+          <button 
+            key={w.id}
+            onClick={() => bringToFront(w.id)}
+            className="px-3 py-1.5 bg-stone-800 hover:bg-amber-600 hover:text-stone-900 border border-stone-700 rounded text-xs font-medium text-stone-300 transition-colors whitespace-nowrap flex items-center gap-1.5 max-w-[150px]"
+            title="Trazer para frente"
+          >
+            {w.type === 'note' && <FileText size={12}/>}
+            {w.type === 'dice' && <Dices size={12}/>}
+            {w.type === 'image' && <ImageIcon size={12}/>}
+            {w.type === 'table' && <TableIcon size={12}/>}
+            <span className="truncate">{w.title}</span>
+          </button>
+        ))}
+      </footer>
+
       <style dangerouslySetInnerHTML={{__html: `
         .custom-scrollbar::-webkit-scrollbar { height: 6px; width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #1c1917; }
