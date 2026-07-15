@@ -20,13 +20,28 @@ const WidgetCard = ({ widget, updateWidget, removeWidget, bringToFront, children
     const startPosX = widget.x || 0;
     const startPosY = widget.y || 0;
 
+    const desktopArea = document.getElementById('desktop-area');
+    const desktopRect = desktopArea ? desktopArea.getBoundingClientRect() : { width: window.innerWidth, height: window.innerHeight };
+
     const onPointerMove = (moveEvent) => {
       const dx = moveEvent.clientX - startX;
       const dy = moveEvent.clientY - startY;
-      updateWidget(widget.id, { 
-        x: Math.max(0, startPosX + dx), 
-        y: Math.max(0, startPosY + dy) 
-      });
+      
+      let newX = startPosX + dx;
+      let newY = startPosY + dy;
+      
+      // Cálculo de barreira (Impede que a janela saia da área visível)
+      let maxX = desktopRect.width - (widget.width || 300);
+      let maxY = desktopRect.height - (widget.height || 300);
+      
+      // Prevenção para telas muito pequenas (Mobile/Tablet)
+      maxX = maxX > 0 ? maxX : 0;
+      maxY = maxY > 0 ? maxY : 0;
+
+      newX = Math.max(0, Math.min(newX, maxX));
+      newY = Math.max(0, Math.min(newY, maxY));
+
+      updateWidget(widget.id, { x: newX, y: newY });
     };
 
     const onPointerUp = () => {
@@ -48,12 +63,20 @@ const WidgetCard = ({ widget, updateWidget, removeWidget, bringToFront, children
     const startW = widget.width || 300;
     const startH = widget.height || 300;
 
+    const desktopArea = document.getElementById('desktop-area');
+    const desktopRect = desktopArea ? desktopArea.getBoundingClientRect() : { width: window.innerWidth, height: window.innerHeight };
+
     const onPointerMove = (moveEvent) => {
       const dw = moveEvent.clientX - startX;
       const dh = moveEvent.clientY - startY;
+      
+      // Impede que redimensione além da borda da tela
+      const maxW = desktopRect.width - (widget.x || 0);
+      const maxH = desktopRect.height - (widget.y || 0);
+      
       updateWidget(widget.id, { 
-        width: Math.max(250, startW + dw), 
-        height: Math.max(200, startH + dh) 
+        width: Math.min(maxW, Math.max(250, startW + dw)), 
+        height: Math.min(maxH, Math.max(200, startH + dh)) 
       });
     };
 
@@ -289,10 +312,17 @@ const App = () => {
   };
 
   const addWidget = (type) => {
+    const desktopArea = document.getElementById('desktop-area');
+    const maxWidth = desktopArea ? desktopArea.clientWidth : window.innerWidth;
+    const maxHeight = desktopArea ? desktopArea.clientHeight : window.innerHeight;
+
     const offset = (widgets.length % 5) * 40;
+    
+    // Calcula posição segura para telas pequenas
     let newWidget = { 
       id: Date.now(), type, title: 'Novo Widget',
-      x: 100 + offset, y: 100 + offset,
+      x: Math.min(100 + offset, Math.max(0, maxWidth - 350)), 
+      y: Math.min(100 + offset, Math.max(0, maxHeight - 300)),
       zIndex: topZ + 1, width: 350, height: 300
     };
     setTopZ(topZ + 1);
@@ -301,20 +331,23 @@ const App = () => {
       newWidget.title = 'Anotações';
       newWidget.pages = [{ id: Date.now() + 1, title: 'Nova Página', content: '' }];
       newWidget.activePageId = newWidget.pages[0].id;
-      newWidget.width = 400; newWidget.height = 400;
+      newWidget.width = Math.min(400, maxWidth); newWidget.height = Math.min(400, maxHeight);
     } else if (type === 'dice') {
       newWidget.title = 'Dados';
       newWidget.result = '---';
+      newWidget.lastRollDetail = '';
+      newWidget.diceCount = 1;
+      newWidget.diceModifier = 0;
       newWidget.history = [];
-      newWidget.width = 280; newWidget.height = 250;
+      newWidget.width = 300; newWidget.height = 280;
     } else if (type === 'image') {
       newWidget.title = 'Imagem / Mapa';
       newWidget.imageData = null;
-      newWidget.width = 400; newWidget.height = 350;
+      newWidget.width = Math.min(400, maxWidth); newWidget.height = Math.min(350, maxHeight);
     } else if (type === 'table') {
       newWidget.title = 'Tabela Personalizada';
       newWidget.rows = [['', ''], ['', '']];
-      newWidget.width = 450; newWidget.height = 300;
+      newWidget.width = Math.min(450, maxWidth); newWidget.height = Math.min(300, maxHeight);
     }
 
     setWidgets([...widgets, newWidget]);
@@ -327,10 +360,39 @@ const App = () => {
   };
 
   const rollDice = (widgetId, sides) => {
-    const val = Math.floor(Math.random() * sides) + 1;
     const widget = widgets.find(w => w.id === widgetId);
-    const newHistory = [`D${sides}: ${val}`, ...(widget.history || [])].slice(0, 4);
-    updateWidget(widgetId, { result: val, history: newHistory });
+    
+    // Puxa as variáveis de quantidade e modificador, com segurança caso estejam vazias
+    const count = parseInt(widget.diceCount) || 1;
+    const mod = parseInt(widget.diceModifier) || 0;
+
+    let total = 0;
+    let rolls = [];
+    
+    // Rola N vezes
+    for (let i = 0; i < count; i++) {
+      const roll = Math.floor(Math.random() * sides) + 1;
+      rolls.push(roll);
+      total += roll;
+    }
+    
+    // Soma modificador
+    const finalResult = total + mod;
+
+    // Formata os textos para visualização (Ex: 2d6+3)
+    const sign = mod >= 0 ? '+' : '';
+    const modString = mod !== 0 ? `${sign}${mod}` : '';
+    const rollName = `${count}d${sides}${modString}`;
+    const detail = `[${rolls.join(', ')}] ${modString}`;
+
+    const historyEntry = `${rollName} ➔ ${finalResult}`;
+    const newHistory = [historyEntry, ...(widget.history || [])].slice(0, 5);
+
+    updateWidget(widgetId, { 
+      result: finalResult, 
+      lastRollDetail: detail, 
+      history: newHistory 
+    });
   };
 
   const handleImageUpload = (widgetId, event) => {
@@ -736,22 +798,49 @@ const App = () => {
             {widget.type === 'note' && renderNoteWidget(widget)}
             
             {widget.type === 'dice' && (
-              <div className="flex flex-col items-center justify-center h-full gap-4">
-                <div className="text-6xl font-black text-amber-500 drop-shadow-lg bg-stone-900 w-full text-center py-6 rounded-lg border border-stone-700 flex-1 flex items-center justify-center">
-                  {widget.result}
+              <div className="flex flex-col items-center justify-center h-full gap-2 p-1">
+                <div className="text-5xl font-black text-amber-500 drop-shadow-lg bg-stone-900 w-full text-center py-3 rounded-lg border border-stone-700 flex-1 flex flex-col items-center justify-center">
+                  <span>{widget.result}</span>
+                  {/* Mostra as faces individuais dos dados e os modificadores */}
+                  {widget.lastRollDetail && <span className="text-sm text-stone-500 font-normal mt-1">{widget.lastRollDetail}</span>}
                 </div>
-                <div className="flex flex-wrap justify-center gap-2 w-full">
+                
+                {/* Controles de Quantidade e Modificador */}
+                <div className="flex gap-2 w-full mb-1">
+                  <div className="flex-1 flex items-center bg-stone-900 border border-stone-700 rounded px-2" title="Quantidade de Dados">
+                    <span className="text-xs text-stone-400 mr-2 font-bold">Qtd:</span>
+                    <input
+                      type="number"
+                      min="1"
+                      max="100"
+                      value={widget.diceCount || 1}
+                      onChange={(e) => updateWidget(widget.id, { diceCount: e.target.value })}
+                      className="bg-transparent text-amber-500 font-bold outline-none w-full text-sm py-1"
+                    />
+                  </div>
+                  <div className="flex-1 flex items-center bg-stone-900 border border-stone-700 rounded px-2" title="Modificador (+/-)">
+                    <span className="text-xs text-stone-400 mr-2 font-bold">Mod:</span>
+                    <input
+                      type="number"
+                      value={widget.diceModifier || 0}
+                      onChange={(e) => updateWidget(widget.id, { diceModifier: e.target.value })}
+                      className="bg-transparent text-amber-500 font-bold outline-none w-full text-sm py-1"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap justify-center gap-1 w-full">
                   {[4, 6, 8, 10, 12, 20, 100].map(d => (
                     <button 
                       key={d} onClick={() => rollDice(widget.id, d)}
-                      className="bg-stone-700 hover:bg-amber-600 transition-colors px-3 py-2 rounded font-bold border border-stone-600 hover:border-amber-500 flex-1 min-w-[45px] text-center text-sm"
+                      className="bg-stone-700 hover:bg-amber-600 transition-colors py-1.5 rounded font-bold border border-stone-600 hover:border-amber-500 flex-1 min-w-[35px] text-center text-sm shadow-sm"
                     >
                       D{d}
                     </button>
                   ))}
                 </div>
                 {widget.history && widget.history.length > 0 && (
-                  <div className="w-full text-xs text-stone-500 text-center bg-stone-900/50 p-1 rounded">
+                  <div className="w-full text-xs text-stone-500 text-center bg-stone-900/50 p-1.5 rounded truncate mt-1 border border-stone-800" title={widget.history.join(' | ')}>
                     Últimos: {widget.history.slice(1).join(' | ')}
                   </div>
                 )}
