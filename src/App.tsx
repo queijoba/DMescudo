@@ -124,9 +124,12 @@ const WidgetCard = ({ widget, updateWidget, removeWidget, bringToFront, isMobile
           <input 
             type="text" 
             value={widget.title || ''}
+            onMouseDown={(e) => e.stopPropagation()}
+            onTouchStart={(e) => e.stopPropagation()}
             onPointerDown={(e) => e.stopPropagation()}
             onChange={(e) => updateWidget(widget.id, { title: e.target.value })}
-            className={`font-bold theme-text bg-transparent outline-none w-full px-1 truncate ${isMobileMode ? 'text-base' : 'text-sm'}`}
+            className={`font-bold theme-text bg-transparent outline-none w-full px-1 truncate hover:bg-stone-800/80 focus:bg-stone-900 focus:ring-1 focus:ring-stone-600 rounded cursor-text transition-colors ${isMobileMode ? 'text-base py-1' : 'text-sm py-0.5'}`}
+            title="Clique para renomear esta janela"
           />
         </div>
         <div className="flex items-center gap-1 flex-shrink-0 ml-2">
