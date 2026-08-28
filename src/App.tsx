@@ -416,12 +416,9 @@ const App = () => {
   const [isMobileMode, setIsMobileMode] = useState(false);
   
   const [templateName, setTemplateName] = useState('');
-  const [templatePassword, setTemplatePassword] = useState('');
   const [templateImage, setTemplateImage] = useState(null);
   const [modalMessage, setModalMessage] = useState({ type: '', text: '' });
   const [search, setSearch] = useState('');
-  
-  const UNIVERSAL_PASS = "71996813993";
 
   useEffect(() => {
     try {
@@ -507,13 +504,6 @@ const App = () => {
       
       if (existingId) {
         const existing = updatedTemplates.find(t => t.id === existingId);
-        if (existing && existing.password && existing.password !== UNIVERSAL_PASS) {
-          const pass = prompt("Este modelo está protegido. Digite a senha para atualizar:");
-          if (pass !== existing.password && pass !== UNIVERSAL_PASS) {
-            alert("Senha Incorreta!");
-            return;
-          }
-        }
         if (existing) {
           existing.widgets = widgets;
           existing.topZ = topZ;
@@ -523,7 +513,6 @@ const App = () => {
         const newTemplate = {
           id: Date.now(),
           name: templateName,
-          password: templatePassword,
           image: templateImage,
           widgets: widgets,
           topZ: topZ,
@@ -536,7 +525,7 @@ const App = () => {
       setTemplates(updatedTemplates);
       setModalMessage({ type: 'success', text: 'Modelo salvo com sucesso!' });
       setTimeout(() => setModalMessage({ type: '', text: '' }), 3000);
-      setTemplateName(''); setTemplatePassword(''); setTemplateImage(null);
+      setTemplateName(''); setTemplateImage(null);
     } catch (error) {
       setModalMessage({ type: 'error', text: 'Erro ao salvar. Verifique o limite de armazenamento do navegador.' });
     }
@@ -545,13 +534,6 @@ const App = () => {
   const loadTemplate = (id) => {
     const template = templates.find(t => t.id === id);
     if (template) {
-      if (template.password && template.password !== UNIVERSAL_PASS) {
-        const pass = prompt("Este modelo requer senha:");
-        if (pass !== template.password && pass !== UNIVERSAL_PASS) {
-          alert("Senha incorreta!");
-          return;
-        }
-      }
       setWidgets(template.widgets);
       setTopZ(template.topZ);
       setShowTemplateModal(false);
@@ -559,14 +541,6 @@ const App = () => {
   };
 
   const deleteTemplate = (id) => {
-    const template = templates.find(t => t.id === id);
-    if (template && template.password && template.password !== UNIVERSAL_PASS) {
-      const pass = prompt("Este modelo requer senha para ser deletado:");
-      if (pass !== template.password && pass !== UNIVERSAL_PASS) {
-        alert("Senha incorreta!");
-        return;
-      }
-    }
     const updatedTemplates = templates.filter(t => t.id !== id);
     localStorage.setItem('dmscreen_templates', JSON.stringify(updatedTemplates));
     setTemplates(updatedTemplates);
@@ -994,18 +968,18 @@ const App = () => {
                   <a href="https://pjlite.vercel.app/" target="_blank" rel="noreferrer" className="text-[10px] text-amber-400 hover:underline flex items-center gap-1">PJ Lite <ExtLink size={9}/></a>
                 </div>
                 <p className="text-[11px] text-stone-400 mb-1">Primeira versão aberta definitiva.</p>
-                <div className="text-[11px] font-bold text-stone-300">Recursos principais:</div>
+                <div className="text-[11px] font-bold text-stone-300">Recursos e Atualizações:</div>
                 <ul className="list-disc pl-4 text-[10px] text-stone-400 space-y-0.5">
-                  <li>Bloco de anotações com páginas e ferramentas de formatação avançada.</li>
-                  <li>Rolador de dados avançado com quantidade, modificador e histórico.</li>
-                  <li>Gerenciador de iniciativa de combate com ordenação por turno.</li>
-                  <li>Central de links para PDFs, fichas e portais externos.</li>
-                  <li>Gerenciamento de imagens e mapas com controle de zoom.</li>
-                  <li>Tabelas personalizáveis com formatação e ajuste de colunas.</li>
-                  <li>Modo Touch/Mobile otimizado para celulares e tablets.</li>
-                  <li>Ajuste dinâmico de tamanho de fontes.</li>
-                  <li>Sistema de janelas flutuantes com bloqueio (Lock) e barra de tarefas.</li>
-                  <li>Correção de bugs e melhoria geral de estabilidade.</li>
+                  <li><strong className="text-stone-300">NOVO:</strong> Link direto para o Drive da Comunidade (baixe e compartilhe escudos prontos).</li>
+                  <li><strong className="text-stone-300">NOVO:</strong> Integração com PJ Lite (Criador de fichas virtuais simples para Dragonbane, prontas para usar e imprimir).</li>
+                  <li><strong className="text-stone-300">NOVO:</strong> Remoção do sistema de senhas nos layouts para um uso mais ágil.</li>
+                  <li>Bloco de anotações em abas com formatação avançada (Cores, Tamanhos).</li>
+                  <li>Rolador de dados com quantidade, modificadores e histórico.</li>
+                  <li>Gerenciador de iniciativa de combate com ordenação.</li>
+                  <li>Central de links, visualizador de imagens com zoom e tabelas editáveis.</li>
+                  <li>Modo Touch/Mobile otimizado para celulares e ajuste dinâmico de fontes.</li>
+                  <li>Sistema de janelas flutuantes com opção de "Trancar" (Lock).</li>
+                  <li>Correção de bugs críticos (tela preta) e melhoria de estabilidade.</li>
                 </ul>
                 <div className="mt-2 pt-2 border-t border-stone-800 text-[10px] text-stone-400">
                   <span className="font-bold text-stone-300">Dev:</span> Nicck Queijo<br/>
@@ -1038,14 +1012,16 @@ const App = () => {
                     }}/>
                   </label>
                   <input type="text" value={templateName} onChange={(e) => setTemplateName(e.target.value)} placeholder="Nome do Layout" className="flex-1 bg-stone-900 border border-stone-800 rounded px-2 py-1.5 text-xs outline-none text-stone-200" />
-                  <div className="relative">
-                    <KeyRound size={12} className="absolute left-2 top-2.5 text-stone-500" />
-                    <input type="password" value={templatePassword} onChange={(e) => setTemplatePassword(e.target.value)} placeholder="Senha" className="w-24 bg-stone-900 border border-stone-800 rounded pl-6 pr-2 py-1.5 text-xs outline-none text-stone-200" />
-                  </div>
                   <button onClick={() => saveTemplate(null)} className="bg-[var(--theme-main)] text-stone-900 font-bold px-3 py-1.5 rounded text-xs hover:opacity-90">Salvar</button>
                 </div>
                 {modalMessage.text && <div className={`text-[10px] p-1 rounded font-bold ${modalMessage.type === 'error' ? 'text-red-400' : 'text-green-400'}`}>{modalMessage.text}</div>}
               </div>
+
+              <a href="https://drive.google.com/drive/folders/1aZe-IfaPEwp4JvIxBATxNIfZi630gAhL?usp=sharing" target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 bg-stone-900 hover:bg-stone-800 border border-stone-800 rounded p-2 text-xs text-stone-300 transition-colors">
+                <FolderOpen size={14} className="text-amber-500" /> 
+                <span className="font-bold">Baixar Escudos da Comunidade (Google Drive)</span> 
+                <ExtLink size={12} />
+              </a>
 
               <div className="flex justify-between items-center">
                 <div className="relative w-1/2">
@@ -1070,7 +1046,7 @@ const App = () => {
                       {t.image ? <img src={t.image} className="w-8 h-8 rounded object-cover flex-shrink-0" alt="" /> : <div className="w-8 h-8 rounded bg-stone-900 flex items-center justify-center flex-shrink-0"><Layout size={14} className="text-stone-600"/></div>}
                       <div className="flex flex-col truncate">
                         <span className="font-bold text-xs text-stone-200 flex items-center gap-1 truncate">
-                          {t.name} {t.password && <Lock size={10} className="text-amber-500 flex-shrink-0"/>}
+                          {t.name}
                         </span>
                         <span className="text-[9px] text-stone-500">{t.date}</span>
                       </div>
