@@ -1,0 +1,120 @@
+/* DM Lite 0.5.3 — acabamento do tema escuro e PDF Mini em zoom nativo. */
+
+/*
+ * Fichas importadas têm identidade visual própria por sistema. Em temas escuros,
+ * regras globais de contraste não devem sobrescrever as cores internas da mini ficha.
+ * Isso evita texto claro em papel claro ou texto escuro herdado de um painel escuro.
+ */
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system],
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system]{
+  color:var(--sheet-ink)!important;
+  background:
+    repeating-linear-gradient(0deg,rgba(0,0,0,.012) 0 1px,transparent 1px 4px),
+    var(--sheet-bg)!important;
+  border-color:var(--sheet-border)!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system]::before,
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system]::before{
+  background:var(--sheet-accent)!important;
+  color:#fff!important;
+  border-bottom-color:var(--sheet-border)!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system]>header,
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system]>header{
+  background:var(--sheet-sub)!important;
+  color:var(--sheet-ink)!important;
+  border-color:var(--sheet-border)!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system]>header>span,
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system]>header>span{
+  background:var(--sheet-bg)!important;
+  color:var(--sheet-accent)!important;
+  border-color:var(--sheet-accent)!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system] h3,
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system] h3{
+  color:var(--sheet-accent)!important;
+  text-shadow:none!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system] p,
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system] li,
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system] p,
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system] li{
+  color:var(--sheet-ink)!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system] small,
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system] small{
+  color:var(--sheet-soft)!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system] .pj-stats>div,
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system] .pj-stats>div{
+  background:var(--sheet-bg)!important;
+  color:var(--sheet-ink)!important;
+  border-color:var(--sheet-border)!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system] .pj-stats b,
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system] .pj-stats b{
+  color:var(--sheet-accent)!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system] details,
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system] details{
+  background:var(--sheet-bg)!important;
+  color:var(--sheet-ink)!important;
+  border-color:var(--sheet-border)!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system] details summary,
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system] details summary{
+  background:var(--sheet-sub)!important;
+  color:var(--sheet-ink)!important;
+  border-color:var(--sheet-border)!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system] details[open] summary,
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system] details[open] summary{
+  color:var(--sheet-accent)!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card[data-pj-system]>.ui-btn,
+body[data-dm-tone="dark"] .editor .pj-card[data-pj-system]>.ui-btn{
+  background:var(--sheet-accent)!important;
+  border-color:var(--sheet-accent)!important;
+  color:#fff!important;
+}
+
+/* Ficha genérica, quando o sistema ainda não tem skin própria. */
+.editor.page-theme[data-dm-tone="dark"] .pj-card:not([data-pj-system]),
+body[data-dm-tone="dark"] .editor .pj-card:not([data-pj-system]){
+  color:var(--dm-text,var(--text))!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card:not([data-pj-system])>header,
+.editor.page-theme[data-dm-tone="dark"] .pj-card:not([data-pj-system]) .pj-stats>div,
+.editor.page-theme[data-dm-tone="dark"] .pj-card:not([data-pj-system]) details,
+body[data-dm-tone="dark"] .editor .pj-card:not([data-pj-system])>header,
+body[data-dm-tone="dark"] .editor .pj-card:not([data-pj-system]) .pj-stats>div,
+body[data-dm-tone="dark"] .editor .pj-card:not([data-pj-system]) details{
+  background:var(--dm-panel2,var(--panel2))!important;
+  color:var(--dm-text,var(--text))!important;
+  border-color:var(--dm-border,var(--border))!important;
+}
+
+/* O zoom do PDF Mini agora é feito pelo visualizador PDF, não por scale CSS. */
+.dm54-mini-view iframe,
+.dm54-mini-pdf iframe{
+  transform:none!important;
+  transform-origin:initial!important;
+  width:100%!important;
+  height:100%!important;
+  image-rendering:auto!important;
+}
+.dm56-mini-zoom{flex:0 0 auto}
+.dm56-mini-zoom [data-dm56-zoom-label]{min-width:50px;font-variant-numeric:tabular-nums}
+
+/* Pequenos acertos finais do escuro em controles de ficha e janelas. */
+.editor.page-theme[data-dm-tone="dark"] .widget-body{
+  scrollbar-color:var(--dm-border,var(--border)) var(--dm-panel,var(--panel));
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card a{
+  color:var(--sheet-accent,var(--dm-accent,var(--accent)))!important;
+}
+.editor.page-theme[data-dm-tone="dark"] .pj-card ::selection{
+  background:color-mix(in srgb,var(--sheet-accent,var(--dm-accent)) 28%,transparent);
+  color:inherit;
+}
