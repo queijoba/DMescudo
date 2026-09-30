@@ -2,13 +2,15 @@ import LZString from 'lz-string';
 
 export const STORAGE_KEY = 'dmlite_shields_v2';
 export const LAST_KEY = 'dmlite_last_shield_v2';
+export const LEGACY_STORAGE_KEY = 'dmlite_shields_v1';
+export const LEGACY_LAST_KEY = 'dmlite_current_shield_v1';
 export const SCHEMA_VERSION = 3;
 
 export const uid = (prefix = 'id') => `${prefix}-${globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`}`;
 export const clone = value => globalThis.structuredClone ? structuredClone(value) : JSON.parse(JSON.stringify(value));
 
 const defaults = {
-  theme: 'ember',
+  theme: 'dark',
   fontScale: 1,
   background: '',
   backgroundOpacity: 0.2,
@@ -30,7 +32,7 @@ export function normalizeWidget(input = {}) {
   if (w.type === 'note') {
     w.pages = Array.isArray(w.pages) && w.pages.length ? w.pages : [{ id: uid('page'), title: 'Página 1', content: '' }];
     w.activePageId = w.activePageId || w.pages[0].id;
-    w.toolsHidden = !!w.toolsHidden;
+    w.toolsHidden = !!w.toolsHidden || !!w.noteToolsHidden;
   }
   if (w.type === 'dice') {
     w.result = w.result ?? '—';
@@ -53,7 +55,8 @@ export function normalizeWidget(input = {}) {
   if (w.type === 'npc') w.npc = { name: 'Novo NPC', hp: 10, hpMax: 10, def: '', init: '', attack: '', damage: '', cond: '', notes: '', ...(w.npc || {}) };
   if (w.type === 'clock') w.clock = { name: 'Relógio', value: 0, max: 6, ...(w.clock || {}) };
   if (w.type === 'links') w.links = Array.isArray(w.links) ? w.links : [];
-  if (w.type === 'image') { w.imageData = w.imageData || ''; w.zoom = Math.min(260, Math.max(40, Number(w.zoom) || 100)); }
+  if (w.type === 'image') { w.imageData = w.imageData || w.src || ''; w.zoom = Math.min(260, Math.max(40, Number(w.zoom) || 100)); }
+  if (w.type === 'pj' && !w.quick && w.pjData) w.quick = null;
   return w;
 }
 
@@ -65,25 +68,40 @@ export function normalizeShield(input = {}) {
   s.genre = String(s.genre || 'Genérico');
   s.system = s.system || 'generic';
   s.widgets = Array.isArray(s.widgets) ? s.widgets.map(normalizeWidget) : [];
-  s.settings = { ...defaults, ...(s.settings || {}) };
+  const incoming = { ...(s.settings || {}) };
+  if (incoming.theme === 'amber' || incoming.theme === 'ember') incoming.theme = 'dark';
+  s.settings = { ...defaults, ...incoming };
   s.createdAt = s.createdAt || now;
   s.updatedAt = s.updatedAt || now;
   s.schemaVersion = SCHEMA_VERSION;
   return s;
 }
 
-export function loadShields() {
+function parseList(key) {
   try {
-    const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    return Array.isArray(raw) ? raw.map(normalizeShield) : [];
+    const raw = JSON.parse(localStorage.getItem(key) || '[]');
+    return Array.isArray(raw) ? raw : [];
   } catch { return []; }
+}
+
+export function loadShields() {
+  const current = parseList(STORAGE_KEY);
+  if (current.length) return current.map(normalizeShield);
+
+  const legacy = parseList(LEGACY_STORAGE_KEY);
+  if (!legacy.length) return [];
+  const migrated = legacy.map(normalizeShield);
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(migrated)); } catch { /* mantém leitura do legado */ }
+  return migrated;
 }
 
 export function saveShields(list) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
 }
 
-export function loadLastId() { return localStorage.getItem(LAST_KEY) || ''; }
+export function loadLastId() {
+  return localStorage.getItem(LAST_KEY) || localStorage.getItem(LEGACY_LAST_KEY) || '';
+}
 export function saveLastId(id) { id ? localStorage.setItem(LAST_KEY, id) : localStorage.removeItem(LAST_KEY); }
 
 export function shieldCode(shield) {
