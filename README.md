@@ -30,7 +30,7 @@ DM Lite não pretende ser um VTT. A proposta é manter apenas o que ajuda o Mest
 ## Ecossistema Lite
 
 - PJ Lite: https://pjlite.vercel.app/
-- DM Lite: https://dmliterpg.vercel.app/
+- DM Lite principal: https://dmliterpg.vercel.app/
 
 ## Código aberto
 
