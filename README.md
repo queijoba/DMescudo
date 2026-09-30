@@ -1,27 +1,36 @@
 # DM Lite
 
-Escudo digital leve para mestres de RPG, desenvolvido no mesmo ecossistema do PJ Lite, mas em repositório próprio.
+Escudo digital leve para Mestres de RPG, complementar ao PJ Lite.
 
-## DM Lite 0.5.1 Alpha
+## 0.5.3 Alpha — candidata principal
 
-A linha 0.5.1 prioriza estabilidade, leitura rápida na mesa e uma identidade visual mais próxima do PJ Lite.
+Esta linha reúne a nova Home inspirada no PJ Lite, escudos prontos, janelas de mestre, mini fichas estilizadas por sistema, integração por Código da Ficha / ZIP / JSON, PDFs completos e PDF Mini, mobile próprio e temas sincronizados.
+
+### Últimos ajustes
+
+- Tema escuro: mini fichas mantêm as cores e o contraste próprios de cada sistema sem herdar texto quebrado do tema global.
+- PDF Mini: zoom de 50% a 200% usando o zoom nativo do visualizador de PDF, sem ampliar o iframe por `transform: scale()`; isso preserva a nitidez de texto e linhas em PDFs locais e URLs diretas.
+- Saves continuam em `DMLITE3:` com leitura das versões anteriores.
 
 ### Destaques
 
-- Home inspirada no dashboard do PJ Lite, com visual de papel/mesa, cabeçalho forte e cartões de escudos mais simples.
-- Janelas flutuantes no desktop com arraste estabilizado e encerramento global de ponteiro.
+- Home inspirada no dashboard do PJ Lite.
+- Janelas flutuantes no desktop com arraste estabilizado.
 - Mobile próprio: pilha vertical, foco de janela e reordenação.
-- Escudos prontos com referências resumidas de Dragonbane, Fabula Ultima, D&D 5.5e, Tormenta20, Ordem Paranormal, 3DeT Victory e 3D&T Alpha.
+- Escudos prontos de Dragonbane, Fabula Ultima, D&D 5.5e, Tormenta20, Ordem Paranormal, 3DeT Victory e 3D&T Alpha.
 - Integração com o PJ Lite atual por Código da Ficha, ZIP ou JSON.
-- Fichas importadas aparecem como miniaturas estilizadas de acordo com o sistema: Dragonbane, D&D 5.5e, Fabula Ultima, O Som das Seis e 3DeT Victory.
-- Consulta de PDFs dentro do DM Lite por arquivo local, URL direta ou link de arquivo do Google Drive.
-- O painel de PDF mantém links recentes no navegador; PDFs locais permanecem apenas durante a sessão atual para evitar lotar o armazenamento local.
-- Saves continuam exportáveis/importáveis por JSON e código `DMLITE3:`; versões antigas DMLITE2/DMLITE1 continuam legíveis.
-- Migração automática dos saves locais da linha 0.3 quando encontrados.
+- Mini fichas estilizadas por sistema.
+- Leitor grande de PDFs e PDF Mini.
+- Backup/importação por JSON e código DM Lite.
 
 ## Filosofia
 
-DM Lite não pretende ser um VTT. A proposta é manter apenas o que ajuda o mestre durante a sessão: notas, iniciativa, dados, tabelas, NPCs, relógios, links, imagens, fichas resumidas e consulta de materiais.
+DM Lite não pretende ser um VTT. A proposta é manter apenas o que ajuda o Mestre durante a sessão: notas, iniciativa, dados, tabelas, NPCs, relógios, links, imagens, fichas resumidas e consulta de materiais.
+
+## Ecossistema Lite
+
+- PJ Lite: https://pjlite.vercel.app/
+- DM Lite: https://dmliterpg.vercel.app/
 
 ## Código aberto
 
