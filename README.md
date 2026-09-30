@@ -15,7 +15,7 @@ A linha 0.5.1 prioriza estabilidade, leitura rápida na mesa e uma identidade vi
 - Integração com o PJ Lite atual por Código da Ficha, ZIP ou JSON.
 - Fichas importadas aparecem como miniaturas estilizadas de acordo com o sistema: Dragonbane, D&D 5.5e, Fabula Ultima, O Som das Seis e 3DeT Victory.
 - Consulta de PDFs dentro do DM Lite por arquivo local, URL direta ou link de arquivo do Google Drive.
-- Links de PDFs podem aparecer em Recentes; PDFs locais permanecem apenas na sessão atual para não lotar o armazenamento do navegador.
+- O painel de PDF mantém links recentes no navegador; PDFs locais permanecem apenas durante a sessão atual para evitar lotar o armazenamento local.
 - Saves continuam exportáveis/importáveis por JSON e código `DMLITE3:`; versões antigas DMLITE2/DMLITE1 continuam legíveis.
 - Migração automática dos saves locais da linha 0.3 quando encontrados.
 
