@@ -2,15 +2,20 @@
 
 Escudo digital leve para Mestres de RPG, complementar ao PJ Lite.
 
-## 0.5.3 Alpha — candidata principal
+## 0.5.4 Alpha — versão principal
 
-Esta linha reúne a nova Home inspirada no PJ Lite, escudos prontos, janelas de mestre, mini fichas estilizadas por sistema, integração por Código da Ficha / ZIP / JSON, PDFs completos e PDF Mini, mobile próprio e temas sincronizados.
+Esta versão substitui a linha antiga no próprio projeto Vercel do DM Lite para preservar o mesmo origin do navegador e permitir a migração automática dos saves existentes.
 
-### Últimos ajustes
+### Migração
 
-- Tema escuro: mini fichas mantêm as cores e o contraste próprios de cada sistema sem herdar texto quebrado do tema global.
-- PDF Mini: zoom de 50% a 200% usando o zoom nativo do visualizador de PDF, sem ampliar o iframe por `transform: scale()`; isso preserva a nitidez de texto e linhas em PDFs locais e URLs diretas.
-- Saves continuam em `DMLITE3:` com leitura das versões anteriores.
+- Mantém o mesmo projeto/domínio de produção: https://dmliterpg.vercel.app/
+- Migra `dmlite_shields_v1` e `dmlite_current_shield_v1` para o schema atual.
+- Recupera também `dmlite_v030_layout` e `dmlite_v030_settings` das versões 0.3.x quando necessário.
+- Converte IDs antigos para o formato atual sem quebrar a mesa selecionada.
+- Preserva páginas de Nota, iniciativa, tabelas, NPCs, relógios, links, imagens e fichas importadas.
+- Converte tema, tamanho da interface, fundo e opacidade antigos.
+- Mantém as chaves antigas no navegador como fallback; a migração não apaga o save legado.
+- Continua aceitando códigos `DMLITE3:`, `DMLITE2:` e `DMLITE1:`.
 
 ### Destaques
 
@@ -18,9 +23,9 @@ Esta linha reúne a nova Home inspirada no PJ Lite, escudos prontos, janelas de 
 - Janelas flutuantes no desktop com arraste estabilizado.
 - Mobile próprio: pilha vertical, foco de janela e reordenação.
 - Escudos prontos de Dragonbane, Fabula Ultima, D&D 5.5e, Tormenta20, Ordem Paranormal, 3DeT Victory e 3D&T Alpha.
-- Integração com o PJ Lite atual por Código da Ficha, ZIP ou JSON.
-- Mini fichas estilizadas por sistema.
-- Leitor grande de PDFs e PDF Mini.
+- Integração com o PJ Lite oficial por Código da Ficha, ZIP ou JSON.
+- Mini fichas estilizadas por sistema e corrigidas para temas claros/escuros.
+- Leitor grande de PDFs e PDF Mini com zoom nativo do visualizador para preservar nitidez.
 - Backup/importação por JSON e código DM Lite.
 
 ## Filosofia
@@ -30,7 +35,17 @@ DM Lite não pretende ser um VTT. A proposta é manter apenas o que ajuda o Mest
 ## Ecossistema Lite
 
 - PJ Lite: https://pjlite.vercel.app/
-- DM Lite principal: https://dmliterpg.vercel.app/
+- DM Lite: https://dmliterpg.vercel.app/
+
+## Desenvolvimento
+
+```bash
+npm install
+npm run check
+npm run dev
+```
+
+`npm run check` executa o teste de migração dos saves antigos e em seguida o build do Vite.
 
 ## Código aberto
 
