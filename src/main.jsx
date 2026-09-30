@@ -15,7 +15,7 @@ import { installEnhancementsV055 } from './enhancements-v055.js';
 import { installEnhancementsV056 } from './enhancements-v056.js';
 import { installEnhancementsV058 } from './enhancements-v058.js';
 
-// DM Lite 0.5.4 Alpha — versão principal, com migração completa dos saves antigos.
+// DM Lite 0.5.4 Alpha — versão principal, migração completa e mobile alinhado ao PJ Lite.
 createRoot(document.getElementById('root')).render(<App />);
 queueMicrotask(() => {
   installEnhancements();
