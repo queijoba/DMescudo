@@ -8,6 +8,7 @@ import './styles-v6.css';
 import './styles-v7.css';
 import './styles-v8.css';
 import './styles-v9.css';
+import './styles-v10.css';
 import { installEnhancements } from './enhancements-v053.js';
 import { installEnhancementsV055 } from './enhancements-v055.js';
 import { installEnhancementsV056 } from './enhancements-v056.js';
