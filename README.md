@@ -1,32 +1,37 @@
-# React + TypeScript + Vite
+# DM Lite
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Escudo digital leve para Mestres de RPG, complementar ao PJ Lite.
 
-Currently, two official plugins are available:
+## 0.5.3 Alpha — candidata principal
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Esta linha reúne a nova Home inspirada no PJ Lite, escudos prontos, janelas de mestre, mini fichas estilizadas por sistema, integração por Código da Ficha / ZIP / JSON, PDFs completos e PDF Mini, mobile próprio e temas sincronizados.
 
-## React Compiler
+### Últimos ajustes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Tema escuro: mini fichas mantêm as cores e o contraste próprios de cada sistema sem herdar texto quebrado do tema global.
+- PDF Mini: zoom de 50% a 200% usando o zoom nativo do visualizador de PDF, sem ampliar o iframe por `transform: scale()`; isso preserva a nitidez de texto e linhas em PDFs locais e URLs diretas.
+- Saves continuam em `DMLITE3:` com leitura das versões anteriores.
 
-## Expanding the Oxlint configuration
+### Destaques
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+- Home inspirada no dashboard do PJ Lite.
+- Janelas flutuantes no desktop com arraste estabilizado.
+- Mobile próprio: pilha vertical, foco de janela e reordenação.
+- Escudos prontos de Dragonbane, Fabula Ultima, D&D 5.5e, Tormenta20, Ordem Paranormal, 3DeT Victory e 3D&T Alpha.
+- Integração com o PJ Lite atual por Código da Ficha, ZIP ou JSON.
+- Mini fichas estilizadas por sistema.
+- Leitor grande de PDFs e PDF Mini.
+- Backup/importação por JSON e código DM Lite.
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+## Filosofia
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+DM Lite não pretende ser um VTT. A proposta é manter apenas o que ajuda o Mestre durante a sessão: notas, iniciativa, dados, tabelas, NPCs, relógios, links, imagens, fichas resumidas e consulta de materiais.
+
+## Ecossistema Lite
+
+- PJ Lite: https://pjlite.vercel.app/
+- DM Lite principal: https://dmliterpg.vercel.app/
+
+## Código aberto
+
+Projeto gratuito e sem fins lucrativos. Os dados ficam localmente no navegador e podem ser exportados pelo usuário.
