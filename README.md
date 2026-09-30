@@ -1,32 +1,50 @@
-# React + TypeScript + Vite
+# DM Lite — 0.5.0 Alpha
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Escudo digital leve para mestres de RPG, agora separado do PJ Lite e preparado para evoluir de forma independente.
 
-Currently, two official plugins are available:
+## Foco desta versão
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- interface mais fluida, com arraste via `transform + requestAnimationFrame` e gravação apenas ao soltar;
+- widgets isolados/memoizados para reduzir re-renderizações;
+- autosave ocioso/debounced em `localStorage`;
+- mobile próprio do DM Lite: pilha vertical, foco de janela, reordenação e dock;
+- visual escuro revisado, sem Tailwind CDN ou fontes externas obrigatórias;
+- importação/exportação de escudos em JSON e código `DMLITE3:`;
+- compatibilidade de importação com `DMLITE2:` e `DMLITE1:`.
 
-## React Compiler
+## Integração com PJ Lite
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+O DM Lite não depende do `localStorage` do PJ Lite. Ele importa a ficha pelo formato público usado pelo PJ Lite atual:
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```js
+LZString.compressToBase64(JSON.stringify(ficha))
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Também aceita os arquivos ZIP/JSON exportados pelo PJ Lite.
+
+Sistemas interpretados:
+
+- Dragonbane
+- D&D 5.5e
+- Fabula Ultima
+- O Som das Seis
+- 3DeT Victory
+
+## Rodar localmente
+
+```bash
+npm install
+npm run dev
+```
+
+Build de produção:
+
+```bash
+npm run build
+```
+
+## Saves
+
+Chave local atual: `dmlite_shields_v2`.
+
+O projeto é gratuito, sem fins lucrativos e mantém os dados no navegador do usuário.
