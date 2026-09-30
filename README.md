@@ -1,36 +1,18 @@
-# DM Lite — 0.5.0 Alpha
+# DM Lite
 
-Escudo digital leve para mestres de RPG, agora separado do PJ Lite e preparado para evoluir de forma independente.
+Escudo digital leve para Mestres de RPG. O projeto complementa o PJ Lite sem tentar substituir livros, fichas ou um VTT completo.
 
-## Foco desta versão
+## Alpha 0.5.1
 
-- interface mais fluida, com arraste via `transform + requestAnimationFrame` e gravação apenas ao soltar;
-- widgets isolados/memoizados para reduzir re-renderizações;
-- autosave ocioso/debounced em `localStorage`;
-- mobile próprio do DM Lite: pilha vertical, foco de janela, reordenação e dock;
-- visual escuro revisado, sem Tailwind CDN ou fontes externas obrigatórias;
-- importação/exportação de escudos em JSON e código `DMLITE3:`;
-- compatibilidade de importação com `DMLITE2:` e `DMLITE1:`.
+- Interface redesenhada para ficar mais próxima da linguagem visual do PJ Lite: painéis simples, temas por sistema e menos efeitos de interface.
+- Arraste e redimensionamento das janelas estabilizados com encerramento global de ponteiro, cancelamento, perda de foco e recuperação quando o botão do mouse já foi solto.
+- Mobile próprio do DM Lite: janelas em pilha, foco individual e reordenação sem tentar simular o desktop.
+- Escudos prontos resumidos a partir dos materiais de referência do usuário para Dragonbane, Fabula Ultima, D&D 5.5e, Tormenta20, Ordem Paranormal, 3DeT Victory e 3D&T Alpha.
+- Importação de fichas do PJ Lite atual por Código da Ficha, ZIP ou JSON.
+- Importação/exportação de escudos por JSON e códigos `DMLITE3:`, com leitura das versões anteriores.
+- Migração automática dos saves locais da linha 0.3 (`dmlite_shields_v1`) para a estrutura atual.
 
-## Integração com PJ Lite
-
-O DM Lite não depende do `localStorage` do PJ Lite. Ele importa a ficha pelo formato público usado pelo PJ Lite atual:
-
-```js
-LZString.compressToBase64(JSON.stringify(ficha))
-```
-
-Também aceita os arquivos ZIP/JSON exportados pelo PJ Lite.
-
-Sistemas interpretados:
-
-- Dragonbane
-- D&D 5.5e
-- Fabula Ultima
-- O Som das Seis
-- 3DeT Victory
-
-## Rodar localmente
+## Desenvolvimento
 
 ```bash
 npm install
@@ -43,8 +25,4 @@ Build de produção:
 npm run build
 ```
 
-## Saves
-
-Chave local atual: `dmlite_shields_v2`.
-
-O projeto é gratuito, sem fins lucrativos e mantém os dados no navegador do usuário.
+Os saves ficam no navegador. Faça backups periódicos dos escudos importantes usando a opção de exportação.
