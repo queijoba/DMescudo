@@ -1,0 +1,303 @@
+/* ==============================================================
+   DM Lite 0.5.1 — refinamento visual inspirado no PJ Lite atual
+   Carregado depois de styles-v2.css para manter a base estável.
+   ============================================================== */
+
+/* HOME — mesma família visual do dashboard do PJ Lite: simples,
+   papel/mesa, cabeçalho forte, pouco brilho e ações bem legíveis. */
+.home.page-theme{
+  --home-green:#1b3b34;
+  --home-paper:#f7f3e8;
+  --home-bg:#e4ded1;
+  --home-border:#b9ab94;
+  --home-ink:#332e29;
+  --home-muted:#756b61;
+  min-height:100vh;
+  background:
+    linear-gradient(rgba(255,255,255,.18),rgba(255,255,255,.18)),
+    repeating-linear-gradient(0deg,rgba(78,64,47,.018) 0 1px,transparent 1px 4px),
+    var(--home-bg);
+  color:var(--home-ink);
+}
+.home .pjlite-top{
+  min-height:68px;
+  height:68px;
+  background:var(--home-green);
+  border-bottom:4px solid #c6b184;
+  box-shadow:0 2px 7px rgba(47,39,30,.18);
+}
+.home .brand-logo{
+  width:34px;height:34px;display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.24);
+  background:rgba(255,255,255,.08);
+  border-radius:5px;
+  color:#e9d28f;
+  font-size:18px;
+}
+.home .brand-block strong{font-size:16px;letter-spacing:.01em}
+.home .brand-block small{font-size:9px;color:#d8d4cb;opacity:1}
+.home .home-shell{max-width:1160px;padding-top:20px}
+.home .home-intro{
+  background:var(--home-paper);
+  border:1px solid var(--home-border);
+  border-radius:6px;
+  box-shadow:0 2px 5px rgba(70,53,35,.08);
+  padding:17px 18px;
+  margin-bottom:9px;
+}
+.home .home-intro h1{font-size:24px;color:var(--home-green);font-family:Georgia,"Times New Roman",serif;letter-spacing:.01em}
+.home .home-intro p{color:var(--home-muted);font-size:11px;max-width:680px}
+.home .home-actions .ui-btn{min-height:35px;border-radius:5px}
+.home .notice{
+  background:#eee7d8;
+  border:1px solid #baaa8e;
+  border-left:5px solid var(--home-green);
+  border-radius:4px;
+  padding:8px 11px;
+  box-shadow:none;
+}
+.home .notice b{font-size:9px;background:var(--home-green);color:#fff;padding:3px 6px;border-radius:3px}
+.home .notice span{font-size:9px;color:#685e53}
+.home .library-bar{
+  background:rgba(247,243,232,.72);
+  border:1px solid rgba(185,171,148,.75);
+  padding:10px 11px;
+  border-radius:5px;
+  align-items:center;
+  margin:0 0 10px;
+}
+.home .library-bar strong{font-family:Georgia,"Times New Roman",serif;font-size:16px;color:#3a332c}
+.home .library-bar small{font-size:8px;color:#7b7167}
+.home .search{background:#fff;border:1px solid #c7baa5;border-radius:5px;padding-left:7px;min-width:min(390px,45vw)}
+.home .search span{color:#6d6257}
+.home .search input{border:0;box-shadow:none;background:transparent;width:100%;font-size:10px}
+.home .shield-grid{gap:10px}
+.home .shield-card{
+  position:relative;
+  background:#f9f6ef;
+  border:1px solid #baa98e;
+  border-radius:5px;
+  box-shadow:0 2px 5px rgba(62,47,31,.08);
+  overflow:hidden;
+}
+.home .shield-card::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--home-green);z-index:2;
+}
+.home .shield-card>header{padding:12px 12px 11px 15px;background:#fbf8f1;border-bottom-color:#d9cdb9}
+.home .shield-icon{width:39px;height:39px;border-radius:4px;background:#ece5d8;border-color:#c8b89e}
+.home .shield-card small{color:#43675e;font-size:7px;letter-spacing:.04em}
+.home .shield-card h3{font-family:Georgia,"Times New Roman",serif;font-size:13px;color:#342f29;margin:2px 0}
+.home .shield-card p{color:#776c61;font-size:8px}
+.home .shield-info{background:#f0eadf;border-bottom-color:#d9cdb9;padding:7px 12px 7px 15px}
+.home .shield-card footer{background:#f8f4ec;padding:7px 8px 7px 12px}
+.home .shield-card footer .ui-btn--primary{background:var(--home-green);border-color:var(--home-green)}
+.home .empty{background:#f7f3e8;border-color:#ad9d83;border-radius:5px}
+
+/* EDITOR — pequenos ajustes para manter a sensação de ferramenta irmã do PJ Lite. */
+.editor-top{box-shadow:0 2px 5px rgba(0,0,0,.14)}
+.tool-rail{box-shadow:1px 0 0 rgba(0,0,0,.03)}
+.widget{border-radius:6px;box-shadow:0 3px 9px rgba(0,0,0,.14)}
+.widget-head{height:43px;min-height:43px}
+.widget-body{padding:6px}
+
+/* ==============================================================
+   FICHA PJ LITE — miniatura estilizada por sistema.
+   O JS apenas marca data-pj-system; a ficha continua usando os
+   mesmos dados estruturados do PJ Lite.
+   ============================================================== */
+.pj-card[data-pj-system]{
+  --sheet-bg:#f8f8f6;
+  --sheet-sub:#ecebe7;
+  --sheet-ink:#282828;
+  --sheet-accent:#4b5563;
+  --sheet-border:#9ca3af;
+  --sheet-soft:#6b7280;
+  position:relative;
+  gap:7px;
+  padding:9px;
+  color:var(--sheet-ink);
+  background:
+    repeating-linear-gradient(0deg,rgba(0,0,0,.012) 0 1px,transparent 1px 4px),
+    var(--sheet-bg);
+  border:2px solid var(--sheet-border);
+  border-radius:5px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.45),0 2px 6px rgba(0,0,0,.11);
+}
+.pj-card[data-pj-system]::before{
+  content:attr(data-pj-label);
+  display:block;
+  margin:-9px -9px 0;
+  padding:5px 9px;
+  background:var(--sheet-accent);
+  color:#fff;
+  font-size:7px;
+  font-weight:950;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  border-bottom:1px solid color-mix(in srgb,var(--sheet-border) 72%,#000);
+}
+.pj-card[data-pj-system]>header{
+  position:relative;
+  display:grid;
+  grid-template-columns:48px minmax(0,1fr);
+  align-items:center;
+  gap:8px;
+  background:var(--sheet-sub);
+  border:1px solid var(--sheet-border);
+  border-radius:4px;
+  padding:8px;
+}
+.pj-card[data-pj-system]>header>span{
+  width:44px;height:44px;display:grid;place-items:center;
+  border:2px solid var(--sheet-accent);
+  border-radius:50%;
+  background:var(--sheet-bg);
+  color:var(--sheet-accent);
+  font-size:0;
+}
+.pj-card[data-pj-system]>header>span::before{content:attr(data-pj-icon);font-size:21px}
+.pj-card[data-pj-system] h3{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:14px;color:var(--sheet-accent);line-height:1.1}
+.pj-card[data-pj-system] p{margin:3px 0 1px;font-size:8px;color:var(--sheet-ink)}
+.pj-card[data-pj-system] small{color:var(--sheet-soft)}
+.pj-card[data-pj-system] .pj-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+.pj-card[data-pj-system] .pj-stats>div{
+  min-height:48px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--sheet-bg);
+  border:1px solid var(--sheet-border);
+  border-radius:4px;
+  padding:4px;
+}
+.pj-card[data-pj-system] .pj-stats b{font-family:Georgia,"Times New Roman",serif;font-size:12px;color:var(--sheet-accent)}
+.pj-card[data-pj-system] .pj-stats small{font-size:6px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+.pj-card[data-pj-system]>.ui-btn{background:var(--sheet-accent);border-color:var(--sheet-accent);color:#fff;border-radius:4px}
+.pj-card[data-pj-system] details{border-color:var(--sheet-border);background:var(--sheet-bg);border-radius:4px;margin-bottom:4px}
+.pj-card[data-pj-system] details summary{background:var(--sheet-sub);color:var(--sheet-ink);border-bottom:0;font-size:8px;padding:7px 8px}
+.pj-card[data-pj-system] details[open] summary{border-bottom:1px solid var(--sheet-border);color:var(--sheet-accent)}
+.pj-card[data-pj-system] details ul{font-size:8px;line-height:1.35;padding:7px 8px 7px 22px;margin:0;color:var(--sheet-ink)}
+
+.pj-card[data-pj-system="dragonbane"]{--sheet-bg:#fbf7eb;--sheet-sub:#e9dfca;--sheet-ink:#322d27;--sheet-accent:#1b3b34;--sheet-border:#846f5d;--sheet-soft:#76675a}
+.pj-card[data-pj-system="dnd5e"]{--sheet-bg:#fff8e9;--sheet-sub:#efe0c6;--sheet-ink:#39271f;--sheet-accent:#922610;--sheet-border:#b27a63;--sheet-soft:#80685c}
+.pj-card[data-pj-system="fabula"]{--sheet-bg:#f9fffe;--sheet-sub:#def0ee;--sheet-ink:#203837;--sheet-accent:#176b67;--sheet-border:#72a9a4;--sheet-soft:#5d7f7c}
+.pj-card[data-pj-system="somdas6"]{--sheet-bg:#fbf1dd;--sheet-sub:#e8d5b1;--sheet-ink:#442d20;--sheet-accent:#6f261e;--sheet-border:#a98360;--sheet-soft:#7c604a}
+.pj-card[data-pj-system="3det"]{--sheet-bg:#f8fbff;--sheet-sub:#e2edf8;--sheet-ink:#20364b;--sheet-accent:#284b75;--sheet-border:#7795b4;--sheet-soft:#627990}
+.pj-card[data-pj-system="3det"] .pj-stats>div:nth-child(-n+3){border-width:2px}
+.pj-card[data-pj-system="dnd5e"] .pj-stats>div{border-radius:11px 11px 4px 4px}
+.pj-card[data-pj-system="fabula"]>header>span{border-radius:8px;transform:rotate(45deg)}
+.pj-card[data-pj-system="fabula"]>header>span::before{transform:rotate(-45deg)}
+.pj-card[data-pj-system="somdas6"]{border-style:double;border-width:3px}
+
+/* ==============================================================
+   CONSULTA DE PDFs — painel externo ao save. PDFs locais ficam só
+   na sessão para evitar lotar o localStorage; URLs recentes ficam.
+   ============================================================== */
+.dmlite-pdf-fab{
+  position:fixed;
+  right:14px;
+  bottom:54px;
+  z-index:8500;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  min-height:34px;
+  border:1px solid #8e806d;
+  border-radius:5px;
+  padding:7px 10px;
+  background:#f7f3e8;
+  color:#2f3d38;
+  box-shadow:0 3px 10px rgba(0,0,0,.2);
+  cursor:pointer;
+  font-family:inherit;
+}
+.dmlite-pdf-fab[hidden]{display:none!important}
+.dmlite-pdf-fab span{font-size:16px}
+.dmlite-pdf-fab b{font-size:9px}
+.dmlite-pdf-fab:hover{background:#ede6d9;border-color:#1b3b34}
+.dmlite-pdf-layer{
+  position:fixed;inset:0;z-index:30000;
+  display:grid;place-items:center;
+  padding:12px;
+  background:rgba(17,24,39,.7);
+}
+.dmlite-pdf-layer[hidden]{display:none!important}
+.dmlite-pdf-modal{
+  width:min(1180px,100%);
+  height:min(850px,94vh);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  border:1px solid #796e5f;
+  border-radius:6px;
+  background:#e7e1d5;
+  color:#302c27;
+  box-shadow:0 18px 50px rgba(0,0,0,.38);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.dmlite-pdf-head{
+  min-height:58px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 12px;
+  background:#1b3b34;
+  color:#fff;
+  border-bottom:3px solid #c4ad7f;
+}
+.dmlite-pdf-head small{display:block;font-size:8px;opacity:.72;text-transform:uppercase;letter-spacing:.06em}
+.dmlite-pdf-head h2{margin:2px 0 0;font-family:Georgia,"Times New Roman",serif;font-size:17px}
+.dmlite-pdf-head button{width:34px;height:34px;border:1px solid rgba(255,255,255,.25);border-radius:4px;background:rgba(255,255,255,.08);color:#fff;font-size:20px;cursor:pointer}
+.dmlite-pdf-toolbar{display:flex;align-items:center;gap:7px;padding:8px;background:#f7f3e8;border-bottom:1px solid #b8aa94}
+.pdf-action{border:1px solid #a69780;background:#fffaf0;color:#332f2a;border-radius:5px;padding:8px 10px;font-size:9px;font-weight:850;cursor:pointer;white-space:nowrap}
+.pdf-action:hover{border-color:#1b3b34;background:#efe8db}
+.pdf-action--primary{background:#1b3b34;border-color:#1b3b34;color:#fff}
+.pdf-action:disabled{opacity:.45;cursor:not-allowed}
+.dmlite-pdf-urlrow{display:flex;gap:5px;flex:1;min-width:220px}
+.dmlite-pdf-urlrow input{flex:1;min-width:0;border:1px solid #b6a78e;background:#fff;color:#302c27;border-radius:5px;padding:8px;font-size:9px}
+.dmlite-pdf-content{flex:1;min-height:0;display:grid;grid-template-columns:220px minmax(0,1fr)}
+.dmlite-pdf-recents{min-height:0;overflow:auto;background:#f2ece1;border-right:1px solid #b8aa94;padding:8px}
+.dmlite-pdf-recents-head{display:flex;align-items:center;justify-content:space-between;padding:3px 2px 7px}
+.dmlite-pdf-recents-head strong{font-family:Georgia,"Times New Roman",serif;font-size:12px;color:#3c352e}
+.dmlite-pdf-recents-head button{border:0;background:transparent;color:#7b6d5e;font-size:8px;cursor:pointer}
+.dmlite-pdf-recents>p{font-size:7px;line-height:1.45;color:#766b60;padding:6px 3px}
+.pdf-recent-item{display:block;width:100%;text-align:left;border:1px solid #c4b7a4;background:#fffaf1;border-radius:4px;padding:7px;margin-bottom:5px;cursor:pointer;color:#332f2a}
+.pdf-recent-item:hover{border-color:#1b3b34;background:#f8f2e7}
+.pdf-recent-item strong{display:block;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pdf-recent-item small{display:block;margin-top:2px;font-size:6px;color:#817567;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pdf-recent-empty{font-size:8px;color:#7a7066;padding:9px 4px}
+.dmlite-pdf-viewer{position:relative;min-width:0;min-height:0;background:#57534e;display:flex;align-items:stretch;justify-content:stretch}
+.dmlite-pdf-viewer.is-dragging{outline:4px dashed #c4ad7f;outline-offset:-10px}
+.dmlite-pdf-viewer iframe{border:0;width:100%;height:100%;background:#fff}
+.dmlite-pdf-empty{margin:auto;max-width:460px;text-align:center;color:#f5f1e9;padding:28px}
+.dmlite-pdf-empty span{font-size:42px}
+.dmlite-pdf-empty h3{font-family:Georgia,"Times New Roman",serif;margin:8px 0 4px;font-size:18px}
+.dmlite-pdf-empty p{font-size:10px;line-height:1.5;margin:0 0 8px;color:#e3ddd3}
+.dmlite-pdf-empty small{font-size:8px;color:#cfc7ba}
+.dmlite-pdf-foot{min-height:31px;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f7f3e8;border-top:1px solid #b8aa94;padding:5px 10px;font-size:7px;color:#72675b}
+.dmlite-pdf-foot span:first-child{font-weight:900;color:#3a342e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+@media(max-width:760px){
+  .home .pjlite-top{min-height:62px;height:auto}
+  .home .home-shell{padding:10px 7px 28px}
+  .home .home-intro{padding:12px}
+  .home .home-intro h1{font-size:21px}
+  .home .library-bar{align-items:stretch}
+  .home .search{min-width:0;width:100%}
+  .pj-card[data-pj-system]{padding:7px}
+  .pj-card[data-pj-system]::before{margin:-7px -7px 0}
+  .pj-card[data-pj-system]>header{grid-template-columns:42px minmax(0,1fr)}
+  .pj-card[data-pj-system]>header>span{width:38px;height:38px}
+  .pj-card[data-pj-system] .pj-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dmlite-pdf-fab{right:8px;bottom:103px;padding:7px 9px}
+  .dmlite-pdf-fab b{display:none}
+  .dmlite-pdf-layer{padding:4px}
+  .dmlite-pdf-modal{height:98dvh;border-radius:4px}
+  .dmlite-pdf-toolbar{display:grid;grid-template-columns:1fr auto;gap:5px}
+  .dmlite-pdf-toolbar>.pdf-action--primary{grid-column:1/-1}
+  .dmlite-pdf-urlrow{grid-column:1/-1;min-width:0}
+  .dmlite-pdf-content{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+  .dmlite-pdf-recents{border-right:0;border-bottom:1px solid #b8aa94;max-height:116px;padding:5px;display:flex;gap:5px;overflow-x:auto;overflow-y:hidden}
+  .dmlite-pdf-recents-head{min-width:70px;display:block}
+  .dmlite-pdf-recents-head button{display:block;padding:4px 0}
+  [data-pdf-recents]{display:flex;gap:5px}
+  .pdf-recent-item{width:150px;min-width:150px;margin:0}
+  .dmlite-pdf-recents>p{display:none}
+  .dmlite-pdf-foot span:last-child{display:none}
+  .dmlite-pdf-viewer{min-height:0}
+}
