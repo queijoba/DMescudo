@@ -8,6 +8,7 @@ import './styles-v6.css';
 import { installEnhancements } from './enhancements-v053.js';
 import { installEnhancementsV055 } from './enhancements-v055.js';
 
+// DM Lite 0.5.2 Alpha — camada estável de homologação.
 createRoot(document.getElementById('root')).render(<App />);
 queueMicrotask(() => {
   installEnhancements();
