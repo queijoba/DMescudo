@@ -1,4 +1,4 @@
-const MINI_ZOOM_KEY = 'dmlite_mini_pdf_zoom_v1';
+const MINI_ZOOM_KEY = 'dmlite_mini_pdf_zoom_v2';
 const THEME_KEY = 'dmlite_theme_pref_v2';
 
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -86,6 +86,27 @@ function getZoom() {
   return Number.isFinite(value) ? Math.max(50, Math.min(200, value)) : 100;
 }
 
+function stripPdfZoom(url) {
+  const raw = String(url || '').trim();
+  if (!raw) return '';
+  const hashIndex = raw.indexOf('#');
+  if (hashIndex < 0) return raw;
+  const base = raw.slice(0, hashIndex);
+  const hash = raw.slice(hashIndex + 1);
+  const parts = hash.split('&').filter(Boolean).filter(part => !/^zoom=/i.test(part));
+  return parts.length ? `${base}#${parts.join('&')}` : base;
+}
+
+function withNativePdfZoom(url, zoom) {
+  const source = stripPdfZoom(url);
+  if (!source) return '';
+  const hashIndex = source.indexOf('#');
+  if (hashIndex < 0) return `${source}#zoom=${zoom}`;
+  const base = source.slice(0, hashIndex);
+  const hash = source.slice(hashIndex + 1);
+  return `${base}#${hash}${hash ? '&' : ''}zoom=${zoom}`;
+}
+
 function setZoom(panel, value) {
   const zoom = Math.max(50, Math.min(200, Math.round(Number(value) || 100)));
   panel.dataset.pdfZoom = String(zoom);
@@ -96,16 +117,32 @@ function setZoom(panel, value) {
   if (label) label.textContent = `${zoom}%`;
   if (slider) slider.value = String(zoom);
   if (!frame) return;
-  const scale = zoom / 100;
-  frame.style.transformOrigin = '0 0';
-  frame.style.transform = `scale(${scale})`;
-  frame.style.width = `${100 / scale}%`;
-  frame.style.height = `${100 / scale}%`;
+
+  // Não ampliamos o iframe por CSS: isso rasterizava a visualização já pronta e
+  // deixava letras e linhas borradas. O zoom é enviado ao visualizador PDF do
+  // navegador pelo fragmento #zoom=, que rerenderiza o documento na escala nova.
+  frame.style.transform = 'none';
+  frame.style.transformOrigin = '';
+  frame.style.width = '100%';
+  frame.style.height = '100%';
+
+  const current = frame.getAttribute('src') || '';
+  const panelSource = panel.dataset.currentUrl || '';
+  const source = stripPdfZoom(frame.dataset.pdfSource || panelSource || current);
+  if (!source) return;
+  frame.dataset.pdfSource = source;
+  const next = withNativePdfZoom(source, zoom);
+  if (current !== next) frame.setAttribute('src', next);
 }
 
 function enhanceMiniPdf() {
   const panel = $('#dm55-mini') || $('#dm54-mini-pdf');
   if (!panel) return;
+  const frame = $('iframe', panel);
+  if (frame) {
+    const current = frame.getAttribute('src') || '';
+    if (current && !frame.dataset.pdfSource) frame.dataset.pdfSource = stripPdfZoom(current);
+  }
   if (!panel.dataset.dm56ZoomReady) {
     panel.dataset.dm56ZoomReady = '1';
     const controls = $('.dm54-mini-controls', panel);
@@ -180,7 +217,12 @@ export function installEnhancementsV056() {
     requestAnimationFrame(() => { queued = false; syncAll(); });
   };
   const observer = new MutationObserver(schedule);
-  observer.observe(document.getElementById('root') || document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'data-dm-theme'] });
+  observer.observe(document.getElementById('root') || document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['style', 'data-dm-theme', 'src'],
+  });
   window.addEventListener('dmlite-theme-change', schedule);
   window.addEventListener('storage', e => { if (e.key === THEME_KEY || e.key === MINI_ZOOM_KEY) schedule(); });
   window.addEventListener('resize', schedule, { passive: true });
