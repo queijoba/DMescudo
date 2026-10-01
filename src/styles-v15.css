@@ -1,0 +1,24 @@
+/* DM Lite — guia detalhado e confortável em desktop/mobile. */
+.dm63-guide-tabs{display:flex!important;flex-direction:column!important;gap:5px!important;min-width:150px!important;max-height:68vh!important;overflow:auto!important;padding-right:4px!important}
+.dm63-guide-tabs button{width:100%!important;text-align:left!important;white-space:nowrap!important}
+.dm63-guide-content{min-width:0!important}
+.dm63-guide-content article{line-height:1.55!important}
+.dm63-guide-content h3{margin:0 0 10px!important;font-family:Georgia,"Times New Roman",serif!important;font-size:20px!important}
+.dm63-guide-content h4{margin:18px 0 8px!important;font-family:Georgia,"Times New Roman",serif!important;font-size:14px!important}
+.dm63-guide-content p{margin:8px 0!important}
+.dm63-guide-content ul,.dm63-guide-content ol{padding-left:22px!important;margin:8px 0 12px!important}
+.dm63-guide-content li{margin:6px 0!important}
+.dm63-guide-content a{color:var(--accent)!important;font-weight:800!important}
+.dm63-tip{margin:14px 0 4px!important;padding:12px 14px!important;border-left:4px solid var(--accent)!important;border-radius:5px!important;background:var(--panel2)!important;color:var(--text)!important}
+
+@media(max-width:760px){
+  .dm53-modal--guide{width:min(96vw,680px)!important;max-height:92dvh!important}
+  .dm53-modal--guide .dm53-guide{display:flex!important;flex-direction:column!important;gap:10px!important}
+  .dm63-guide-tabs{flex-direction:row!important;min-width:0!important;max-width:100%!important;max-height:none!important;overflow-x:auto!important;overflow-y:hidden!important;padding:0 0 6px!important;scroll-snap-type:x proximity!important}
+  .dm63-guide-tabs button{flex:0 0 auto!important;width:auto!important;min-height:38px!important;padding:7px 10px!important;scroll-snap-align:start!important;font-size:10px!important}
+  .dm63-guide-content{max-height:62dvh!important;overflow:auto!important;padding-right:2px!important;-webkit-overflow-scrolling:touch!important}
+  .dm63-guide-content h3{font-size:18px!important}
+  .dm63-guide-content h4{font-size:13px!important}
+  .dm63-guide-content p,.dm63-guide-content li{font-size:11px!important;line-height:1.55!important}
+  .dm63-tip{padding:10px 11px!important;font-size:10px!important}
+}
