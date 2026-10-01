@@ -10,10 +10,12 @@ import './styles-v8.css';
 import './styles-v9.css';
 import './styles-v10.css';
 import './styles-v11.css';
+import './styles-v12.css';
 import { installEnhancements } from './enhancements-v053.js';
 import { installEnhancementsV055 } from './enhancements-v055.js';
 import { installEnhancementsV056 } from './enhancements-v056.js';
 import { installEnhancementsV058 } from './enhancements-v058.js';
+import { installEnhancementsV059 } from './enhancements-v059.js';
 
 // DM Lite 0.5.4 Alpha — versão principal, migração completa e mobile alinhado ao PJ Lite.
 createRoot(document.getElementById('root')).render(<App />);
@@ -22,4 +24,5 @@ queueMicrotask(() => {
   installEnhancementsV055();
   installEnhancementsV056();
   installEnhancementsV058();
+  installEnhancementsV059();
 });

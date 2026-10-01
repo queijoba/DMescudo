@@ -1,0 +1,232 @@
+/* DM Lite — Home mobile alinhada ao PJ Lite: controles em linha, cards compactos e log no fim da página. */
+
+.dm59-project-footer{
+  margin-top:34px;
+  border:1px solid var(--home-line,var(--border));
+  background:var(--home-paper,var(--panel));
+  color:var(--home-ink,var(--text));
+  overflow:hidden;
+  box-shadow:0 5px 18px rgba(15,23,42,.08);
+}
+.dm59-project-head{
+  min-height:58px;
+  padding:12px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  background:var(--home-top,var(--header));
+  color:var(--dm-on-header,#fff);
+}
+.dm59-project-head h2{
+  margin:0;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:18px;
+  line-height:1.15;
+}
+.dm59-project-head span{
+  flex:0 0 auto;
+  padding:7px 10px;
+  border-radius:3px;
+  background:var(--home-accent,var(--accent));
+  color:var(--dm-on-accent,#fff);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+.dm59-project-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);
+  gap:24px;
+  padding:22px;
+}
+.dm59-log-col h3,.dm59-project-col h3{
+  margin:0 0 12px;
+  font-family:Georgia,"Times New Roman",serif;
+}
+.dm59-log-list{
+  max-height:230px;
+  overflow:auto;
+  padding-right:6px;
+  border-top:1px solid var(--home-line,var(--border));
+  border-bottom:1px solid var(--home-line,var(--border));
+}
+.dm59-log-list p{margin:0;padding:10px 0;font-size:12px;line-height:1.45;color:var(--home-muted,var(--muted));}
+.dm59-log-list p+p{border-top:1px solid color-mix(in srgb,var(--home-line,var(--border)) 55%,transparent);}
+.dm59-log-list b{color:var(--home-ink,var(--text));}
+.dm59-credits{padding-top:14px;}
+.dm59-credits h4,.dm59-open-source h4{margin:0 0 7px;font-family:Georgia,"Times New Roman",serif;}
+.dm59-credits p,.dm59-open-source p,.dm59-project-sub{font-size:12px;line-height:1.5;color:var(--home-muted,var(--muted));}
+.dm59-credits a{font-size:12px;font-weight:800;color:var(--home-accent,var(--accent));}
+.dm59-backup-info{margin-top:14px;border:1px solid var(--home-line,var(--border));border-radius:7px;background:var(--panel2);}
+.dm59-backup-info summary{cursor:pointer;padding:12px 14px;font-family:Georgia,"Times New Roman",serif;font-weight:800;}
+.dm59-backup-info p{margin:0;padding:0 14px 14px;font-size:12px;line-height:1.5;color:var(--home-muted,var(--muted));}
+.dm59-project-col{padding:18px;border:2px solid color-mix(in srgb,var(--home-accent,var(--accent)) 55%,var(--home-line,var(--border)));border-radius:14px;}
+.dm59-project-col>small{font-size:10px;font-weight:900;letter-spacing:.08em;color:var(--home-muted,var(--muted));}
+.dm59-project-col h3{margin-top:6px;font-size:20px;color:var(--home-accent,var(--accent));}
+.dm59-open-source{margin-top:16px;padding:14px;border:1px solid var(--home-line,var(--border));border-radius:6px;background:var(--panel2);}
+.dm59-pjlite-card{display:flex;flex-direction:column;gap:5px;margin-top:14px;padding:16px;border:2px solid var(--home-accent,var(--accent));border-radius:5px;background:var(--home-top,var(--header));color:var(--dm-on-header,#fff);text-align:center;text-decoration:none;}
+.dm59-pjlite-card strong{font-family:Georgia,"Times New Roman",serif;font-size:16px;}
+.dm59-pjlite-card span{font-size:10px;line-height:1.4;opacity:.85;}
+
+@media(max-width:760px){
+  /* Busca em largura total; Filtro/Grade/Lista ficam juntos acima, sem coluna vertical. */
+  .home.page-theme .library-bar{
+    order:4!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:8px!important;
+    width:100%!important;
+    margin:0 0 12px!important;
+  }
+  .home.page-theme .library-bar>div:first-child{display:none!important;}
+  .home.page-theme .dm53-library-actions,
+  .home.page-theme .dmlite-library-actions{
+    order:1!important;
+    width:100%!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    gap:6px!important;
+    padding:0!important;
+    margin:0!important;
+    border:0!important;
+    background:transparent!important;
+    overflow:visible!important;
+  }
+  .home.page-theme .dm53-library-actions button,
+  .home.page-theme .dmlite-library-actions button{
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:42px!important;
+    min-width:42px!important;
+    height:38px!important;
+    min-height:38px!important;
+    margin:0!important;
+    padding:0!important;
+    border:1px solid var(--home-line,var(--border))!important;
+    border-radius:5px!important;
+    background:var(--home-paper,var(--panel))!important;
+    color:var(--home-ink,var(--text))!important;
+    font-size:15px!important;
+    font-weight:850!important;
+    box-shadow:0 2px 6px rgba(15,23,42,.05)!important;
+  }
+  .home.page-theme .dm53-library-actions button:first-child,
+  .home.page-theme .dmlite-library-actions button:first-child{
+    width:auto!important;
+    min-width:84px!important;
+    padding:0 11px!important;
+    font-size:9px!important;
+  }
+  .home.page-theme .dm53-library-actions button.active,
+  .home.page-theme .dm53-library-actions button.is-active,
+  .home.page-theme .dmlite-library-actions button.active,
+  .home.page-theme .dmlite-library-actions button.is-active{
+    background:var(--home-top,var(--header))!important;
+    color:var(--dm-on-header,#fff)!important;
+    border-color:var(--home-top,var(--header))!important;
+  }
+  .home.page-theme .search{
+    order:2!important;
+    width:100%!important;
+    height:42px!important;
+    margin:0!important;
+  }
+  .home.page-theme .dm53-filter,
+  .home.page-theme .dmlite-filter-panel{order:5!important;margin:0 0 12px!important;}
+
+  /* Cards salvos: mais baixos, com proporção semelhante aos cards do PJ Lite. */
+  .home.page-theme .shield-grid,.home.page-theme .empty{order:6!important;}
+  .home.page-theme .shield-grid{gap:9px!important;}
+  .home.page-theme .shield-card{
+    border-radius:5px!important;
+    overflow:hidden!important;
+    box-shadow:0 2px 8px rgba(15,23,42,.08)!important;
+  }
+  .home.page-theme .shield-card>header{
+    grid-template-columns:62px minmax(0,1fr)!important;
+    min-height:84px!important;
+    gap:10px!important;
+    padding:10px 10px 8px 12px!important;
+  }
+  .home.page-theme .shield-icon{
+    width:62px!important;
+    height:66px!important;
+    font-size:21px!important;
+  }
+  .home.page-theme .shield-card small{font-size:6.5px!important;padding:3px 6px!important;}
+  .home.page-theme .shield-card h3{font-size:14px!important;margin:3px 0!important;}
+  .home.page-theme .shield-card p{font-size:7.5px!important;}
+  .home.page-theme .shield-info{
+    min-height:28px!important;
+    padding:6px 10px 6px 12px!important;
+    font-size:7.5px!important;
+  }
+  .home.page-theme .shield-card footer{
+    display:grid!important;
+    grid-template-columns:minmax(92px,1.3fr) repeat(4,34px)!important;
+    gap:5px!important;
+    padding:7px 8px 8px 10px!important;
+  }
+  .home.page-theme .shield-card footer .ui-btn{
+    min-height:36px!important;
+    height:36px!important;
+    padding:0 10px!important;
+    border-radius:5px!important;
+    font-size:10px!important;
+  }
+  .home.page-theme .shield-card footer .icon-btn{
+    width:34px!important;
+    height:34px!important;
+    min-height:34px!important;
+    padding:0!important;
+    border-radius:5px!important;
+    font-size:15px!important;
+  }
+
+  /* Rodapé contínuo, como no dashboard mobile do PJ Lite. */
+  .home.page-theme .dm59-project-footer{
+    order:7!important;
+    width:100%!important;
+    margin:30px 0 0!important;
+    border-radius:5px!important;
+    box-shadow:0 4px 14px rgba(15,23,42,.07)!important;
+  }
+  .dm59-project-head{
+    min-height:62px!important;
+    padding:11px 12px!important;
+    align-items:flex-start!important;
+  }
+  .dm59-project-head h2{font-size:17px!important;line-height:1.15!important;}
+  .dm59-project-head span{padding:7px 9px!important;font-size:9px!important;}
+  .dm59-project-grid{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:18px!important;
+    padding:16px 14px 18px!important;
+  }
+  .dm59-log-col h3{font-size:17px!important;border-bottom:1px solid var(--home-line,var(--border));padding-bottom:8px!important;}
+  .dm59-log-list{max-height:none!important;overflow:visible!important;padding-right:0!important;}
+  .dm59-log-list p{font-size:10px!important;line-height:1.5!important;padding:9px 0!important;}
+  .dm59-credits h4,.dm59-open-source h4{font-size:11px!important;}
+  .dm59-credits p,.dm59-open-source p,.dm59-project-sub,.dm59-backup-info p{font-size:9px!important;line-height:1.5!important;}
+  .dm59-credits a{font-size:9px!important;}
+  .dm59-backup-info summary{padding:10px 11px!important;font-size:11px!important;}
+  .dm59-project-col{padding:14px!important;border-radius:12px!important;}
+  .dm59-project-col h3{font-size:18px!important;}
+  .dm59-pjlite-card{padding:13px!important;}
+  .dm59-pjlite-card strong{font-size:14px!important;}
+  .dm59-pjlite-card span{font-size:8px!important;}
+}
+
+@media(max-width:390px){
+  .home.page-theme .dm53-library-actions button,
+  .home.page-theme .dmlite-library-actions button{width:38px!important;min-width:38px!important;}
+  .home.page-theme .dm53-library-actions button:first-child,
+  .home.page-theme .dmlite-library-actions button:first-child{min-width:78px!important;}
+  .home.page-theme .shield-card footer{grid-template-columns:minmax(82px,1.2fr) repeat(4,31px)!important;gap:4px!important;}
+  .home.page-theme .shield-card footer .icon-btn{width:31px!important;height:31px!important;min-height:31px!important;font-size:14px!important;}
+}
