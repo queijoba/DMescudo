@@ -15,6 +15,7 @@ import './styles-v13.css';
 import './styles-v14.css';
 import './styles-v15.css';
 import './styles-v16.css';
+import './styles-v17.css';
 import { installEnhancements } from './enhancements-v053.js';
 import { installEnhancementsV055 } from './enhancements-v055.js';
 import { installEnhancementsV056 } from './enhancements-v056.js';
@@ -24,6 +25,7 @@ import { installEnhancementsV060 } from './enhancements-v060.js';
 import { installEnhancementsV061 } from './enhancements-v061.js';
 import { installEnhancementsV062 } from './enhancements-v062.js';
 import { installEnhancementsV064 } from './enhancements-v064.js';
+import { installEnhancementsV065 } from './enhancements-v065.js';
 
 // A Home é sempre a tela de entrada. Removemos apenas a referência ao último
 // escudo aberto; os escudos e todo o conteúdo salvo permanecem intactos.
@@ -34,8 +36,8 @@ try {
   // O app continua normalmente caso o armazenamento esteja bloqueado.
 }
 
-// DM Lite 0.5.4 Alpha — build de produção aprovado: Home como entrada principal,
-// guia ampliado, contraste adaptativo e segundo quadro rolável no desktop.
+// DM Lite 0.5.5 Alpha — contraste mais suave, segundo quadro opcional,
+// atalhos fixos no desktop e novos recursos centralizados em primeiro plano.
 createRoot(document.getElementById('root')).render(<App />);
 queueMicrotask(() => {
   installEnhancements();
@@ -47,4 +49,5 @@ queueMicrotask(() => {
   installEnhancementsV061();
   installEnhancementsV062();
   installEnhancementsV064();
+  installEnhancementsV065();
 });
