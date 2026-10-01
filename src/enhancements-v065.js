@@ -38,9 +38,31 @@ function ensureBoardToggle(){
   setBoardEnabled(boardEnabled(),{scroll:false});
 }
 
+function viewportCenterFor(el){
+  if(!workspace)return null;
+  const wr=workspace.getBoundingClientRect(),r=el.getBoundingClientRect();
+  const w=r.width||430,h=r.height||390;
+  const x=Math.max(12,Math.min((wr.width-w)/2,Math.max(12,wr.width-w-12)));
+  const visibleTop=Math.max(0,-wr.top);
+  const viewportBottom=Math.min(window.innerHeight,wr.bottom);
+  const viewportTop=Math.max(0,wr.top);
+  const visibleHeight=Math.max(220,viewportBottom-viewportTop);
+  const y=Math.max(12,Math.min(visibleTop+(visibleHeight-h)/2,Math.max(12,workspace.scrollHeight-h-54)));
+  return{x,y};
+}
+
 function bringWidgetForward(el){
   if(matchMedia('(max-width:760px)').matches||knownWidgets.has(el))return;
   knownWidgets.add(el);
+  const isPJ=!!$('.pj-card',el);
+  if(isPJ){
+    const pos=viewportCenterFor(el);
+    if(pos){
+      el.style.left=`${pos.x}px`;
+      el.style.top=`${pos.y}px`;
+      el.dataset.dm65Centered='pj';
+    }
+  }
   el.style.zIndex='9999';
   el.classList.add('dm65-new-widget');
   requestAnimationFrame(()=>{
@@ -48,7 +70,7 @@ function bringWidgetForward(el){
   });
   setTimeout(()=>{
     el.classList.remove('dm65-new-widget');
-    if(el.style.zIndex==='9999')el.style.zIndex='';
+    if(!isPJ&&el.style.zIndex==='9999')el.style.zIndex='';
   },900);
 }
 
