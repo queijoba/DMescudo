@@ -1,0 +1,88 @@
+/* DM Lite — polimento mobile: biblioteca em linha, barra compacta e navegação por janelas. */
+
+.dm60-window-layer{position:fixed;inset:0;z-index:1600;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(15,23,42,.46)}
+.dm60-window-layer[hidden]{display:none!important}
+.dm60-window-modal{width:min(440px,100%);max-height:min(620px,88dvh);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--border,#cbd5e1);border-radius:10px;background:var(--panel,#fff);color:var(--text,#1f2937);box-shadow:0 18px 60px rgba(15,23,42,.25)}
+.dm60-window-modal>header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;background:var(--header,#1f2937);color:var(--dm-on-header,#fff)}
+.dm60-window-modal>header h3{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:18px}.dm60-window-modal>header button{width:36px;height:36px;border:1px solid rgba(255,255,255,.35);border-radius:6px;background:transparent;color:inherit;font-size:20px}
+.dm60-window-list{display:flex;flex-direction:column;gap:7px;padding:12px;overflow:auto}.dm60-window-list button{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;gap:9px;width:100%;min-height:48px;padding:7px 10px;border:1px solid var(--border,#cbd5e1);border-radius:7px;background:var(--panel2,#f3f4f6);color:var(--text,#1f2937);text-align:left}.dm60-window-list button b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dm60-window-list button span{font-size:18px}.dm60-window-list button em{font-style:normal;font-size:11px;color:var(--muted,#64748b)}
+.dm60-jump-flash{outline:3px solid var(--accent,#b52222)!important;outline-offset:2px!important;transition:outline-color .2s ease}
+
+@media(max-width:760px){
+  /* O Sobre/Atualizações passa a existir somente no fim da Home no mobile. */
+  .home.page-theme .pjlite-top nav [data-v55-about]{display:none!important}
+  .home.page-theme .pjlite-top nav [data-v55-pjhome]{
+    display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:34px!important;
+    padding:0 10px!important;background:var(--home-top,var(--header))!important;color:var(--dm-on-header,#fff)!important;
+    border-color:var(--home-top,var(--header))!important;opacity:1!important;
+  }
+
+  /* Busca e os três controles ocupam UMA linha, como um grupo único. */
+  .home.page-theme .library-bar{
+    display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-rows:auto!important;
+    align-items:center!important;gap:7px!important;width:100%!important;margin:0 0 12px!important;
+  }
+  .home.page-theme .search{grid-column:1!important;grid-row:1!important;order:initial!important;min-width:0!important;width:100%!important;height:42px!important}
+  .home.page-theme .dm53-library-actions,.home.page-theme .dmlite-library-actions{
+    grid-column:2!important;grid-row:1!important;order:initial!important;width:auto!important;min-width:0!important;
+    display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;
+    gap:4px!important;margin:0!important;padding:0!important;border:0!important;background:transparent!important;
+  }
+  .home.page-theme .dm53-library-actions button,.home.page-theme .dmlite-library-actions button{
+    flex:0 0 38px!important;width:38px!important;min-width:38px!important;height:42px!important;min-height:42px!important;
+    padding:0!important;margin:0!important;border-radius:5px!important;font-size:15px!important;
+  }
+  .home.page-theme .dm53-library-actions button:first-child,.home.page-theme .dmlite-library-actions button:first-child{
+    flex:0 0 72px!important;width:72px!important;min-width:72px!important;padding:0 8px!important;font-size:8.5px!important;
+  }
+  .home.page-theme .dm53-filter,.home.page-theme .dmlite-filter-panel{grid-column:1/-1!important;grid-row:2!important;order:initial!important;margin:0!important}
+
+  /* Cards de escudo: compactos e com o mesmo ritmo dos cards do PJ Lite. */
+  .home.page-theme .shield-card>header{grid-template-columns:54px minmax(0,1fr)!important;min-height:76px!important;gap:9px!important;padding:9px 10px 7px!important}
+  .home.page-theme .shield-icon{width:54px!important;height:58px!important;font-size:19px!important}
+  .home.page-theme .shield-card h3{font-size:13px!important;line-height:1.1!important;margin:2px 0!important}
+  .home.page-theme .shield-card p{font-size:7px!important}.home.page-theme .shield-card small{font-size:6px!important}
+  .home.page-theme .shield-info{min-height:26px!important;padding:5px 9px 5px 10px!important;font-size:7px!important}
+  .home.page-theme .shield-card footer{grid-template-columns:minmax(84px,1fr) repeat(4,32px)!important;gap:4px!important;padding:6px 7px 7px 9px!important}
+  .home.page-theme .shield-card footer .ui-btn{height:34px!important;min-height:34px!important;font-size:9px!important}
+  .home.page-theme .shield-card footer .icon-btn{width:32px!important;height:32px!important;min-height:32px!important;font-size:13px!important}
+
+  /* Cabeçalho do escudo: botões compactos, legíveis e coerentes com o tema. */
+  .editor.page-theme .editor-top{background:var(--panel)!important;color:var(--text)!important;border-color:var(--border)!important}
+  .editor.page-theme .top-actions{gap:5px!important;padding-top:8px!important}
+  .editor.page-theme .top-actions .ui-btn,.editor.page-theme .top-actions>button,.editor.page-theme .top-actions>a,
+  .editor.page-theme .dm53-editor-theme,.editor.page-theme .dm54-mini-top,.editor.page-theme .dm54-sheets-button,.editor.page-theme .dm54-pjlite-editor,.editor.page-theme .dm60-window-jump{
+    flex:0 0 40px!important;width:40px!important;min-width:40px!important;height:38px!important;min-height:38px!important;
+    padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;
+    border:1px solid var(--border)!important;border-radius:6px!important;background:var(--panel2)!important;color:var(--text)!important;
+    font-size:16px!important;line-height:1!important;overflow:hidden!important;
+  }
+  .editor.page-theme .dm54-sheets-button{flex-basis:auto!important;width:auto!important;min-width:82px!important;padding:0 9px!important;font-size:9px!important;white-space:nowrap!important}
+  .editor.page-theme .dm54-mini-top{font-size:0!important}.editor.page-theme .dm54-mini-top::before{content:'📄';font-size:17px!important}
+  .editor.page-theme #dm53-pdf-button{font-size:0!important}.editor.page-theme #dm53-pdf-button::before{content:'📚';font-size:17px!important}
+  .editor.page-theme .dm54-pjlite-editor{font-size:0!important;text-decoration:none!important}.editor.page-theme .dm54-pjlite-editor::before{content:'👤';font-size:18px!important}
+
+  /* Tema vira apenas o ícone; o select nativo continua clicável por cima. */
+  .editor.page-theme .dm53-editor-theme{position:relative!important;font-size:0!important;cursor:pointer!important}
+  .editor.page-theme .dm53-editor-theme::before{content:'🎨';font-size:18px!important;pointer-events:none}
+  .editor.page-theme .dm53-editor-theme select{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;opacity:0!important;cursor:pointer!important}
+
+  /* Botão de lupa / atalhos de janelas. */
+  .editor.page-theme .dm60-window-jump{font-size:0!important}.editor.page-theme .dm60-window-jump::before{content:'🔎';font-size:18px!important}
+
+  /* Tema aplicado de forma consistente às superfícies gerais, sem sobrescrever mini fichas por sistema. */
+  .editor.page-theme .tool-rail,.editor.page-theme .widget{background:var(--panel)!important;color:var(--text)!important;border-color:var(--border)!important}
+  .editor.page-theme .widget-head{background:var(--panel)!important;color:var(--text)!important;border-color:var(--border)!important}
+  .editor.page-theme .widget-head input{background:var(--panel)!important;color:var(--text)!important;border-color:var(--border)!important}
+  .editor.page-theme .widget-actions .icon-btn{background:var(--panel2)!important;color:var(--text)!important;border-color:var(--border)!important}
+  .editor.page-theme .widget-body{background:var(--panel)!important;color:var(--text)!important}
+
+  .dm60-window-layer{padding:12px}.dm60-window-modal{max-height:86dvh;border-radius:8px}.dm60-window-list{padding:10px}
+}
+
+@media(max-width:430px){
+  .home.page-theme .library-bar{grid-template-columns:minmax(0,1fr) auto!important;gap:5px!important}
+  .home.page-theme .dm53-library-actions button,.home.page-theme .dmlite-library-actions button{flex-basis:34px!important;width:34px!important;min-width:34px!important}
+  .home.page-theme .dm53-library-actions button:first-child,.home.page-theme .dmlite-library-actions button:first-child{flex-basis:62px!important;width:62px!important;min-width:62px!important;font-size:7.5px!important}
+  .home.page-theme .search{padding:0 7px!important}.home.page-theme .search input{font-size:9px!important}
+}
