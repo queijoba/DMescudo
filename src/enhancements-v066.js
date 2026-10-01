@@ -30,10 +30,12 @@ function syncGuide(){
       if(text.startsWith('🎨 Tema:'))li.remove();
       if(text.startsWith('⚙ Ajustes:'))li.innerHTML='<b>⚙ Ajustes:</b> tema, escala da interface e fundo personalizado do escudo.';
     });
-    const note=document.createElement('div');
-    note.className='dm63-tip';
-    note.innerHTML='<b>Tema:</b> para evitar uma barra redundante no escudo, a troca de tema fica concentrada em <b>⚙ Ajustes</b> e na Home.';
-    barPanel.appendChild(note);
+    if(!$('.dm66-theme-note',barPanel)){
+      const note=document.createElement('div');
+      note.className='dm63-tip dm66-theme-note';
+      note.innerHTML='<b>Tema:</b> para evitar uma barra redundante no escudo, a troca de tema fica concentrada em <b>⚙ Ajustes</b> e na Home.';
+      barPanel.appendChild(note);
+    }
   }
 }
 
