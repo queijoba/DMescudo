@@ -3,77 +3,113 @@ const $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const BOARD_KEY='dmlite_second_board_v1';
 const MINI_KEY='dmlite_mini_pdf_v1';
 let workspace=null;
-let knownWidgets=new WeakSet();
 let observer=null;
-let centering=false;
+let queued=false;
+const knownWidgets=new WeakSet();
+const knownMinis=new WeakSet();
 
 function boardEnabled(){try{return localStorage.getItem(BOARD_KEY)==='1'}catch{return false}}
-function setBoardEnabled(value){
+function setBoardEnabled(value,{scroll=true}={}){
   try{localStorage.setItem(BOARD_KEY,value?'1':'0')}catch{}
+  const current=document.body.classList.contains('dm65-second-board-active');
   document.documentElement.classList.toggle('dm65-second-board-active',value);
   document.body.classList.toggle('dm65-second-board-active',value);
   $('.editor.page-theme')?.classList.toggle('dm65-has-second-board',value);
   const btn=$('.dm65-board-toggle');
-  if(btn){btn.classList.toggle('is-active',value);btn.textContent=value?'− Quadro 2':'＋ Quadro 2';btn.title=value?'Remover segundo quadro':'Adicionar segundo quadro';btn.setAttribute('aria-pressed',String(value))}
-  if(!value)window.scrollTo({top:0,behavior:'smooth'});
+  if(btn){
+    btn.classList.toggle('is-active',value);
+    btn.textContent=value?'− Quadro 2':'＋ Quadro 2';
+    btn.title=value?'Remover segundo quadro':'Adicionar segundo quadro';
+    btn.setAttribute('aria-pressed',String(value));
+  }
+  if(scroll&&current&&!value)window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function ensureBoardToggle(){
   const ed=$('.editor.page-theme'),top=$('.top-actions',ed||document);if(!ed||!top)return;
   let btn=$('.dm65-board-toggle',top);
-  if(!btn){btn=document.createElement('button');btn.type='button';btn.className='ui-btn dm65-board-toggle';btn.onclick=()=>setBoardEnabled(!document.body.classList.contains('dm65-second-board-active'));top.appendChild(btn)}
-  setBoardEnabled(boardEnabled());
+  if(!btn){
+    btn=document.createElement('button');
+    btn.type='button';
+    btn.className='ui-btn dm65-board-toggle';
+    btn.onclick=()=>setBoardEnabled(!document.body.classList.contains('dm65-second-board-active'));
+    top.appendChild(btn);
+  }
+  setBoardEnabled(boardEnabled(),{scroll:false});
 }
 
-function desiredPosition(el,ws){
-  const wr=ws.getBoundingClientRect(),er=el.getBoundingClientRect();
-  const w=er.width||360,h=er.height||310;
-  const x=Math.max(12,Math.min((wr.width-w)/2,Math.max(12,wr.width-w-12)));
-  const visibleTop=Math.max(0,-wr.top);
-  const viewportCenter=visibleTop+Math.max(58,(window.innerHeight-h)/2);
-  const maxY=Math.max(12,ws.scrollHeight-h-54);
-  return{x,y:Math.max(12,Math.min(viewportCenter,maxY))};
-}
-
-function commitCenterByDrag(el){
-  if(centering||!workspace||matchMedia('(max-width:760px)').matches)return;
-  const head=$('.widget-head',el);if(!head)return;
-  const wr=workspace.getBoundingClientRect(),er=el.getBoundingClientRect(),target=desiredPosition(el,workspace);
-  const currentX=er.left-wr.left,currentY=er.top-wr.top,dx=target.x-currentX,dy=target.y-currentY;
-  const sx=er.left+Math.min(24,Math.max(8,er.width*.08)),sy=er.top+18;
-  centering=true;
-  try{
-    const pid=65001;
-    head.dispatchEvent(new PointerEvent('pointerdown',{bubbles:true,cancelable:true,pointerId:pid,pointerType:'mouse',isPrimary:true,button:0,buttons:1,clientX:sx,clientY:sy}));
-    window.dispatchEvent(new PointerEvent('pointermove',{bubbles:true,cancelable:true,pointerId:pid,pointerType:'mouse',isPrimary:true,button:0,buttons:1,clientX:sx+dx,clientY:sy+dy}));
-    window.dispatchEvent(new PointerEvent('pointerup',{bubbles:true,cancelable:true,pointerId:pid,pointerType:'mouse',isPrimary:true,button:0,buttons:0,clientX:sx+dx,clientY:sy+dy}));
-  }catch{el.style.left=`${target.x}px`;el.style.top=`${target.y}px`}
-  el.style.zIndex='999';el.classList.add('dm65-new-widget');setTimeout(()=>el.classList.remove('dm65-new-widget'),800);setTimeout(()=>{centering=false},40);
+function bringWidgetForward(el){
+  if(matchMedia('(max-width:760px)').matches||knownWidgets.has(el))return;
+  knownWidgets.add(el);
+  el.style.zIndex='9999';
+  el.classList.add('dm65-new-widget');
+  requestAnimationFrame(()=>{
+    try{el.scrollIntoView({block:'center',inline:'center',behavior:'smooth'});}catch{}
+  });
+  setTimeout(()=>{
+    el.classList.remove('dm65-new-widget');
+    if(el.style.zIndex==='9999')el.style.zIndex='';
+  },900);
 }
 
 function centerMini(mini){
-  if(!workspace||matchMedia('(max-width:760px)').matches)return;
+  if(!workspace||matchMedia('(max-width:760px)').matches||knownMinis.has(mini))return;
+  knownMinis.add(mini);
   const wr=workspace.getBoundingClientRect(),r=mini.getBoundingClientRect(),w=r.width||370,h=r.height||440;
   const x=Math.max(12,(wr.width-w)/2),visibleTop=Math.max(0,-wr.top),y=Math.max(12,Math.min(visibleTop+Math.max(58,(window.innerHeight-h)/2),Math.max(12,workspace.scrollHeight-h-54)));
-  mini.style.left=`${x}px`;mini.style.top=`${y}px`;mini.style.zIndex='999';
+  mini.style.left=`${x}px`;
+  mini.style.top=`${y}px`;
+  mini.style.zIndex='9999';
   try{const prev=JSON.parse(localStorage.getItem(MINI_KEY)||'{}');localStorage.setItem(MINI_KEY,JSON.stringify({...prev,x,y,w,h}))}catch{}
+  setTimeout(()=>{if(mini.style.zIndex==='9999')mini.style.zIndex='';},900);
 }
 
-function markInitial(ws){workspace=ws;knownWidgets=new WeakSet();$$('.widget',ws).forEach(el=>knownWidgets.add(el))}
 function inspectAdded(node){
   if(!(node instanceof Element)||!workspace)return;
-  const widgets=[];if(node.matches?.('.widget'))widgets.push(node);widgets.push(...$$('.widget',node));
-  widgets.forEach(el=>{if(knownWidgets.has(el))return;knownWidgets.add(el);requestAnimationFrame(()=>requestAnimationFrame(()=>commitCenterByDrag(el)))});
-  const minis=[];if(node.matches?.('#dm55-mini'))minis.push(node);minis.push(...$$('#dm55-mini',node));minis.forEach(mini=>requestAnimationFrame(()=>requestAnimationFrame(()=>centerMini(mini))));
+  const widgets=[];
+  if(node.matches?.('.widget'))widgets.push(node);
+  widgets.push(...$$('.widget',node));
+  widgets.forEach(el=>requestAnimationFrame(()=>bringWidgetForward(el)));
+  const minis=[];
+  if(node.matches?.('#dm55-mini'))minis.push(node);
+  minis.push(...$$('#dm55-mini',node));
+  minis.forEach(el=>requestAnimationFrame(()=>centerMini(el)));
 }
 
 function sync(){
   const ed=$('.editor.page-theme');
-  if(!ed){document.documentElement.classList.remove('dm65-second-board-active');document.body.classList.remove('dm65-second-board-active');workspace=null;return}
+  if(!ed){
+    document.documentElement.classList.remove('dm65-second-board-active');
+    document.body.classList.remove('dm65-second-board-active');
+    workspace=null;
+    return;
+  }
   ensureBoardToggle();
-  const ws=$('.workspace',ed);if(ws&&ws!==workspace)markInitial(ws);
+  const ws=$('.workspace',ed);
+  if(ws&&ws!==workspace){
+    workspace=ws;
+    $$('.widget',ws).forEach(el=>knownWidgets.add(el));
+    const mini=$('#dm55-mini');if(mini)knownMinis.add(mini);
+  }
+}
+
+function scheduleSync(nodes=[]){
+  if(queued)return;
+  queued=true;
+  requestAnimationFrame(()=>{
+    queued=false;
+    sync();
+    nodes.forEach(inspectAdded);
+  });
 }
 
 export function installEnhancementsV065(){
-  sync();observer?.disconnect();observer=new MutationObserver(muts=>{sync();muts.forEach(m=>m.addedNodes.forEach(inspectAdded))});observer.observe(document.getElementById('root')||document.body,{subtree:true,childList:true});
+  sync();
+  observer?.disconnect();
+  observer=new MutationObserver(muts=>{
+    const nodes=[];
+    muts.forEach(m=>m.addedNodes.forEach(n=>nodes.push(n)));
+    scheduleSync(nodes);
+  });
+  observer.observe(document.getElementById('root')||document.body,{subtree:true,childList:true});
 }
