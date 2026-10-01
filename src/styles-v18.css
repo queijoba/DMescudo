@@ -1,0 +1,57 @@
+/* DM Lite — revisão 0.5.5: remove o seletor de tema do editor e fixa a barra de ferramentas no desktop.
+   O tema continua disponível pela Home/Ajustes; a barra lateral acompanha a sessão como o dock de atalhos. */
+
+/* O seletor de tema extra do editor estava abrindo um menu nativo enorme e redundante.
+   Mantemos a preferência global, mas removemos esse controle específico da barra do escudo. */
+.editor.page-theme .top-actions > .dm53-editor-theme{
+  display:none!important;
+}
+
+@media(min-width:761px){
+  /* Barra de ferramentas fixa, espelhando o comportamento do dock inferior. */
+  body.dm62-editor-active .tool-rail{
+    position:fixed!important;
+    left:0!important;
+    top:58px!important;
+    bottom:42px!important;
+    width:84px!important;
+    min-width:84px!important;
+    height:auto!important;
+    max-height:none!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    overscroll-behavior:contain!important;
+    z-index:4400!important;
+    box-shadow:4px 0 14px rgba(0,0,0,.08)!important;
+  }
+
+  /* Como a barra saiu do fluxo, preserva exatamente o espaço que ela ocupava. */
+  body.dm62-editor-active .board-wrap{
+    margin-left:84px!important;
+    min-width:0!important;
+  }
+
+  /* Mantém o dock alinhado ao início real do quadro. */
+  body.dm62-editor-active .dock{
+    left:84px!important;
+  }
+
+  /* Evita que o conteúdo do quadro passe por baixo das barras fixas. */
+  body.dm62-editor-active .workspace{
+    padding-bottom:48px!important;
+  }
+
+  /* O segundo quadro continua opcional e usa a mesma barra fixa. */
+  body.dm65-second-board-active .tool-rail{
+    position:fixed!important;
+    top:58px!important;
+    bottom:42px!important;
+  }
+}
+
+/* Mobile mantém a pilha própria do projeto; nada fica sobre o conteúdo durante a rolagem. */
+@media(max-width:760px){
+  .editor.page-theme .top-actions > .dm53-editor-theme{
+    display:none!important;
+  }
+}
