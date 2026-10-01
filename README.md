@@ -2,9 +2,9 @@
 
 Escudo digital leve para Mestres de RPG, complementar ao PJ Lite.
 
-## 0.5.4 Alpha — versão principal
+## 0.5.5 Alpha — versão principal
 
-Esta versão substitui a linha antiga no próprio projeto Vercel do DM Lite para preservar o mesmo origin do navegador e permitir a migração automática dos saves existentes.
+Esta versão consolida a linha aprovada mais recente no próprio projeto Vercel do DM Lite, preservando o mesmo origin do navegador e a migração automática dos saves existentes.
 
 ### Migração
 
@@ -17,11 +17,17 @@ Esta versão substitui a linha antiga no próprio projeto Vercel do DM Lite para
 - Mantém as chaves antigas no navegador como fallback; a migração não apaga o save legado.
 - Continua aceitando códigos `DMLITE3:`, `DMLITE2:` e `DMLITE1:`.
 
-### Destaques
+### Destaques 0.5.5
 
-- Home inspirada no dashboard do PJ Lite.
+- Home inspirada no dashboard do PJ Lite e usada sempre como tela inicial.
 - Janelas flutuantes no desktop com arraste estabilizado.
-- Mobile próprio: pilha vertical, foco de janela e reordenação.
+- Barra de atalhos fixa no desktop.
+- Barra de ferramentas fixa no desktop.
+- Segundo quadro opcional, ativado apenas quando o Mestre quiser.
+- Novos recursos e fichas importadas abrem em primeiro plano e centralizados na área visível.
+- Seletor redundante de tema removido de dentro do escudo; tema fica na Home e em Ajustes.
+- Contorno de texto suavizado para melhorar contraste sem poluir o visual.
+- Mobile próprio: pilha vertical, foco de janela, reordenação e navegação por atalhos.
 - Escudos prontos de Dragonbane, Fabula Ultima, D&D 5.5e, Tormenta20, Ordem Paranormal, 3DeT Victory e 3D&T Alpha.
 - Integração com o PJ Lite oficial por Código da Ficha, ZIP ou JSON.
 - Mini fichas estilizadas por sistema e corrigidas para temas claros/escuros.
