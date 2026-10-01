@@ -1,0 +1,151 @@
+/* DM Lite — polimento 0.5.5: contorno suave, segundo quadro opcional e dock fixo no desktop. */
+
+/* O halo anterior estava pesado em texto negrito. Mantemos só uma borda visual muito suave. */
+.editor.page-theme .dock button,
+.editor.page-theme .tool-rail button small,
+.editor.page-theme .top-actions>[data-dm62-action]::after,
+.editor.page-theme .top-actions>[data-dm62-action],
+.editor.page-theme .ui-btn,
+.editor.page-theme .widget-body button,
+.editor.page-theme .widget-body label,
+.editor.page-theme .widget-body .muted,
+.editor.page-theme .widget-body small{
+  text-shadow:0 0 .65px color-mix(in srgb,var(--text-outline,transparent) 38%,transparent)!important;
+}
+.editor.page-theme .widget-head,
+.editor.page-theme .widget-head>input,
+.editor.page-theme .widget-actions .icon-btn,
+.editor.page-theme .editor-top,
+.editor.page-theme .editor-top .ui-btn{
+  text-shadow:0 0 .7px color-mix(in srgb,var(--light-text-outline,#111827) 42%,transparent)!important;
+}
+
+@media(min-width:761px){
+  /* Padrão: apenas um quadro, sem alongar a página. */
+  html.dm62-editor-active:not(.dm65-second-board-active),
+  body.dm62-editor-active:not(.dm65-second-board-active){
+    height:100%!important;
+    min-height:100%!important;
+    overflow:hidden!important;
+  }
+  body.dm62-editor-active:not(.dm65-second-board-active) #root{
+    height:100vh!important;
+    min-height:100vh!important;
+    max-height:100vh!important;
+    overflow:hidden!important;
+  }
+  body.dm62-editor-active:not(.dm65-second-board-active) .editor.page-theme{
+    position:fixed!important;
+    inset:0!important;
+    width:100%!important;
+    height:100vh!important;
+    min-height:100vh!important;
+    max-height:100vh!important;
+    overflow:hidden!important;
+  }
+  body.dm62-editor-active:not(.dm65-second-board-active) .editor-main{
+    flex:1!important;
+    min-height:0!important;
+    height:auto!important;
+    overflow:hidden!important;
+  }
+  body.dm62-editor-active:not(.dm65-second-board-active) .board-wrap{
+    min-height:0!important;
+    height:auto!important;
+    overflow:hidden!important;
+  }
+  body.dm62-editor-active:not(.dm65-second-board-active) .workspace{
+    flex:1!important;
+    height:auto!important;
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+  body.dm62-editor-active:not(.dm65-second-board-active) .workspace::after{display:none!important}
+
+  /* Quadro 2 só existe quando o Mestre escolhe adicioná-lo. */
+  html.dm65-second-board-active,
+  body.dm65-second-board-active{
+    height:auto!important;
+    min-height:100%!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+  }
+  body.dm65-second-board-active #root{
+    height:auto!important;
+    min-height:100vh!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+  body.dm65-second-board-active .editor.page-theme{
+    position:relative!important;
+    inset:auto!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:200vh!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+  body.dm65-second-board-active .editor-main{
+    flex:none!important;
+    min-height:calc(200vh - 58px)!important;
+    height:auto!important;
+    overflow:visible!important;
+  }
+  body.dm65-second-board-active .board-wrap{
+    min-height:calc(200vh - 58px)!important;
+    height:auto!important;
+    overflow:visible!important;
+  }
+  body.dm65-second-board-active .workspace{
+    flex:none!important;
+    width:100%!important;
+    height:calc(200vh - 100px)!important;
+    min-height:calc(200vh - 100px)!important;
+    overflow:hidden!important;
+  }
+  body.dm65-second-board-active .workspace::after{display:block!important}
+
+  /* Cabeçalho, ferramentas e atalhos permanecem acessíveis nos dois quadros. */
+  body.dm62-editor-active .editor-top{
+    position:sticky!important;
+    top:0!important;
+    z-index:5000!important;
+  }
+  body.dm62-editor-active .tool-rail{
+    position:sticky!important;
+    top:58px!important;
+    align-self:flex-start!important;
+    height:calc(100vh - 58px)!important;
+    max-height:calc(100vh - 58px)!important;
+    z-index:120!important;
+  }
+  body.dm62-editor-active .dock{
+    position:fixed!important;
+    left:84px!important;
+    right:0!important;
+    bottom:0!important;
+    width:auto!important;
+    z-index:4500!important;
+    box-shadow:0 -4px 14px rgba(0,0,0,.10)!important;
+  }
+  body.dm62-editor-active .workspace{padding-bottom:48px!important}
+
+  .dm65-board-toggle{
+    white-space:nowrap!important;
+  }
+  .dm65-board-toggle.is-active{
+    border-color:var(--accent)!important;
+    background:color-mix(in srgb,var(--accent) 14%,var(--panel))!important;
+  }
+}
+
+@media(max-width:760px){
+  .dm65-board-toggle{display:none!important}
+}
+
+/* Recurso recém-adicionado recebe um destaque curto ao chegar ao centro. */
+@keyframes dm65-new-widget-pop{
+  0%{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 55%,transparent),0 12px 30px rgba(0,0,0,.22)}
+  100%{box-shadow:0 4px 13px rgba(0,0,0,.16)}
+}
+.editor.page-theme .widget.dm65-new-widget{animation:dm65-new-widget-pop .75s ease-out 1}
