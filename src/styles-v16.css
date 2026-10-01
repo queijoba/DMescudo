@@ -1,0 +1,125 @@
+/* DM Lite — contraste adaptativo de texto + segundo quadro rolável no desktop. */
+
+/* Contorno sutil para manter legibilidade quando tema e botão têm luminâncias próximas. */
+.editor.page-theme .dock button,
+.editor.page-theme .tool-rail button small,
+.editor.page-theme .top-actions>[data-dm62-action]::after,
+.editor.page-theme .top-actions>[data-dm62-action],
+.editor.page-theme .ui-btn,
+.editor.page-theme .widget-body button,
+.editor.page-theme .widget-body label,
+.editor.page-theme .widget-body .muted,
+.editor.page-theme .widget-body small{
+  text-shadow:
+    -.45px -.45px 0 var(--text-outline,transparent),
+     .45px -.45px 0 var(--text-outline,transparent),
+    -.45px  .45px 0 var(--text-outline,transparent),
+     .45px  .45px 0 var(--text-outline,transparent)!important;
+}
+
+/* Cabeçalhos usam texto claro: contorno escuro para não sumir em headers claros. */
+.editor.page-theme .widget-head,
+.editor.page-theme .widget-head>input,
+.editor.page-theme .widget-actions .icon-btn,
+.editor.page-theme .editor-top,
+.editor.page-theme .editor-top .ui-btn{
+  text-shadow:
+    -.5px -.5px 0 var(--light-text-outline,#111827),
+     .5px -.5px 0 var(--light-text-outline,#111827),
+    -.5px  .5px 0 var(--light-text-outline,#111827),
+     .5px  .5px 0 var(--light-text-outline,#111827)!important;
+}
+
+/* Evita que abas claras do dock mantenham texto claro demais. */
+.editor.page-theme .dock button{
+  color:var(--text)!important;
+  font-weight:800!important;
+}
+.editor.page-theme .dock button.is-active{
+  color:var(--accent)!important;
+}
+
+@media(min-width:761px){
+  /* No desktop o escudo deixa de ser uma tela fixa e passa a ter dois quadros verticais. */
+  html.dm62-editor-active,
+  body.dm62-editor-active{
+    height:auto!important;
+    min-height:100%!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    overscroll-behavior-y:auto!important;
+  }
+  body.dm62-editor-active #root{
+    height:auto!important;
+    min-height:100vh!important;
+    max-height:none!important;
+    overflow:visible!important;
+  }
+  body.dm62-editor-active .editor.page-theme{
+    position:relative!important;
+    inset:auto!important;
+    width:100%!important;
+    height:auto!important;
+    min-height:200vh!important;
+    overflow:visible!important;
+  }
+  body.dm62-editor-active .editor-top{
+    position:sticky!important;
+    top:0!important;
+    z-index:5000!important;
+  }
+  body.dm62-editor-active .editor-main{
+    flex:none!important;
+    min-height:calc(200vh - 58px)!important;
+    height:auto!important;
+    overflow:visible!important;
+    align-items:stretch!important;
+  }
+  body.dm62-editor-active .tool-rail{
+    position:sticky!important;
+    top:58px!important;
+    align-self:flex-start!important;
+    height:calc(100vh - 58px)!important;
+    max-height:calc(100vh - 58px)!important;
+    z-index:120!important;
+  }
+  body.dm62-editor-active .board-wrap{
+    flex:1!important;
+    min-height:calc(200vh - 58px)!important;
+    height:auto!important;
+    overflow:visible!important;
+  }
+  body.dm62-editor-active .workspace{
+    --dm-board-page:calc(100vh - 100px);
+    flex:none!important;
+    width:100%!important;
+    height:calc(200vh - 158px)!important;
+    min-height:calc(200vh - 158px)!important;
+    overflow:hidden!important;
+    border-bottom:1px solid color-mix(in srgb,var(--border) 70%,transparent)!important;
+  }
+  body.dm62-editor-active .workspace::after{
+    content:"QUADRO 2";
+    position:absolute;
+    left:14px;
+    right:14px;
+    top:calc(100vh - 100px);
+    z-index:0;
+    height:26px;
+    padding:5px 10px 0;
+    border-top:2px dashed color-mix(in srgb,var(--accent) 55%,var(--border));
+    color:var(--muted);
+    background:linear-gradient(to bottom,color-mix(in srgb,var(--panel) 82%,transparent),transparent);
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    pointer-events:none;
+  }
+  body.dm62-editor-active .dock{
+    position:sticky!important;
+    bottom:0!important;
+    z-index:4500!important;
+    box-shadow:0 -4px 14px rgba(0,0,0,.08)!important;
+  }
+}
