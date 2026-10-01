@@ -23,6 +23,15 @@ import { installEnhancementsV060 } from './enhancements-v060.js';
 import { installEnhancementsV061 } from './enhancements-v061.js';
 import { installEnhancementsV062 } from './enhancements-v062.js';
 
+// A Home é sempre a tela de entrada. Removemos apenas a referência ao último
+// escudo aberto; os escudos e todo o conteúdo salvo permanecem intactos.
+try {
+  localStorage.removeItem('dmlite_last_shield_v2');
+  localStorage.removeItem('dmlite_current_shield_v1');
+} catch {
+  // O app continua normalmente caso o armazenamento esteja bloqueado.
+}
+
 // DM Lite 0.5.4 Alpha — Home como entrada principal, guia ampliado e mobile alinhado ao PJ Lite.
 createRoot(document.getElementById('root')).render(<App />);
 queueMicrotask(() => {
