@@ -1,0 +1,145 @@
+/* DM Lite — hotfix mobile: Home rolável + barra superior com o mesmo ritmo dos atalhos inferiores. */
+
+html.dm62-home-active,
+body.dm62-home-active{
+  height:auto!important;
+  min-height:100%!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior-y:auto!important;
+  touch-action:pan-y pinch-zoom!important;
+}
+body.dm62-home-active #root{
+  height:auto!important;
+  min-height:100dvh!important;
+  max-height:none!important;
+  overflow:visible!important;
+  position:static!important;
+}
+body.dm62-home-active .home.page-theme{
+  position:relative!important;
+  inset:auto!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:100dvh!important;
+  max-height:none!important;
+  overflow:visible!important;
+  touch-action:pan-y pinch-zoom!important;
+}
+body.dm62-home-active .home.page-theme .home-shell{
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow:visible!important;
+}
+body.dm62-home-active .home.page-theme .dm59-project-footer{
+  position:relative!important;
+  display:block!important;
+}
+
+@media(max-width:760px){
+  /* Garante que a Home não herde travas do editor/mobile. */
+  html.dm62-home-active,
+  body.dm62-home-active,
+  body.dm62-home-active #root{
+    overflow-y:auto!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+
+  /* Barra superior do escudo no mesmo padrão compacto dos atalhos inferiores. */
+  .editor.page-theme .top-actions{
+    min-height:58px!important;
+    align-items:stretch!important;
+    gap:4px!important;
+    padding:6px 0 1px!important;
+  }
+  .editor.page-theme .top-actions>[data-dm62-action]{
+    position:relative!important;
+    flex:0 0 56px!important;
+    width:56px!important;
+    min-width:56px!important;
+    height:50px!important;
+    min-height:50px!important;
+    padding:4px 3px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:2px!important;
+    border:1px solid var(--border)!important;
+    border-radius:6px!important;
+    background:var(--panel2)!important;
+    color:var(--text)!important;
+    font-size:0!important;
+    line-height:1!important;
+    text-decoration:none!important;
+    overflow:hidden!important;
+    box-shadow:none!important;
+  }
+  .editor.page-theme .top-actions>[data-dm62-action]::before{
+    content:attr(data-dm62-icon)!important;
+    display:block!important;
+    font-size:18px!important;
+    line-height:1!important;
+    color:inherit!important;
+  }
+  .editor.page-theme .top-actions>[data-dm62-action]::after{
+    content:attr(data-dm62-short)!important;
+    display:block!important;
+    max-width:50px!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    white-space:nowrap!important;
+    font-size:6.5px!important;
+    line-height:1.1!important;
+    font-weight:800!important;
+    letter-spacing:0!important;
+    color:var(--text)!important;
+  }
+  .editor.page-theme .top-actions>.dm53-editor-theme[data-dm62-action]{
+    flex-basis:48px!important;
+    width:48px!important;
+    min-width:48px!important;
+  }
+  .editor.page-theme .top-actions>.dm53-editor-theme[data-dm62-action]::after{display:none!important}
+  .editor.page-theme .top-actions>.dm53-editor-theme[data-dm62-action] select{
+    position:absolute!important;
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+    opacity:0!important;
+    cursor:pointer!important;
+  }
+  .editor.page-theme .top-actions>.dm54-sheets-button[data-dm62-action]{
+    flex-basis:64px!important;
+    width:64px!important;
+    min-width:64px!important;
+  }
+  .editor.page-theme .top-actions>.dm54-sheets-button[data-dm62-action]::after{max-width:58px!important}
+
+  /* O conteúdo original fica escondido visualmente, mas mantém click, title e acessibilidade. */
+  .editor.page-theme .top-actions>[data-dm62-action]>*:not(select){
+    font-size:0!important;
+  }
+
+  /* Mantém contraste coerente em temas claros e escuros. */
+  .editor.page-theme .top-actions>[data-dm62-action]:active,
+  .editor.page-theme .top-actions>[data-dm62-action]:focus-visible{
+    border-color:var(--accent)!important;
+    outline:2px solid color-mix(in srgb,var(--accent) 36%,transparent)!important;
+    outline-offset:1px!important;
+  }
+}
+
+@media(max-width:390px){
+  .editor.page-theme .top-actions>[data-dm62-action]{
+    flex-basis:52px!important;
+    width:52px!important;
+    min-width:52px!important;
+  }
+  .editor.page-theme .top-actions>.dm53-editor-theme[data-dm62-action]{
+    flex-basis:46px!important;
+    width:46px!important;
+    min-width:46px!important;
+  }
+}
