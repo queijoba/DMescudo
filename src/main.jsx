@@ -14,6 +14,7 @@ import './styles-v12.css';
 import './styles-v13.css';
 import './styles-v14.css';
 import './styles-v15.css';
+import './styles-v16.css';
 import { installEnhancements } from './enhancements-v053.js';
 import { installEnhancementsV055 } from './enhancements-v055.js';
 import { installEnhancementsV056 } from './enhancements-v056.js';
@@ -22,6 +23,7 @@ import { installEnhancementsV059 } from './enhancements-v059.js';
 import { installEnhancementsV060 } from './enhancements-v060.js';
 import { installEnhancementsV061 } from './enhancements-v061.js';
 import { installEnhancementsV062 } from './enhancements-v062.js';
+import { installEnhancementsV064 } from './enhancements-v064.js';
 
 // A Home é sempre a tela de entrada. Removemos apenas a referência ao último
 // escudo aberto; os escudos e todo o conteúdo salvo permanecem intactos.
@@ -33,7 +35,7 @@ try {
 }
 
 // DM Lite 0.5.4 Alpha — build de produção aprovado: Home como entrada principal,
-// guia ampliado e mobile alinhado ao PJ Lite.
+// guia ampliado, contraste adaptativo e segundo quadro rolável no desktop.
 createRoot(document.getElementById('root')).render(<App />);
 queueMicrotask(() => {
   installEnhancements();
@@ -44,4 +46,5 @@ queueMicrotask(() => {
   installEnhancementsV060();
   installEnhancementsV061();
   installEnhancementsV062();
+  installEnhancementsV064();
 });
