@@ -27,6 +27,7 @@ import { installEnhancementsV061 } from './enhancements-v061.js';
 import { installEnhancementsV062 } from './enhancements-v062.js';
 import { installEnhancementsV064 } from './enhancements-v064.js';
 import { installEnhancementsV065 } from './enhancements-v065.js';
+import { installEnhancementsV066 } from './enhancements-v066.js';
 
 // A Home é sempre a tela de entrada. Removemos apenas a referência ao último
 // escudo aberto; os escudos e todo o conteúdo salvo permanecem intactos.
@@ -51,4 +52,5 @@ queueMicrotask(() => {
   installEnhancementsV062();
   installEnhancementsV064();
   installEnhancementsV065();
+  installEnhancementsV066();
 });
