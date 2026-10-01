@@ -32,7 +32,8 @@ try {
   // O app continua normalmente caso o armazenamento esteja bloqueado.
 }
 
-// DM Lite 0.5.4 Alpha — Home como entrada principal, guia ampliado e mobile alinhado ao PJ Lite.
+// DM Lite 0.5.4 Alpha — build de produção aprovado: Home como entrada principal,
+// guia ampliado e mobile alinhado ao PJ Lite.
 createRoot(document.getElementById('root')).render(<App />);
 queueMicrotask(() => {
   installEnhancements();
