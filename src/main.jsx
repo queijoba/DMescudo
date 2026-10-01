@@ -23,7 +23,7 @@ import { installEnhancementsV060 } from './enhancements-v060.js';
 import { installEnhancementsV061 } from './enhancements-v061.js';
 import { installEnhancementsV062 } from './enhancements-v062.js';
 
-// DM Lite 0.5.4 Alpha — versão principal, migração completa e mobile alinhado ao PJ Lite.
+// DM Lite 0.5.4 Alpha — Home como entrada principal, guia ampliado e mobile alinhado ao PJ Lite.
 createRoot(document.getElementById('root')).render(<App />);
 queueMicrotask(() => {
   installEnhancements();
