@@ -39,7 +39,8 @@ try {
 }
 
 // DM Lite 0.5.5 Alpha — contraste mais suave, segundo quadro opcional,
-// atalhos e barra de ferramentas fixos no desktop e novos recursos centralizados.
+// atalhos e barra de ferramentas fixos no desktop, tema concentrado nos Ajustes
+// e novos recursos centralizados em primeiro plano.
 createRoot(document.getElementById('root')).render(<App />);
 queueMicrotask(() => {
   installEnhancements();
