@@ -19,6 +19,24 @@
   text-shadow:0 0 .7px color-mix(in srgb,var(--light-text-outline,#111827) 42%,transparent)!important;
 }
 
+/* Menu de temas: opções nativas precisam permanecer legíveis mesmo quando o tema atual usa texto claro. */
+[data-dm-theme-select]{color:var(--text,#1f2937)!important;background:var(--input,#fff)!important;text-shadow:none!important}
+[data-dm-theme-select] option,
+[data-dm-theme-select] optgroup{
+  color:#111827!important;
+  background:#ffffff!important;
+  font-size:13px!important;
+  font-weight:600!important;
+  text-shadow:none!important;
+}
+[data-dm-theme-select] optgroup{font-weight:800!important}
+.editor.page-theme .dm53-editor-theme{overflow:visible!important}
+
+/* Ficha recém-importada: aparece destacada no centro e acima das demais janelas. */
+.editor.page-theme .widget[data-dm65-centered="pj"]{
+  box-shadow:0 14px 34px rgba(0,0,0,.24),0 0 0 2px color-mix(in srgb,var(--accent) 42%,transparent)!important;
+}
+
 /* Modais: mantém os controles sempre interativos e a rolagem interna independente. */
 .modal-layer{pointer-events:auto!important;touch-action:auto!important;overscroll-behavior:contain!important}
 .modal-layer .modal{pointer-events:auto!important;max-height:92dvh!important}
@@ -49,7 +67,11 @@
   .dm65-board-toggle{white-space:nowrap!important}
   .dm65-board-toggle.is-active{border-color:var(--accent)!important;background:color-mix(in srgb,var(--accent) 14%,var(--panel))!important}
 }
-@media(max-width:760px){.dm65-board-toggle{display:none!important}}
+@media(max-width:760px){
+  .dm65-board-toggle{display:none!important}
+  /* No mobile o seletor continua invisível sobre o ícone, mas o popup nativo mantém opções legíveis. */
+  .editor.page-theme .top-actions>.dm53-editor-theme[data-dm62-action] select{color:#111827!important}
+}
 
 @keyframes dm65-new-widget-pop{0%{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 55%,transparent),0 12px 30px rgba(0,0,0,.22)}100%{box-shadow:0 4px 13px rgba(0,0,0,.16)}}
 .editor.page-theme .widget.dm65-new-widget{animation:dm65-new-widget-pop .75s ease-out 1}
