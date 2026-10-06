@@ -5,7 +5,7 @@ const DND_SKILLS = [
   ['acrobacia','Acrobacia','des'],['arcanismo','Arcanismo','int'],['atletismo','Atletismo','for'],['atuacao','Atuação','car'],['enganacao','Enganação','car'],['furtividade','Furtividade','des'],['historia','História','int'],['intimidacao','Intimidação','car'],['intuicao','Intuição','sab'],['investigacao','Investigação','int'],['lidaranimais','Lidar com Animais','sab'],['medicina','Medicina','sab'],['natureza','Natureza','int'],['percepcao','Percepção','sab'],['persuasao','Persuasão','car'],['prestidigitacao','Prestidigitação','des'],['religiao','Religião','int'],['sobrevivencia','Sobrevivência','sab'],
 ];
 const DET_SKILLS = { animais:'Animais',arte:'Arte',esporte:'Esporte',influencia:'Influência',luta:'Luta',manha:'Manha',maquinas:'Máquinas',medicina:'Medicina',mistica:'Mística',percepcao:'Percepção',saber:'Saber',sobrevivencia:'Sobrevivência' };
-const SYSTEM_NAMES = { dragonbane:'Dragonbane', dnd5e:'D&D 5.5e', fabula:'Fabula Ultima', somdas6:'O Som das Seis', '3det':'3DeT Victory' };
+const SYSTEM_NAMES = { dragonbane:'Dragonbane', dnd5e:'D&D 5.5e', fabula:'Fabula Ultima', somdas6:'O Som das Seis', '3det':'3DeT Victory', rotaZero:'Rota Zero' };
 const value = (v, fallback='—') => v === undefined || v === null || v === '' ? fallback : v;
 const signed = n => Number(n) >= 0 ? `+${Number(n)||0}` : String(Number(n)||0);
 const mod = score => Math.floor((Number(score || 10) - 10) / 2);
@@ -103,6 +103,11 @@ export function buildQuickCard(item) {
     }
     sections.push(section('Habilidades',(item.habilidades||[]).map(h=>h?.nome?`${h.nome}${h.desc?` — ${h.desc}`:''}`:null)));
     sections.push(section('Armas',(item.armas||[]).map(a=>a?.nome?`${a.nome} · ${value(a.dano)}`:null)));
+  } else if (system === 'rotaZero') {
+    // Compatibilidade deliberadamente mínima: reconhece a ficha atual do PJ Lite,
+    // preserva o payload importado e não injeta regras, estatísticas ou conteúdo
+    // próprio de Rota Zero no DM Lite.
+    subtitle='Ficha importada do PJ Lite';
   } else if (system === '3det') {
     const st=item.status||{}, attrs=item.atributos||{}; hp=`${value(st.pv?.atual,0)}/${value(st.pv?.max,0)}`;
     subtitle=type==='pc'?`${value(item.bio?.arquetipo,'3DeT Victory')} · ${value(item.bio?.conceito,'Personagem')}`:`3DeT Victory · ${value(type)}`;
