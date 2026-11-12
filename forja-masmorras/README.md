@@ -1,32 +1,49 @@
-# Forja de Masmorras — Pixel Art 0.3
+# Forja de Masmorras — Pixel Art 0.4
 
-Gerador/editor de masmorras para D&D 5e / 5.5e, Tormenta20 e Dragonbane, inspirado no clima visual de roguelikes pixel art. Texturas e objetos criados neste projeto em Canvas, sem copiar sprites de jogos comerciais.
+Gerador de masmorras pixel art para D&D 5e/5.5e, Tormenta20 e Dragonbane, com editor visual, andares conectados e impressão em folhas A4.
 
-## Abrir
+## Abrir o aplicativo
+- Site: https://forja-de-masmorras.vercel.app
+- Também funciona offline: abra `index.html` em um navegador.
 
-Abra `index.html` no navegador, ou acesse a Vercel: https://forja-de-masmorras.vercel.app
+## Novidade: impressão em mosaico A4
+Na aba **Exportar**, escolha **Ajustar grid à quantidade de folhas** para configurar:
+- 1 folha;
+- 2 A4 lado a lado (2×1) ou empilhados (1×2);
+- 4 folhas (2×2);
+- 6 (3×2 ou 2×3), 9 (3×3), 12 (4×3);
+- mosaico personalizado de 1 a 8 folhas em cada direção.
 
-## O que há de novo na versão 0.3
+A medida em milímetros de cada quadrado é calculada automaticamente para caber no mosaico escolhido sem dividir nenhum quadrado entre duas folhas. Ative **Mostrar cortes das folhas sobre o mapa** para visualizar as divisões e sua ordem (A1, B1, A2 etc.). Há uma pequena prévia de montagem no painel de exportação.
 
-- Texturas pixel art originais para piso, alvenaria, rocha, água, escadas, portas e armadilhas
-- 4 paletas de cor (Obsidiana, Cripta azul, Ruínas musgosas e Pedra antiga) e modo de planta simples
-- Aba Terreno, Objetos, Mestre e Exportar, com prévias visuais para cada ferramenta
-- Pincel de piso e ferramenta Sala retangular por arrastar; atalhos 1–9
-- 17 objetos de decoração pixel art e suporte a imagens próprias
-- Exportação de PNG colorido; impressão A4 em cores ou econômica preto e branco
+### Tamanho fixo para miniaturas
+Escolha **Quadrado fixo (miniaturas / mesa)** e selecione 10, 12,5, 15, 20 ou 25 mm. Neste modo o número de folhas é determinado pelo mapa e pode ser maior que os presets: o quadrado nunca é reduzido para caber num número de folhas imposto.
 
-## Como usar
+### Escala no jogo
+- D&D 5e/5.5e e Tormenta20: 1 quadrado = **1,5 m**.
+- Dragonbane: 1 quadrado = **2 m**.
 
-1. Escolha tamanho, sistema, paleta e semente na lateral esquerda e clique em **Gerar andar atual**.
-2. Escolha ferramentas rápidas acima do mapa, ou use as abas na direita.
-3. Clique e arraste com **Sala** para escavar salas retangulares; use **Piso**, **Parede** e **Porta** para editar.
-4. Crie subsolos e andares superiores pelas setas na lateral esquerda. Escadas conectadas possuem a mesma coordenada.
-5. Salve e recupere seu projeto em **JSON**. Na aba Exportar, imprima em A4 a 100% (sem margens), ou baixe PNG.
+A seleção de sistema ajusta a escala automaticamente, com ajuste manual disponível. Essa distância no mundo é independente dos milímetros do quadrado impresso.
 
-Quadrados reais: D&D/T20 = 1,5 m e Dragonbane = 2 m por quadrado. O tamanho impresso pode ser 10, 12,5, 15, 20 ou 25 mm por quadrado, independentemente da distância de jogo.
+### Como imprimir
+1. Vá a Exportar (ou Configurar A4 no topo).
+2. Selecione o modo, as folhas e orientação retrato/paisagem.
+3. Opcionalmente ative a prévia das divisões A1/B1.
+4. Clique em **Imprimir / Salvar em PDF A4**.
+5. No diálogo de impressão use papel **A4**, **100%**, **nenhuma margem** e **gráficos de fundo ligados**. Não selecione "ajustar à página".
+6. Apare as margens até os limites do grid e monte as folhas na ordem A1, B1, A2, B2.
+
+Configurações de impressão são guardadas no JSON do projeto, junto do mapa editável.
+
+## Outros recursos
+- Gerador procedural por semente: salas, corredores, cavernas e labirintos.
+- Andares acima/abaixo do nível térreo, escadas alinhadas.
+- Estilo de pixel art original com paletas de cripta, ruínas, pedra e obsidiana.
+- Salas retangulares por arrastar; edição de pisos, portas, paredes, água e armadilhas.
+- Móveis e objetos pixelados, upload de imagens próprias, notas e ideias de mestre.
+- Desfazer/refazer, importação/exportação JSON, exportação PNG.
 
 ## Referências
+Consultados PDFs privados no Google Drive de D&D 5.5e (Livro do Mestre), Tormenta20 Jogo do Ano, Dragonbane Livro de Regras v1.1 e guias rápidos de Dragonbane. Nenhum PDF protegido ou recurso visual de jogo comercial é redistribuído pelo aplicativo; texturas e móveis são desenhos originais em Canvas.
 
-Regras foram consultadas nos PDFs privados de D&D 5.5e (Livro do Mestre), Tormenta20 (Jogo do Ano), Dragonbane (Livro de Regras v1.1) e Guia Rápido Dragonbane de Masmorras. As fontes **não estão embutidas ou distribuídas no projeto**. Sugestões e adaptações no aplicativo não substituem os livros oficiais.
-
-Código de protótipo não oficial; sem contas ou sincronização na nuvem, nem dados completos de bestiários.
+Código mantido na branch `forja-masmorras-v02` do repositório `queijoba/DMescudo`. Deploy atual na Vercel é direto, sem sincronização automática por Git.
