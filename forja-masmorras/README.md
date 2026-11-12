@@ -1,31 +1,32 @@
-# Forja de Masmorras · web 0.2
+# Forja de Masmorras — Pixel Art 0.3
 
-Gerador e editor de mapas de masmorras para D&D 5e/5.5e, Tormenta20 e Dragonbane. Interface em português.
+Gerador/editor de masmorras para D&D 5e / 5.5e, Tormenta20 e Dragonbane, inspirado no clima visual de roguelikes pixel art. Texturas e objetos criados neste projeto em Canvas, sem copiar sprites de jogos comerciais.
 
-## Uso
+## Abrir
 
-Abra `index.html` em um navegador ou use a implantação Vercel. Nenhum login, servidor ou chave é necessário.
+Abra `index.html` no navegador, ou acesse a Vercel: https://forja-de-masmorras.vercel.app
 
-- Geração com semente (salas/corredores, caverna e labirinto), várias plantas acima e abaixo do térreo, com escadas conectadas.
-- Editor de terreno e armadilhas, móveis, notas, importação de imagens próprias, desfazer/refazer.
-- Opções de escala real 1,5 m ou 2 m por quadrado. O Livro de Regras Dragonbane informa que mapas de quadrados de 1,5 m podem ser utilizados interpretando-os como 2 m.
-- Imprimir todas as plantas ou andar atual em A4, paginação com numeradores; grade 10/12,5/15/20/25 mm na folha. Saída PDF pela função de impressão do navegador.
-- Importar/exportar projeto JSON, baixar andar como PNG, salvamento local.
-- Biblioteca compacta de ideias para salas e armadilhas por sistema. Os resumos são originais e as adaptações estão indicadas; não incluem cópias dos livros.
+## O que há de novo na versão 0.3
 
-## Referências privadas consultadas (não distribuídas)
+- Texturas pixel art originais para piso, alvenaria, rocha, água, escadas, portas e armadilhas
+- 4 paletas de cor (Obsidiana, Cripta azul, Ruínas musgosas e Pedra antiga) e modo de planta simples
+- Aba Terreno, Objetos, Mestre e Exportar, com prévias visuais para cada ferramenta
+- Pincel de piso e ferramenta Sala retangular por arrastar; atalhos 1–9
+- 17 objetos de decoração pixel art e suporte a imagens próprias
+- Exportação de PNG colorido; impressão A4 em cores ou econômica preto e branco
 
-- *D&D 5.5e - Livro do Mestre* (Drive do usuário): capítulos sobre masmorras, armadilhas e matriz de combate.
-- *Tormenta20 - Jogo do Ano* (Drive do usuário): capítulos sobre masmorras e perigos.
-- *Dragonbane - Livro de Regras v1.1* (Drive do usuário): capítulo de combate e escala de quadrados.
-- *Dragonbane - Guia Rápido Dungeon 4pg* e *Guia Rápido Masmorras e Armadilhas* (Drive do usuário): ideias e resumos de armadilhas, com indicação de material oficial ou adaptações.
+## Como usar
 
-> Protótipo não oficial. Não inclui material protegido dos livros nem pretende substituir a consulta aos PDFs.
+1. Escolha tamanho, sistema, paleta e semente na lateral esquerda e clique em **Gerar andar atual**.
+2. Escolha ferramentas rápidas acima do mapa, ou use as abas na direita.
+3. Clique e arraste com **Sala** para escavar salas retangulares; use **Piso**, **Parede** e **Porta** para editar.
+4. Crie subsolos e andares superiores pelas setas na lateral esquerda. Escadas conectadas possuem a mesma coordenada.
+5. Salve e recupere seu projeto em **JSON**. Na aba Exportar, imprima em A4 a 100% (sem margens), ou baixe PNG.
 
-## Impressão
+Quadrados reais: D&D/T20 = 1,5 m e Dragonbane = 2 m por quadrado. O tamanho impresso pode ser 10, 12,5, 15, 20 ou 25 mm por quadrado, independentemente da distância de jogo.
 
-Selecione A4, escala de 100%, sem ajuste de tamanho, margens nenhuma e fundos ativados. Para miniaturas físicas, prefira o quadrado impresso de 25 mm.
+## Referências
 
-## Limitações
+Regras foram consultadas nos PDFs privados de D&D 5.5e (Livro do Mestre), Tormenta20 (Jogo do Ano), Dragonbane (Livro de Regras v1.1) e Guia Rápido Dragonbane de Masmorras. As fontes **não estão embutidas ou distribuídas no projeto**. Sugestões e adaptações no aplicativo não substituem os livros oficiais.
 
-Sem gerenciamento de monstros/combate automático, sem conta ou sincronização em nuvem. Imagens adicionadas aumentam o tamanho dos projetos JSON.
+Código de protótipo não oficial; sem contas ou sincronização na nuvem, nem dados completos de bestiários.
