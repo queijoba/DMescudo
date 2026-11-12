@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Forja de Masmorras — Versão web 0.3</title>
+  <title>Forja de Masmorras — Versão web 0.4</title>
   <style>:root{--bg:#101619;--panel:#192126;--panel2:#202b2e;--border:#344145;--text:#e8e8d8;--soft:#a8b3ae;--muted:#7d8b87;--accent:#d3a75d;--accentlight:#f1cc7e;--green:#90b7a4;--danger:#cd817d;--shadow:rgba(0,0,0,.35)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;font-size:13px}button,input,select{font:inherit}button{border:1px solid var(--border);background:var(--panel2);color:var(--text);border-radius:7px;padding:9px 10px;cursor:pointer;transition:.12s ease}button:hover{border-color:#81938a;background:#2a3738}button:active{transform:translateY(1px)}button:disabled{opacity:.35;cursor:not-allowed}input,select{width:100%;min-width:0;background:#10191c;color:var(--text);border:1px solid #3a484a;border-radius:6px;padding:9px;outline:none}input:focus,select:focus{border-color:var(--accent)}input[type=number]{appearance:textfield}label{display:block;font-size:11px;color:#b9c0b5;font-weight:600;letter-spacing:.2px;margin-bottom:11px}label>input,label>select,label>.seedrow{margin-top:6px}.hidden{display:none!important}.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}.wide{width:100%}.accent,.prime{color:#231c0f!important;background:var(--accent)!important;border-color:#e0b46d!important;font-weight:800}.accent:hover,.prime:hover{background:#efc27b!important}.outline{background:transparent}.margin-top{margin-top:8px}.hint{line-height:1.55;font-size:11px;color:#96a49c;margin:9px 0 0}.hint b{color:#d8ded3}
 #app{min-height:100vh;display:flex;flex-direction:column}.topbar{height:69px;background:#172023;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:15px;padding:0 22px}.brand{display:flex;align-items:center;gap:12px}.logo{height:36px;width:36px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#b18a4d,#e4c882);color:#252319;font-size:29px;border-radius:8px}.brand b{display:block;letter-spacing:1.2px;font-family:Georgia,serif;font-size:16px}.brand span{color:#98a59d;display:block;font-size:9px;letter-spacing:1.2px;margin-top:2px}.top-actions{display:flex;align-items:center;gap:8px}.topbtn{font-size:12px;padding:9px 12px}.status-pill{color:#93bba5;font-size:11px;margin-right:8px}.layout{display:grid;grid-template-columns:252px minmax(360px,1fr) 286px;flex:1;min-height:0}.sidebar{background:#172023;padding:15px 12px 30px;display:flex;flex-direction:column;gap:12px}.left{border-right:1px solid var(--border)}.right{border-left:1px solid var(--border)}.panel{background:var(--panel);border:1px solid #2a3537;border-radius:10px;padding:13px}.section-title{display:flex;justify-content:space-between;font-size:11px;color:var(--accentlight);font-weight:800;letter-spacing:1.2px;margin-bottom:13px}.muted{color:#657d77!important}.seedrow{display:flex;gap:6px}.square{width:37px;flex-shrink:0;font-size:18px}.floor-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;max-height:258px;overflow:auto}.floor-item{display:flex;align-items:center;justify-content:space-between;background:#142023;border:1px solid #344343;border-radius:6px;padding:9px 10px;cursor:pointer}.floor-item.active{border-color:#ddb167;background:#30312a}.floor-item:hover{background:#293536}.floor-item .index{font-weight:800;font-size:14px;color:#edcc8e;min-width:32px}.floor-item .name{font-size:11px;flex:1}.floor-item .stairs{color:#8eab9c;font-size:11px}.help-line{display:flex;gap:9px;align-items:baseline;margin:10px 0;font-size:11px;color:#c2c8c0;line-height:1.5}.help-line span{font-weight:900;color:var(--accent)}
@@ -32,13 +32,29 @@ canvas#mapCanvas{background:#101017;image-rendering:pixelated;box-shadow:0 0 0 2
 @media(max-width:1100px){.right{display:flex;flex-direction:column}.tabnav{width:100%}.right>.panel{max-width:none}}
 @media(max-width:700px){.quickbar{padding:8px 12px}.quick-hint{max-width:100%}.tabnav{grid-template-columns:repeat(4,1fr)}.tool-grid{grid-template-columns:repeat(4,1fr)}.sidebar{padding:9px 12px}}
 @media(max-width:480px){.tool-grid{grid-template-columns:repeat(3,1fr)}.quick-tool{padding:8px 9px}.tabnav button{font-size:10px}}
+
+/* 0.4 — Compositor de mosaico A4 e prévia de guias */
+.print-intro{margin:0 0 14px!important;padding:10px 11px;background:#242532;border:1px solid #48445a;border-radius:7px}
+.print-options{display:flex;flex-direction:column;gap:5px;margin:1px 0 12px}
+.checkline{display:flex;align-items:center;gap:9px;font-weight:500;letter-spacing:0;font-size:11px;color:#d8d4d5;margin:0;padding:3px 0;cursor:pointer}
+.checkline input[type=checkbox]{width:16px;height:16px;min-width:16px;margin:0;accent-color:#d0a366;cursor:pointer}
+.print-estimate{line-height:1.65;color:#d8d7da;border-color:#78634a;background:#22212a}
+.print-estimate b{color:#f8d39c}.print-estimate strong{font-weight:800;color:#ddbd8b}.print-estimate .print-alert{color:#ffa5a0}
+.sheet-preview-wrap{margin:8px 0 15px;padding:12px 9px;border:1px solid #3e4156;border-radius:8px;background:#12121b}
+.sheet-preview-title{display:flex;align-items:center;justify-content:space-between;font-family:monospace;color:#efc585;font-size:10px;letter-spacing:.8px;margin-bottom:12px}
+.sheet-preview-title span{color:#a8a3b6;letter-spacing:0}
+.sheet-preview{display:grid;gap:3px;margin:auto;align-items:stretch;justify-items:stretch;width:100%;max-height:260px}
+.sheet-mini{background:#e5e0d8;border:1px solid #d2b17e;border-radius:1px;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#282438;min-width:0;min-height:12px;position:relative;box-shadow:inset 0 0 0 3px #f8f6f2}
+.sheet-mini strong{font-size:clamp(8px,1.15vw,16px);font-weight:900}.sheet-mini small{font-family:monospace;color:#756c67;font-size:clamp(6px,.85vw,10px)}
+.print-page{position:relative}.print-page .print-footer{position:absolute;left:10mm;right:10mm;bottom:10mm;margin-top:0;height:9mm;box-sizing:border-box;align-items:flex-end}.print-page .page-grid-container{outline:.2mm solid #858585;outline-offset:0}
+@media (max-width:700px){.sheet-mini strong{font-size:12px}}
 </style>
 </head>
 <body>
 <div id="app">
   <header class="topbar">
-    <div class="brand"><div class="logo">▦</div><div><b>FORJA DE MASMORRAS</b><span>GERADOR DE ANDARES · VERSÃO WEB 0.3 · PIXEL ART</span></div></div>
-    <div class="top-actions"><span id="saveStatus" class="status-pill">● Salvo localmente</span><button class="topbtn" id="btnImport" title="Importar projeto JSON">↥ Importar</button><button class="topbtn" id="btnExport" title="Baixar projeto editável JSON">↧ Salvar projeto</button><button class="topbtn prime" id="btnPrintTop">▤ Imprimir A4</button></div>
+    <div class="brand"><div class="logo">▦</div><div><b>FORJA DE MASMORRAS</b><span>GERADOR DE ANDARES · VERSÃO WEB 0.4 · PIXEL ART</span></div></div>
+    <div class="top-actions"><span id="saveStatus" class="status-pill">● Salvo localmente</span><button class="topbtn" id="btnImport" title="Importar projeto JSON">↥ Importar</button><button class="topbtn" id="btnExport" title="Baixar projeto editável JSON">↧ Salvar projeto</button><button class="topbtn prime" id="btnPrintTop">▤ Configurar A4</button></div>
   </header>
   <div class="layout">
     <aside class="sidebar left">
@@ -47,7 +63,7 @@ canvas#mapCanvas{background:#101017;image-rendering:pixelated;box-shadow:0 0 0 2
         <label>Sistema de RPG <select id="system"><option value="dnd">D&D 5e / 5.5e</option><option value="t20">Tormenta20</option><option value="dragonbane">Dragonbane</option></select></label>
         <label>Estilo visual <select id="themeStyle"><option value="obsidian">Obsidiana (estilo da referência)</option><option value="crypt">Cripta azul</option><option value="moss">Ruínas musgosas</option><option value="amber">Pedra antiga</option></select></label>
         <label>Renderização <select id="visualStyle"><option value="pixel">Pixel art · detalhado</option><option value="blueprint">Planta simples · rascunho</option></select></label>
-        <label>Medida real por quadrado <select id="meters"><option value="1.5">1,5 metro (D&D / Tormenta20)</option><option value="2">2 metros (Dragonbane)</option></select></label>
+        <label>Medida de cada quadrado no jogo <select id="meters"><option value="1.5">1,5 m · D&D / Tormenta20</option><option value="2">2 m · Dragonbane</option></select></label>
         <p class="hint" id="scaleHint">A escala serve para jogo. Para miniaturas, ajuste o tamanho impresso na aba Exportar.</p>
         <div class="two"><label>Largura (quad.) <input id="mapW" type="number" min="20" max="64" value="32"></label><label>Altura (quad.) <input id="mapH" type="number" min="16" max="48" value="24"></label></div>
         <label>Estilo de geração <select id="layoutStyle"><option value="rooms">Salas + corredores</option><option value="cavern">Caverna escavada</option><option value="labyrinth">Corredores labirínticos</option></select></label>
@@ -60,7 +76,7 @@ canvas#mapCanvas{background:#101017;image-rendering:pixelated;box-shadow:0 0 0 2
         <p class="hint">Escadarias ↥ e ↧ conectam pisos. Cada andar mantém sua própria planta.</p>
       </section>
       <section class="panel"><div class="section-title"><span>COMO USAR</span><span class="muted">?</span></div>
-        <div class="help-line"><span>01</span> Gere ou selecione um andar.</div><div class="help-line"><span>02</span> Escolha terreno, móvel ou imagem.</div><div class="help-line"><span>03</span> Arraste para pintar ou selecione Sala para abrir um cômodo.</div><div class="help-line"><span>04</span> Imprima em A4 em escala 100%.</div>
+        <div class="help-line"><span>01</span> Gere ou selecione um andar.</div><div class="help-line"><span>02</span> Escolha terreno, móvel ou imagem.</div><div class="help-line"><span>03</span> Arraste para pintar ou selecione Sala para abrir um cômodo.</div><div class="help-line"><span>04</span> Configure 2, 4 ou mais folhas A4 em Exportar.</div>
         <p class="hint">Clique em ↥/↧ no modo <b>Inspecionar</b> para abrir o andar conectado. Ctrl+Z desfaz.</p>
       </section>
     </aside>
@@ -84,11 +100,27 @@ canvas#mapCanvas{background:#101017;image-rendering:pixelated;box-shadow:0 0 0 2
         <div class="image-options"><label>Tamanho <select id="imageSize"><option value="1">1 × 1 quadrado</option><option value="2">2 × 2 quadrados</option><option value="3">3 × 3 quadrados</option><option value="4">4 × 4 quadrados</option></select></label><button id="btnRotate" class="outline" title="Girar próxima imagem ou objeto 90°">↻ Girar</button></div>
         <div id="imageLibrary" class="image-library"></div><p class="hint">As imagens ficam incluídas no arquivo JSON do projeto.</p>
       </section>
-      <section class="panel" data-worktab="export"><div class="section-title"><span>IMPRESSÃO A4</span><span class="muted">05</span></div>
-        <div class="two"><label>Quadrado impresso <select id="cellMm"><option value="10">10 mm</option><option value="12.5">12,5 mm</option><option value="15">15 mm</option><option value="20">20 mm</option><option value="25">25 mm</option></select></label><label>Orientação <select id="orientation"><option value="portrait">Retrato</option><option value="landscape">Paisagem</option></select></label></div>
-        <label>Estilo de tinta <select id="printInk"><option value="economy">Econômico (preto e branco)</option><option value="color">Colorido</option></select></label><label>Imprimir <select id="printScope"><option value="current">Somente andar atual</option><option value="all">Todos os andares</option></select></label><div id="printPages" class="print-estimate">Estimativa: — páginas A4</div>
-        <button id="btnPrint" class="wide accent">▤ Imprimir / Salvar PDF</button><button id="btnPng" class="wide outline margin-top">↧ Baixar PNG do andar</button>
-        <p class="hint">No diálogo de impressão: <b>A4, escala 100%, margens nenhuma</b> e <b>gráficos de fundo ativados</b>. As páginas já vêm divididas e numeradas.</p>
+      <section class="panel" data-worktab="export"><div class="section-title"><span>GRID E IMPRESSÃO A4</span><span class="muted">05</span></div>
+        <p class="hint print-intro">Escolha em quantas folhas A4 deseja dividir <b>um andar</b>. O editor calcula automaticamente o tamanho do grid no papel.</p>
+        <label>Modo de divisão <select id="printMode"><option value="fit">Ajustar grid à quantidade de folhas</option><option value="fixed">Quadrado fixo (miniaturas / mesa)</option></select></label>
+        <div id="sheetLayoutBlock">
+          <label>Mosaico de folhas A4 <select id="sheetLayout">
+            <option value="1x1">1 folha</option><option value="2x1">2 folhas · lado a lado</option><option value="1x2">2 folhas · uma acima da outra</option>
+            <option value="2x2" selected>4 folhas · 2 × 2</option><option value="3x2">6 folhas · 3 × 2</option><option value="2x3">6 folhas · 2 × 3</option>
+            <option value="3x3">9 folhas · 3 × 3</option><option value="4x3">12 folhas · 4 × 3</option><option value="custom">Personalizado...</option>
+          </select></label>
+          <div class="two hidden" id="customSheetControls"><label>Folhas na largura <input id="sheetAcross" type="number" min="1" max="8" value="2"></label><label>Folhas na altura <input id="sheetDown" type="number" min="1" max="8" value="2"></label></div>
+        </div>
+        <div class="hidden" id="fixedCellBlock"><label>Medida do quadrado no papel <select id="cellMm"><option value="10">10 mm</option><option value="12.5">12,5 mm</option><option value="15">15 mm</option><option value="20">20 mm</option><option value="25" selected>25 mm · miniaturas</option></select></label><p class="hint">Aqui o tamanho da grade fica fixo. O número de folhas é calculado conforme o tamanho do mapa.</p></div>
+        <label>Orientação de cada folha <select id="orientation"><option value="portrait">A4 em pé (retrato)</option><option value="landscape">A4 deitado (paisagem)</option></select></label>
+        <div class="print-options"><label class="checkline"><input id="showSheetGuides" type="checkbox"> Mostrar cortes das folhas sobre o mapa</label><label class="checkline"><input id="printGrid" type="checkbox" checked> Imprimir linhas do grid</label></div>
+        <div id="printPages" class="print-estimate" aria-live="polite">Calculando quantidade de folhas...</div>
+        <div class="sheet-preview-wrap"><div class="sheet-preview-title">PRÉVIA DA MONTAGEM <span id="previewSheetCount"></span></div><div id="sheetPreview" class="sheet-preview" aria-label="Posição e ordem das folhas A4"></div></div>
+        <label>Estilo de tinta <select id="printInk"><option value="color">Colorido · pixel art</option><option value="economy">Econômico · preto e branco</option></select></label>
+        <label>Imprimir <select id="printScope"><option value="current">Somente andar atual</option><option value="all">Todos os andares</option></select></label>
+        <button id="btnPrint" class="wide accent">▤ Imprimir / Salvar em PDF A4</button><button id="btnPng" class="wide outline margin-top">↧ Baixar PNG do andar</button>
+        <p class="hint">No diálogo de impressão: <b>A4, escala 100%, margens nenhuma</b> e <b>gráficos de fundo ativados</b>. As folhas recebem códigos A1, B1, A2...; para unir fisicamente, apare as margens até a borda do mapa.</p>
+        <p class="hint"><b>Importante:</b> 1,5 ou 2 m é a distância <em>no mundo do RPG</em>. O tamanho em milímetros é a medida <em>do papel</em>; são ajustes independentes.</p>
       </section>
       <section class="panel" data-worktab="master" id="libraryPanel"><div class="section-title"><span>IDEIAS DO MESTRE</span><span class="muted">06</span></div>
         <label>Categoria <select id="contentCategory"><option value="trap">Armadilhas e perigos</option><option value="room">Tipos de salas</option></select></label>
@@ -170,7 +202,7 @@ const tileAt=(f,x,y)=>inside(f,x,y)?f.tiles[idx(f,x,y)]:T.ROCK;
 const setTile=(f,x,y,t)=>{if(inside(f,x,y))f.tiles[idx(f,x,y)]=t};
 const isWalk=t=>t!==T.ROCK;
 const getFloor=()=>project.floors[String(activeLevel)];
-function defaultProject(){return {version:1,name:'Ruínas do Eco',system:'dnd',w:32,h:24,seed:'ABISMO-042',layout:'rooms',meters:1.5,theme:'obsidian',visual:'pixel',images:[],floors:{}}}
+function defaultProject(){return {version:1,name:'Ruínas do Eco',system:'dnd',w:32,h:24,seed:'ABISMO-042',layout:'rooms',meters:1.5,theme:'obsidian',visual:'pixel',printSettings:{mode:'fit',layout:'2x2',across:2,down:2,mm:25,orientation:'portrait',scope:'current',ink:'color',guides:false,grid:true},images:[],floors:{}}}
 function snapshot(){return JSON.stringify({project,activeLevel})}
 function restoreSnapshot(data){let v=JSON.parse(data);project=v.project;activeLevel=v.activeLevel;primeImageCache();syncForm();renderAll()}
 function commit(){undoStack.push(snapshot());if(undoStack.length>24)undoStack.shift();redoStack=[]}
@@ -234,7 +266,7 @@ function renderFloorList(){let el=$('#floorsList');el.innerHTML='';const levels=
 function renderNotes(){let f=getFloor(),el=$('#notesList');el.innerHTML='';for(const n of f.notes){let b=document.createElement('div');b.className='note-line';b.innerHTML=`<b>(${n.x+1},${n.y+1})</b> ${escapeHtml(n.text)}`;b.title='Clique para editar';b.onclick=()=>editNote(n.x,n.y);el.appendChild(b)}if(!f.notes.length)el.innerHTML='<span class="hint">Ainda sem notas neste andar.</span>'}
 function renderAll(){let f=getFloor();if(!f)return;$('#floorTitle').textContent=floorName(activeLevel);$('#footerScale').textContent='1 □ = '+project.meters.toLocaleString('pt-BR')+' m';$('#scaleHint').textContent=project.system==='dragonbane'?'Dragonbane usa 2 m por quadrado; o livro permite aproveitar mapas de 1,5 m considerando-os como 2 m.':'Cada quadrado do mapa representa a distância escolhida. A impressão é configurada separadamente.';renderContent();$('#floorSubtitle').textContent=`${f.w} × ${f.h} quadrados · ${f.w*project.meters} × ${f.h*project.meters} m · 1 quadrado = ${project.meters.toLocaleString('pt-BR')} m`;
  $('#mapLabel').textContent=`${project.name.toUpperCase()} / CAMADA ${levelShort(activeLevel)}`;renderFloorList();renderTools();renderNotes();renderMap();updatePrintEstimate();$('#btnUndo').disabled=!undoStack.length;$('#btnRedo').disabled=!redoStack.length;$('#zoomText').textContent=Math.round(zoom/28*100)+'%'}
-function syncForm(){$('#projectName').value=project.name;$('#system').value=project.system;$('#meters').value=String(project.meters);$('#mapW').value=project.w;$('#mapH').value=project.h;$('#layoutStyle').value=project.layout;$('#themeStyle').value=project.theme||'obsidian';$('#visualStyle').value=project.visual||'pixel';$('#seed').value=project.seed}
+function syncForm(){$('#projectName').value=project.name;$('#system').value=project.system;$('#meters').value=String(project.meters);$('#mapW').value=project.w;$('#mapH').value=project.h;$('#layoutStyle').value=project.layout;$('#themeStyle').value=project.theme||'obsidian';$('#visualStyle').value=project.visual||'pixel';$('#seed').value=project.seed;const ps=project.printSettings||defaultProject().printSettings;$('#printMode').value=ps.mode||'fit';$('#sheetLayout').value=ps.layout||'2x2';$('#sheetAcross').value=ps.across||2;$('#sheetDown').value=ps.down||2;$('#cellMm').value=String(ps.mm||25);$('#orientation').value=ps.orientation||'portrait';$('#printScope').value=ps.scope||'current';$('#printInk').value=ps.ink||'color';$('#showSheetGuides').checked=!!ps.guides;$('#printGrid').checked=ps.grid!==false;}
 function theme(paper=false,economy=false){if(paper&&economy)return {rock:'#f7f7f5',floor:'#ffffff',water:'#ececec',line:'#787878',rockLine:'#d5d5d0',edge:'#363a38',door:'#525252',trap:'#333333',ink:'#161616',object:'#3d3d3d',note:'#555555'};return paper?{rock:'#ddddda',floor:'#fcfcf7',water:'#d9e7e9',line:'#84928a',rockLine:'#b0b6b0',edge:'#505650',door:'#b18c57',trap:'#be695b',ink:'#29312f',object:'#6d624c',note:'#715b2d'}:{rock:'#26312f',floor:'#576154',water:'#36626a',line:'#869288',rockLine:'#34433d',edge:'#a3ab85',door:'#bc8d51',trap:'#de8272',ink:'#f3ebd0',object:'#e5c38c',note:'#f2c776'}}
 // Texturas e sprites pixel art originais, desenhados em Canvas a 32 pixels e ampliados sem interpolação.
 const PX=32;
@@ -426,6 +458,7 @@ function drawObject(ctx,o,x,y,pz,p){ctx.save();let s=pz*(o.size||1);ctx.translat
  else if(type==='statue'){circle(0,-.24,.15);rect(-.22,-.06,.44,.37);rect(-.33,.31,.66,.11,true)}
  ctx.restore()}
 function renderMap(){let f=getFloor();CANVAS.width=f.w*zoom;CANVAS.height=f.h*zoom;CTX.imageSmoothingEnabled=false;drawMap(CTX,f,zoom,0,0,f.w,f.h,{grid:showGrid});
+  if($('#showSheetGuides').checked)drawSheetGuides(CTX,f);
   if(roomStart&&roomEnd&&tool==='room'){let l=Math.min(roomStart.x,roomEnd.x),t=Math.min(roomStart.y,roomEnd.y),r=Math.max(roomStart.x,roomEnd.x),b=Math.max(roomStart.y,roomEnd.y);CTX.fillStyle='#d3b06f30';CTX.fillRect(l*zoom,t*zoom,(r-l+1)*zoom,(b-t+1)*zoom);CTX.strokeStyle='#ffe1a1';CTX.lineWidth=2;CTX.strokeRect(l*zoom+1,t*zoom+1,(r-l+1)*zoom-2,(b-t+1)*zoom-2)}
   else if(hoverPoint && tool!=='inspect'){CTX.strokeStyle='#e7d398';CTX.lineWidth=2;CTX.strokeRect(hoverPoint.x*zoom+1,hoverPoint.y*zoom+1,zoom-2,zoom-2)}
 }
@@ -445,10 +478,98 @@ function handlePointerUp(){if(painting){if(tool==='room' && roomStart&&roomEnd){
 function primeImageCache(){imageCache.clear();for(const im of project.images||[]){let image=new Image();image.src=im.src;image.onload=()=>renderMap();imageCache.set(im.id,image)}}
 async function loadNewImages(files){if(!files?.length)return;let success=0;commit();for(const file of [...files].slice(0,8)){if(!file.type.startsWith('image/'))continue;if(file.size>10*1024*1024){toast(file.name+': limite de 10 MB.');continue}try{let data=await readImage(file),id='im'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);project.images.push({id,name:file.name,src:data});let img=new Image();img.src=data;img.onload=renderMap;imageCache.set(id,img);success++;selectedImage=id}catch(err){toast('Não foi possível ler '+file.name)}}if(success){selectTool('img:'+selectedImage);renderAll();save();toast(success+' imagem(ns) adicionada(s).')}else{undoStack.pop()}}
 function readImage(file){return new Promise((resolve,reject)=>{let rd=new FileReader();rd.onerror=reject;rd.onload=()=>{let im=new Image();im.onerror=reject;im.onload=()=>{let scale=Math.min(1,700/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*scale));c.height=Math.max(1,Math.round(im.height*scale));c.getContext('2d').drawImage(im,0,0,c.width,c.height);resolve(c.toDataURL('image/png'))};im.src=rd.result};rd.readAsDataURL(file)})}
-function estimate(){let mm=Number($('#cellMm').value),portrait=$('#orientation').value==='portrait',pw=portrait?210:297,ph=portrait?297:210;let cols=Math.max(1,Math.floor((pw-20)/mm)),rows=Math.max(1,Math.floor((ph-20-13-12-4)/mm));let levels=$('#printScope').value==='all'?Object.keys(project.floors).map(Number).sort((a,b)=>b-a):[activeLevel];let num=0;for(const l of levels){let f=project.floors[String(l)];num+=Math.ceil(f.w/cols)*Math.ceil(f.h/rows)}return {mm,pw,ph,cols,rows,levels,num}}
-function updatePrintEstimate(){if(!project)return;let {num,cols,rows}=estimate();$('#printPages').textContent=`${num} página(s) A4 · até ${cols} × ${rows} quadrados por folha`}
-function makeSlice(f,cx,cy,nx,ny){let t=76,canvas=document.createElement('canvas');canvas.width=nx*t;canvas.height=ny*t;drawMap(canvas.getContext('2d'),f,t,cx,cy,nx,ny,{paper:true,economical:$('#printInk').value==='economy',grid:true});return canvas.toDataURL('image/png')}
-async function preparePrint(){let {mm,pw,ph,cols,rows,levels,num}=estimate();if(num>90&&!window.confirm(`O arquivo terá ${num} páginas A4. Continuar?`))return false;let root=$('#printRoot');root.innerHTML='';let counter=0;for(const l of levels){let f=project.floors[String(l)],across=Math.ceil(f.w/cols),down=Math.ceil(f.h/rows),p=0;for(let yy=0;yy<down;yy++)for(let xx=0;xx<across;xx++){let cx=xx*cols,cy=yy*rows,nx=Math.min(cols,f.w-cx),ny=Math.min(rows,f.h-cy),sheet=document.createElement('section');counter++;p++;sheet.className='print-page';sheet.style.width=pw+'mm';sheet.style.height=ph+'mm';const title=escapeHtml(project.name),floor=escapeHtml(floorName(l));let source=makeSlice(f,cx,cy,nx,ny);sheet.innerHTML=`<div class="print-header"><div>${title.toUpperCase()} · ${floor.toUpperCase()}<small> · ${escapeHtml(systemLabel())}</small></div><small>FOLHA ${p}/${across*down} · TOTAL ${counter}/${num}</small></div><div class="page-grid-container" style="width:${nx*mm}mm;height:${ny*mm}mm;margin-top:3mm"><img alt="Trecho do mapa" src="${source}" style="width:${nx*mm}mm;height:${ny*mm}mm"></div><div class="print-footer"><span>Colunas ${cx+1}–${cx+nx} · Linhas ${cy+1}–${cy+ny}</span><span>1 quadrado = ${String(project.meters).replace('.',',')} m · ${mm} mm no papel · A4 / 100%</span></div>`;root.appendChild(sheet)}}if(!printStyle){printStyle=document.createElement('style');printStyle.id='dynamicPageStyle';document.head.appendChild(printStyle)}printStyle.textContent=`@page{size:A4 ${$('#orientation').value};margin:0}`;return true}
+// Esquema de montagem A4: limites calculados em quadrados inteiros.
+// Medidas de segurança: margens 10mm, cabeçalho 13mm, separação 3mm,
+// rodapé reservado 12mm, para não recortar a última linha de grid.
+const PAPER={margin:10,header:13,gap:3,footer:12};
+function printSheetSelection(){
+  let layout=$('#sheetLayout').value;
+  if(layout==='custom')return {across:clamp(Number($('#sheetAcross').value)||1,1,8),down:clamp(Number($('#sheetDown').value)||1,1,8)};
+  let [across,down]=layout.split('x').map(Number);return {across,down};
+}
+function estimate(){
+ const mode=$('#printMode').value,portrait=$('#orientation').value==='portrait',pw=portrait?210:297,ph=portrait?297:210;
+ const usableW=pw-PAPER.margin*2,usableH=ph-PAPER.margin*2-PAPER.header-PAPER.gap-PAPER.footer;
+ const f=getFloor(),w=f.w,h=f.h;
+ let mm,cols,rows,across,down;
+ if(mode==='fit'){
+   ({across,down}=printSheetSelection());
+   cols=Math.ceil(w/across);rows=Math.ceil(h/down);
+   // Arredondamento para baixo impede que a impressão exceda 1 folha A4.
+   mm=Math.max(.1,Math.floor(Math.min(usableW/cols,usableH/rows)*10)/10);
+ }else{
+   mm=Number($('#cellMm').value)||25;
+   cols=Math.max(1,Math.floor((usableW+.000001)/mm));rows=Math.max(1,Math.floor((usableH+.000001)/mm));
+   across=Math.ceil(w/cols);down=Math.ceil(h/rows);
+ }
+ let levels=$('#printScope').value==='all'?Object.keys(project.floors).map(Number).sort((a,b)=>b-a):[activeLevel];
+ const perFloor=levels.map(level=>{const floor=project.floors[String(level)];return {level,across:Math.ceil(floor.w/cols),down:Math.ceil(floor.h/rows)}});
+ const num=perFloor.reduce((a,b)=>a+b.across*b.down,0);
+ return {mode,mm,pw,ph,usableW,usableH,cols,rows,across,down,levels,perFloor,num};
+}
+function rememberPrintSettings(){project.printSettings={mode:$('#printMode').value,layout:$('#sheetLayout').value,across:clamp(Number($('#sheetAcross').value)||2,1,8),down:clamp(Number($('#sheetDown').value)||2,1,8),mm:Number($('#cellMm').value),orientation:$('#orientation').value,scope:$('#printScope').value,ink:$('#printInk').value,guides:$('#showSheetGuides').checked,grid:$('#printGrid').checked};save();}
+function showPrintControls(){
+ const fit=$('#printMode').value==='fit';
+ $('#sheetLayoutBlock').classList.toggle('hidden',!fit);$('#fixedCellBlock').classList.toggle('hidden',fit);
+ $('#customSheetControls').classList.toggle('hidden',$('#sheetLayout').value!=='custom');
+}
+function updatePrintEstimate(){
+ if(!project)return;
+ showPrintControls();const e=estimate(),{num,cols,rows,across,down,mm,levels}=e;
+ const qty=across*down,gridLabel=String(project.meters).replace('.',',');
+ const surface=`${(getFloor().w*project.meters).toLocaleString('pt-BR')} × ${(getFloor().h*project.meters).toLocaleString('pt-BR')} m`;
+ $('#printPages').innerHTML=`<b>${qty} folha(s) A4 por andar</b> · ${across} na horizontal × ${down} na vertical<br><strong>${cols} × ${rows} quadrados no máximo por folha</strong><br>Grid: <b>${mm.toLocaleString('pt-BR',{maximumFractionDigits:1})} mm</b> no papel · <b>${gridLabel} m</b> no jogo<br>Dimensões no jogo: ${surface}<br>${levels.length>1?`Total para ${levels.length} andares: <b>${num} folhas</b>`:'Posições das folhas: A1, B1, A2...'}${mm<5?'<br><strong class="print-alert">Atenção: quadrado muito pequeno. Escolha mais folhas para ampliar.</strong>':''}`;
+ const preview=$('#sheetPreview');preview.innerHTML='';preview.style.gridTemplateColumns=`repeat(${across},minmax(0,1fr))`;
+ preview.style.maxWidth=Math.min(300,across*(e.pw>e.ph?80:60))+'px';
+ for(let y=0;y<down;y++)for(let x=0;x<across;x++){
+   let sq=document.createElement('div');sq.className='sheet-mini';sq.style.aspectRatio=`${e.pw}/${e.ph}`;
+   let label=String.fromCharCode(65+x)+(y+1),cx=x*cols,cy=y*rows;
+   let countX=Math.min(cols,getFloor().w-cx),countY=Math.min(rows,getFloor().h-cy);
+   sq.title=`Folha ${label} · colunas ${cx+1}–${cx+countX}, linhas ${cy+1}–${cy+countY}`;
+   sq.innerHTML=`<strong>${label}</strong><small>${countX}×${countY}</small>`;preview.appendChild(sq);
+ }
+ $('#previewSheetCount').textContent=qty+' A4';
+ if($('#showSheetGuides').checked)renderMap();
+}
+function drawSheetGuides(ctx,f){
+ const {cols,rows,across,down}=estimate();ctx.save();
+ ctx.strokeStyle='#f4d58d';ctx.lineWidth=Math.max(2,zoom*.075);ctx.setLineDash([Math.max(5,zoom*.3),Math.max(3,zoom*.18)]);
+ for(let i=1;i<across;i++){let xx=i*cols*zoom;if(xx>=f.w*zoom)continue;ctx.beginPath();ctx.moveTo(xx,0);ctx.lineTo(xx,f.h*zoom);ctx.stroke()}
+ for(let i=1;i<down;i++){let yy=i*rows*zoom;if(yy>=f.h*zoom)continue;ctx.beginPath();ctx.moveTo(0,yy);ctx.lineTo(f.w*zoom,yy);ctx.stroke()}
+ ctx.setLineDash([]);ctx.textBaseline='middle';ctx.textAlign='center';ctx.font=`bold ${Math.max(12,Math.min(20,zoom*.6))}px system-ui`;
+ for(let y=0;y<down;y++)for(let x=0;x<across;x++){
+  let rx=x*cols*zoom,ry=y*rows*zoom;if(rx>=f.w*zoom||ry>=f.h*zoom)continue;
+  let lab=String.fromCharCode(65+x)+(y+1),lx=rx+30,ly=ry+17;
+  ctx.fillStyle='rgba(18,18,27,.88)';ctx.fillRect(lx-24,ly-12,48,24);ctx.strokeStyle='#e2bb7b';ctx.lineWidth=1;ctx.strokeRect(lx-24,ly-12,48,24);ctx.fillStyle='#ffe2a0';ctx.fillText(lab,lx,ly);
+ }
+ ctx.restore();
+}
+function makeSlice(f,cx,cy,nx,ny){
+ let t=76,canvas=document.createElement('canvas');canvas.width=nx*t;canvas.height=ny*t;
+ drawMap(canvas.getContext('2d'),f,t,cx,cy,nx,ny,{paper:true,economical:$('#printInk').value==='economy',grid:$('#printGrid').checked});
+ return canvas.toDataURL('image/png');
+}
+async function preparePrint(){
+ const {mm,pw,ph,cols,rows,levels,perFloor,num}=estimate();
+ if(num>90&&!window.confirm(`O arquivo terá ${num} páginas A4. Continuar?`))return false;
+ let root=$('#printRoot');root.innerHTML='';let counter=0;
+ for(let li=0;li<levels.length;li++){
+   const l=levels[li],f=project.floors[String(l)],across=perFloor[li].across,down=perFloor[li].down;
+   let p=0;
+   for(let yy=0;yy<down;yy++)for(let xx=0;xx<across;xx++){
+     let cx=xx*cols,cy=yy*rows,nx=Math.min(cols,f.w-cx),ny=Math.min(rows,f.h-cy);
+     let sheet=document.createElement('section');counter++;p++;
+     sheet.className='print-page';sheet.style.width=pw+'mm';sheet.style.height=ph+'mm';
+     const title=escapeHtml(project.name),floor=escapeHtml(floorName(l)),stamp=String.fromCharCode(65+xx)+(yy+1);
+     const source=makeSlice(f,cx,cy,nx,ny),sideX=(nx*mm).toFixed(2),sideY=(ny*mm).toFixed(2);
+     sheet.innerHTML=`<div class="print-header"><div>${title.toUpperCase()} · ${floor.toUpperCase()}<small> · ${escapeHtml(systemLabel())}</small></div><small>FOLHA ${stamp} (${p}/${across*down}) · ${counter}/${num}</small></div><div class="page-grid-container" style="width:${sideX}mm;height:${sideY}mm;margin-top:3mm"><img alt="Trecho ${stamp} da masmorra" src="${source}" style="width:${sideX}mm;height:${sideY}mm"></div><div class="print-footer"><span>${stamp} · colunas ${cx+1}–${cx+nx} · linhas ${cy+1}–${cy+ny}</span><span>1 quadrado = ${String(project.meters).replace('.',',')} m · ${mm.toLocaleString('pt-BR')} mm no papel</span></div>`;
+     root.appendChild(sheet);
+   }
+ }
+ if(!printStyle){printStyle=document.createElement('style');printStyle.id='dynamicPageStyle';document.head.appendChild(printStyle)}
+ printStyle.textContent=`@page{size:A4 ${$('#orientation').value};margin:0}`;
+ return true;
+}
 function systemLabel(){return {dnd:'D&D 5e / 5.5e',t20:'Tormenta20',dragonbane:'Dragonbane'}[project.system]||project.system}
 function download(name,blob){let a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
 function fileName(s){return String(s).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9_-]+/g,'_').slice(0,50)}
@@ -458,14 +579,14 @@ function exportPng(){let f=getFloor(),px=64,c=document.createElement('canvas');c
 function applySettings(regenerate=false){let w=clamp(parseInt($('#mapW').value,10)||32,20,64),h=clamp(parseInt($('#mapH').value,10)||24,16,48),seed=$('#seed').value.trim()||'MASMORRA',layout=$('#layoutStyle').value;let dims=w!==project.w||h!==project.h;if(regenerate){if(dims&&!window.confirm('Alterar as dimensões irá recriar TODOS os andares, apagando suas edições. Continuar?')){syncForm();return}commit();project.w=w;project.h=h;project.seed=seed;project.layout=layout;let levels=dims?Object.keys(project.floors).map(Number):[activeLevel];if(dims)project.floors={};for(const l of levels)project.floors[String(l)]=makeFloor(l);renderAll();save();toast(dims?'Todos os andares foram recriados.':'Novo andar gerado.')}else{project.seed=seed;project.layout=layout;save()}}
 function bind(){CANVAS.addEventListener('pointerdown',handlePointerDown);CANVAS.addEventListener('pointermove',handlePointerMove);CANVAS.addEventListener('pointerup',handlePointerUp);CANVAS.addEventListener('pointercancel',handlePointerUp);
  $('#btnUndo').onclick=undo;$('#btnRedo').onclick=redo;$('#btnFloorUp').onclick=()=>addFloor(1);$('#btnFloorDown').onclick=()=>addFloor(-1);$('#btnRegenerate').onclick=()=>applySettings(true);$('#btnRandomSeed').onclick=()=>{$('#seed').value=randSeed();toast('Semente alterada. Clique em Gerar andar atual.')} ;$('#themeStyle').onchange=e=>{commit();project.theme=e.target.value;renderAll();save()};$('#visualStyle').onchange=e=>{commit();project.visual=e.target.value;renderAll();save()};
- $('#projectName').addEventListener('change',e=>{commit();project.name=e.target.value.trim()||'Masmorra sem nome';renderAll();save()});$('#system').addEventListener('change',e=>{commit();project.system=e.target.value;chosenContent=null;save();renderAll()});$('#meters').addEventListener('change',e=>{commit();project.meters=Number(e.target.value);save();renderAll()});$('#contentCategory').addEventListener('change',()=>{chosenContent=null;renderContent()});$('#btnRollContent').onclick=()=>{let pool=LIBRARY[project.system][$('#contentCategory').value];chosenContent=pool[Math.floor(Math.random()*pool.length)];renderContent();toast('Nova ideia sorteada.');};$('#btnPlaceContent').onclick=()=>{if(!chosenContent)renderContent();selectTool('preset');toast('Clique em um quadrado do mapa para marcar essa ideia.');};$('#layoutStyle').addEventListener('change',()=>toast('Estilo aplicado na próxima geração.'));$('#btnGrid').onclick=()=>{showGrid=!showGrid;$('#btnGrid').classList.toggle('on',showGrid);renderMap()};$('#btnZoomIn').onclick=()=>{zoom=clamp(zoom+4,16,60);renderAll()};$('#btnZoomOut').onclick=()=>{zoom=clamp(zoom-4,16,60);renderAll()};
+ $('#projectName').addEventListener('change',e=>{commit();project.name=e.target.value.trim()||'Masmorra sem nome';renderAll();save()});$('#system').addEventListener('change',e=>{commit();project.system=e.target.value;project.meters=project.system==='dragonbane'?2:1.5;$('#meters').value=String(project.meters);chosenContent=null;save();renderAll()});$('#meters').addEventListener('change',e=>{commit();project.meters=Number(e.target.value);save();renderAll()});$('#contentCategory').addEventListener('change',()=>{chosenContent=null;renderContent()});$('#btnRollContent').onclick=()=>{let pool=LIBRARY[project.system][$('#contentCategory').value];chosenContent=pool[Math.floor(Math.random()*pool.length)];renderContent();toast('Nova ideia sorteada.');};$('#btnPlaceContent').onclick=()=>{if(!chosenContent)renderContent();selectTool('preset');toast('Clique em um quadrado do mapa para marcar essa ideia.');};$('#layoutStyle').addEventListener('change',()=>toast('Estilo aplicado na próxima geração.'));$('#btnGrid').onclick=()=>{showGrid=!showGrid;$('#btnGrid').classList.toggle('on',showGrid);renderMap()};$('#btnZoomIn').onclick=()=>{zoom=clamp(zoom+4,16,60);renderAll()};$('#btnZoomOut').onclick=()=>{zoom=clamp(zoom-4,16,60);renderAll()};
  $('#btnImageUpload').onclick=()=>$('#imageFile').click();$('#imageFile').onchange=e=>{loadNewImages(e.target.files);e.target.value=''};$('#btnRotate').onclick=()=>{rotation=(rotation+90)%360;toast('Rotação: '+rotation+'°. O próximo objeto será girado.')};
- ['cellMm','orientation','printScope'].forEach(id=>$('#'+id).addEventListener('change',updatePrintEstimate));$('#btnPrint').onclick=$('#btnPrintTop').onclick=async()=>{if(await preparePrint())window.print()};$('#btnPng').onclick=exportPng;$('#btnExport').onclick=exportJson;$('#btnImport').onclick=()=>$('#projectFile').click();$('#projectFile').onchange=e=>{if(e.target.files[0])importJson(e.target.files[0]);e.target.value=''};
+ ['cellMm','orientation','printScope','printInk','printMode','sheetLayout','printGrid'].forEach(id=>$('#'+id).addEventListener('change',()=>{rememberPrintSettings();updatePrintEstimate()}));['sheetAcross','sheetDown'].forEach(id=>$('#'+id).addEventListener('input',()=>{rememberPrintSettings();updatePrintEstimate()}));$('#showSheetGuides').addEventListener('change',()=>{rememberPrintSettings();renderMap();updatePrintEstimate()});$('#btnPrint').onclick=async()=>{if(await preparePrint())window.print()};$('#btnPrintTop').onclick=()=>{activateTab('export');$('#printMode').focus();toast('Escolha a quantidade de folhas e clique em Imprimir / Salvar em PDF A4.');};$('#btnPng').onclick=exportPng;$('#btnExport').onclick=exportJson;$('#btnImport').onclick=()=>$('#projectFile').click();$('#projectFile').onchange=e=>{if(e.target.files[0])importJson(e.target.files[0]);e.target.value=''};
  $$('[data-worktab-button]').forEach(b=>b.addEventListener('click',()=>activateTab(b.dataset.worktabButton)));$$('[data-pick]').forEach(b=>b.addEventListener('click',()=>selectTool(b.dataset.pick)));CANVAS.addEventListener('pointerleave',()=>{hoverPoint=null;if(!painting)renderMap()});window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();e.shiftKey?redo():undo()}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){e.preventDefault();redo()}if(/^[1-9]$/.test(e.key)&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){let choices=['inspect','floor','room','wall','door','water','trap','note','eraser'];selectTool(choices[Number(e.key)-1])}if(e.key.toLowerCase()==='r'&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){rotation=(rotation+90)%360;toast('Rotação '+rotation+'°')}});
  }
-function activateTab(name){$$('[data-worktab]').forEach(el=>el.classList.toggle('hidden',el.dataset.worktab!==name));$$('[data-worktab-button]').forEach(el=>{let active=el.dataset.worktabButton===name;el.classList.toggle('active',active);el.setAttribute('aria-selected',String(active))})}
+function activateTab(name){if(name==='export')updatePrintEstimate();$$('[data-worktab]').forEach(el=>el.classList.toggle('hidden',el.dataset.worktab!==name));$$('[data-worktab-button]').forEach(el=>{let active=el.dataset.worktabButton===name;el.classList.toggle('active',active);el.setAttribute('aria-selected',String(active))})}
 function init(){try{let saved=localStorage.getItem('forja-masmorras-v02');if(saved){let d=JSON.parse(saved);if(d.project&&d.project.floors&&Object.keys(d.project.floors).length){project=d.project;activeLevel=d.activeLevel in project.floors?d.activeLevel:Number(Object.keys(project.floors)[0]);primeImageCache();syncForm();renderAll()}else newDemo()}else newDemo()}catch(e){newDemo()}bind();activateTab('terrain');selectTool('inspect');$('#btnGrid').classList.toggle('on',showGrid);}
-window.__masmorra={getState:()=>({project,activeLevel,tool,zoom}),preparePrint,resetDemo:newDemo,renderMap,estimate};
+window.__masmorra={getState:()=>({project,activeLevel,tool,zoom}),preparePrint,resetDemo:newDemo,renderMap,estimate,updatePrintEstimate,drawSheetGuides};
 init();
 })();
 </script>
