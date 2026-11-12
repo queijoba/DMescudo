@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Forja de Masmorras — Versão web 0.2</title>
+  <title>Forja de Masmorras — Versão web 0.3</title>
   <style>:root{--bg:#101619;--panel:#192126;--panel2:#202b2e;--border:#344145;--text:#e8e8d8;--soft:#a8b3ae;--muted:#7d8b87;--accent:#d3a75d;--accentlight:#f1cc7e;--green:#90b7a4;--danger:#cd817d;--shadow:rgba(0,0,0,.35)}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;font-size:13px}button,input,select{font:inherit}button{border:1px solid var(--border);background:var(--panel2);color:var(--text);border-radius:7px;padding:9px 10px;cursor:pointer;transition:.12s ease}button:hover{border-color:#81938a;background:#2a3738}button:active{transform:translateY(1px)}button:disabled{opacity:.35;cursor:not-allowed}input,select{width:100%;min-width:0;background:#10191c;color:var(--text);border:1px solid #3a484a;border-radius:6px;padding:9px;outline:none}input:focus,select:focus{border-color:var(--accent)}input[type=number]{appearance:textfield}label{display:block;font-size:11px;color:#b9c0b5;font-weight:600;letter-spacing:.2px;margin-bottom:11px}label>input,label>select,label>.seedrow{margin-top:6px}.hidden{display:none!important}.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}.wide{width:100%}.accent,.prime{color:#231c0f!important;background:var(--accent)!important;border-color:#e0b46d!important;font-weight:800}.accent:hover,.prime:hover{background:#efc27b!important}.outline{background:transparent}.margin-top{margin-top:8px}.hint{line-height:1.55;font-size:11px;color:#96a49c;margin:9px 0 0}.hint b{color:#d8ded3}
 #app{min-height:100vh;display:flex;flex-direction:column}.topbar{height:69px;background:#172023;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:15px;padding:0 22px}.brand{display:flex;align-items:center;gap:12px}.logo{height:36px;width:36px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#b18a4d,#e4c882);color:#252319;font-size:29px;border-radius:8px}.brand b{display:block;letter-spacing:1.2px;font-family:Georgia,serif;font-size:16px}.brand span{color:#98a59d;display:block;font-size:9px;letter-spacing:1.2px;margin-top:2px}.top-actions{display:flex;align-items:center;gap:8px}.topbtn{font-size:12px;padding:9px 12px}.status-pill{color:#93bba5;font-size:11px;margin-right:8px}.layout{display:grid;grid-template-columns:252px minmax(360px,1fr) 286px;flex:1;min-height:0}.sidebar{background:#172023;padding:15px 12px 30px;display:flex;flex-direction:column;gap:12px}.left{border-right:1px solid var(--border)}.right{border-left:1px solid var(--border)}.panel{background:var(--panel);border:1px solid #2a3537;border-radius:10px;padding:13px}.section-title{display:flex;justify-content:space-between;font-size:11px;color:var(--accentlight);font-weight:800;letter-spacing:1.2px;margin-bottom:13px}.muted{color:#657d77!important}.seedrow{display:flex;gap:6px}.square{width:37px;flex-shrink:0;font-size:18px}.floor-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;max-height:258px;overflow:auto}.floor-item{display:flex;align-items:center;justify-content:space-between;background:#142023;border:1px solid #344343;border-radius:6px;padding:9px 10px;cursor:pointer}.floor-item.active{border-color:#ddb167;background:#30312a}.floor-item:hover{background:#293536}.floor-item .index{font-weight:800;font-size:14px;color:#edcc8e;min-width:32px}.floor-item .name{font-size:11px;flex:1}.floor-item .stairs{color:#8eab9c;font-size:11px}.help-line{display:flex;gap:9px;align-items:baseline;margin:10px 0;font-size:11px;color:#c2c8c0;line-height:1.5}.help-line span{font-weight:900;color:var(--accent)}
@@ -13,12 +13,31 @@
 @media print{html,body{margin:0!important;padding:0!important;background:white!important;width:100%!important}#app,.toast,#projectFile{display:none!important}#printRoot{display:block!important}.print-page{margin:0!important;padding:10mm!important;box-sizing:border-box;page-break-after:always;break-after:page;overflow:hidden}.print-page:last-child{page-break-after:auto;break-after:auto}.print-page img{print-color-adjust:exact;-webkit-print-color-adjust:exact}*{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}}
 
 .inspiration{margin-top:10px;background:#121d20;border:1px solid #52645b;border-radius:7px;padding:12px;line-height:1.6;display:flex;flex-direction:column;gap:4px;color:#bcc9c1;font-size:11px}.inspiration b{font-family:Georgia,serif;font-size:15px;font-weight:600;color:#f1cc7e}.inspiration em{font-size:10px;color:#8bada4}.inspiration small{font-size:10px;color:#9aa6a0;line-height:1.45}.inspiration span{white-space:pre-line}.inspiration .source{font-size:10px;color:#94a89d}#scaleHint{margin-top:-7px;margin-bottom:12px}
+
+/* Versão 0.3 — navegação focada e editor de pixel art */
+:root{--bg:#101017;--panel:#181922;--panel2:#252631;--border:#393b51;--accent:#d9ac6d;--accentlight:#efc585;--text:#e8e3e0;--muted:#9e9aad}
+html,body{background:#101016}
+.topbar{background:#15151e;border-color:#393a4c}.logo{background:linear-gradient(145deg,#655775,#b69b6d);color:#171521}
+.sidebar{background:#15151d}.panel{background:#1c1c27;border-color:#323344}.panel .section-title{font-family:monospace}
+input,select{background:#14141d;border-color:#44465c}.workspace{background:radial-gradient(ellipse at 50% 24%,#292638,#101017 72%)}
+.map-scroll{background:#0e0e14;border-color:#343c55;box-shadow:inset 0 0 50px #080910}
+canvas#mapCanvas{background:#101017;image-rendering:pixelated;box-shadow:0 0 0 2px #46465a,0 22px 50px #000a;}
+.map-heading{border-color:#454353;color:#a5a4c3}.map-compass{color:#d9ac6d}.work-top{padding-bottom:10px}.work-footer{background:#171722;border-color:#343344}
+.tabnav{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:0}.tabnav button{font-size:10px;white-space:nowrap;padding:11px 3px;background:#1c1d29;border:1px solid #3e4054}.tabnav button.active{background:#b68a55;color:#1b1618;border-color:#e5be7b;font-weight:900}
+.right{gap:8px}.right [data-worktab]{transition:none}.right [data-worktab].hidden{display:none!important}
+.tool-grid{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:7px}.tool{min-height:82px;gap:5px;border:1px solid #454555;background:#242535;border-radius:7px}.tool:hover{background:#323044}.tool.active{background:#514337;border:1px solid #e3b875;color:#ffe0b0}
+.tool-preview{width:36px;height:36px;image-rendering:pixelated;border:1px solid #5c5870;box-shadow:0 1px 4px #0007;background:#101017}.tool-name{font-size:10px;line-height:1.15;max-width:90%}
+.quickbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:7px 20px 9px;border-bottom:1px solid #373646}.quick-label{font-size:9px;color:#dfb972;font-weight:900;letter-spacing:1.25px;margin-right:6px}.quick-tool{font-size:11px;padding:8px 12px}.quick-tool.active{background:#6b5238;color:#ffdfaa;border-color:#d9ad67;box-shadow:inset 0 0 0 1px #c79555}.quick-hint{color:#9290a2;font-size:10px;line-height:1.4;margin-left:auto;max-width:290px}.quick-hint b{color:#deb574}
+.right>.panel{animation:slide .12s ease}@keyframes slide{from{opacity:.45;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1100px){.right{display:flex;flex-direction:column}.tabnav{width:100%}.right>.panel{max-width:none}}
+@media(max-width:700px){.quickbar{padding:8px 12px}.quick-hint{max-width:100%}.tabnav{grid-template-columns:repeat(4,1fr)}.tool-grid{grid-template-columns:repeat(4,1fr)}.sidebar{padding:9px 12px}}
+@media(max-width:480px){.tool-grid{grid-template-columns:repeat(3,1fr)}.quick-tool{padding:8px 9px}.tabnav button{font-size:10px}}
 </style>
 </head>
 <body>
 <div id="app">
   <header class="topbar">
-    <div class="brand"><div class="logo">▦</div><div><b>FORJA DE MASMORRAS</b><span>GERADOR DE ANDARES · VERSÃO WEB 0.2</span></div></div>
+    <div class="brand"><div class="logo">▦</div><div><b>FORJA DE MASMORRAS</b><span>GERADOR DE ANDARES · VERSÃO WEB 0.3 · PIXEL ART</span></div></div>
     <div class="top-actions"><span id="saveStatus" class="status-pill">● Salvo localmente</span><button class="topbtn" id="btnImport" title="Importar projeto JSON">↥ Importar</button><button class="topbtn" id="btnExport" title="Baixar projeto editável JSON">↧ Salvar projeto</button><button class="topbtn prime" id="btnPrintTop">▤ Imprimir A4</button></div>
   </header>
   <div class="layout">
@@ -26,12 +45,14 @@
       <section class="panel"><div class="section-title"><span>PROJETO</span><span class="muted">01</span></div>
         <label>Nome da masmorra <input id="projectName" type="text" maxlength="64" placeholder="Ex.: Ruínas do Eco" /></label>
         <label>Sistema de RPG <select id="system"><option value="dnd">D&D 5e / 5.5e</option><option value="t20">Tormenta20</option><option value="dragonbane">Dragonbane</option></select></label>
+        <label>Estilo visual <select id="themeStyle"><option value="obsidian">Obsidiana (estilo da referência)</option><option value="crypt">Cripta azul</option><option value="moss">Ruínas musgosas</option><option value="amber">Pedra antiga</option></select></label>
+        <label>Renderização <select id="visualStyle"><option value="pixel">Pixel art · detalhado</option><option value="blueprint">Planta simples · rascunho</option></select></label>
         <label>Medida real por quadrado <select id="meters"><option value="1.5">1,5 metro (D&D / Tormenta20)</option><option value="2">2 metros (Dragonbane)</option></select></label>
-        <p class="hint" id="scaleHint">O tamanho físico no papel é configurado na impressão.</p>
+        <p class="hint" id="scaleHint">A escala serve para jogo. Para miniaturas, ajuste o tamanho impresso na aba Exportar.</p>
         <div class="two"><label>Largura (quad.) <input id="mapW" type="number" min="20" max="64" value="32"></label><label>Altura (quad.) <input id="mapH" type="number" min="16" max="48" value="24"></label></div>
         <label>Estilo de geração <select id="layoutStyle"><option value="rooms">Salas + corredores</option><option value="cavern">Caverna escavada</option><option value="labyrinth">Corredores labirínticos</option></select></label>
         <label>Semente da masmorra <div class="seedrow"><input id="seed" type="text" maxlength="40" spellcheck="false"><button id="btnRandomSeed" class="square" title="Nova semente aleatória">⟳</button></div></label>
-        <button class="wide accent" id="btnRegenerate">✦ Gerar andar atual</button><p class="hint">A semente permite recriar uma planta. Gerar novamente substitui as alterações do andar atual.</p>
+        <button class="wide accent" id="btnRegenerate">✦ Gerar andar atual</button><p class="hint">Atenção: gerar novamente substitui as edições deste andar. Salve seu projeto se quiser manter uma cópia.</p>
       </section>
       <section class="panel"><div class="section-title"><span>ANDARES</span><span id="floorCount" class="muted">3 mapas</span></div>
         <div id="floorsList" class="floor-list"></div>
@@ -39,7 +60,7 @@
         <p class="hint">Escadarias ↥ e ↧ conectam pisos. Cada andar mantém sua própria planta.</p>
       </section>
       <section class="panel"><div class="section-title"><span>COMO USAR</span><span class="muted">?</span></div>
-        <div class="help-line"><span>01</span> Gere ou selecione um andar.</div><div class="help-line"><span>02</span> Escolha terreno, móvel ou imagem.</div><div class="help-line"><span>03</span> Clique e arraste no mapa para editar.</div><div class="help-line"><span>04</span> Imprima em A4 em escala 100%.</div>
+        <div class="help-line"><span>01</span> Gere ou selecione um andar.</div><div class="help-line"><span>02</span> Escolha terreno, móvel ou imagem.</div><div class="help-line"><span>03</span> Arraste para pintar ou selecione Sala para abrir um cômodo.</div><div class="help-line"><span>04</span> Imprima em A4 em escala 100%.</div>
         <p class="hint">Clique em ↥/↧ no modo <b>Inspecionar</b> para abrir o andar conectado. Ctrl+Z desfaz.</p>
       </section>
     </aside>
@@ -47,30 +68,35 @@
       <div class="work-top"><div><div class="eyebrow">PLANTA ATIVA</div><h1 id="floorTitle">Andar térreo</h1><div id="floorSubtitle" class="subtitle">32 × 24 quadrados · 1 quadrado = 1,5 m</div></div>
         <div class="work-controls"><button id="btnUndo" title="Desfazer (Ctrl+Z)">↶</button><button id="btnRedo" title="Refazer (Ctrl+Y)">↷</button><span class="vbar"></span><button id="btnZoomOut">−</button><span id="zoomText" class="zoom-label">100%</span><button id="btnZoomIn">+</button><button id="btnGrid" class="toggle on">▦ Grade</button></div>
       </div>
+      <div class="quickbar" aria-label="Ferramentas rápidas"><span class="quick-label">DESENHE AGORA</span>
+        <button class="quick-tool" data-pick="inspect" title="Atalho 1">◎ Explorar</button><button class="quick-tool" data-pick="floor" title="Atalho 2">▦ Piso</button><button class="quick-tool" data-pick="room" title="Atalho 3">▧ Sala</button><button class="quick-tool" data-pick="wall" title="Atalho 4">▥ Parede</button><button class="quick-tool" data-pick="door" title="Atalho 5">▯ Porta</button><button class="quick-tool" data-pick="note" title="Atalho 8">✎ Nota</button>
+        <span class="quick-hint">Dica: segure e arraste para pintar. Use <b>Sala</b> para desenhar um retângulo.</span></div>
       <div class="map-area"><div class="map-scroll" id="mapScroll"><div class="board-wrap"><div class="map-heading"><span id="mapLabel">MAPA / CAMADA 0</span><span class="map-compass">N ↑</span></div><canvas id="mapCanvas" role="img" aria-label="Mapa editável da masmorra"></canvas></div></div></div>
       <div class="work-footer"><span id="coordText">Passe o mouse sobre um quadrado.</span><span id="selectionStatus">FERRAMENTA: INSPECIONAR</span><span class="scale-label"><b id="footerScale">1 □ = 1,5 m</b> · mapas táticos de RPG</span></div>
     </main>
-    <aside class="sidebar right">
-      <section class="panel"><div class="section-title"><span>FERRAMENTAS</span><span class="muted">02</span></div><div class="tool-grid" id="mainTools"></div></section>
-      <section class="panel"><div class="section-title"><span>MÓVEIS E OBJETOS</span><span class="muted">03</span></div><div class="tool-grid objects" id="objectTools"></div><p class="hint">Selecione um objeto e clique em um quadrado livre. Use a borracha para remover.</p></section>
-      <section class="panel"><div class="section-title"><span>IMAGENS PRÓPRIAS</span><span class="muted">04</span></div>
+    <aside class="sidebar right"><nav class="tabnav" aria-label="Biblioteca do editor">
+        <button data-worktab-button="terrain" class="active" aria-selected="true">▦ Terreno</button><button data-worktab-button="objects">◈ Objetos</button><button data-worktab-button="master">✎ Mestre</button><button data-worktab-button="export">⤓ Exportar</button>
+      </nav>
+      <section class="panel" data-worktab="terrain"><div class="section-title"><span>FERRAMENTAS</span><span class="muted">02</span></div><div class="tool-grid" id="mainTools"></div></section>
+      <section class="panel" data-worktab="objects"><div class="section-title"><span>MÓVEIS E OBJETOS</span><span class="muted">03</span></div><div class="tool-grid objects" id="objectTools"></div><p class="hint">Selecione um objeto e clique em um quadrado livre. Use a borracha para remover.</p></section>
+      <section class="panel" data-worktab="objects"><div class="section-title"><span>IMAGENS PRÓPRIAS</span><span class="muted">04</span></div>
         <button id="btnImageUpload" class="wide outline">＋ Adicionar PNG / JPG / WebP</button><input id="imageFile" class="hidden" type="file" accept="image/png,image/jpeg,image/webp" multiple>
         <div class="image-options"><label>Tamanho <select id="imageSize"><option value="1">1 × 1 quadrado</option><option value="2">2 × 2 quadrados</option><option value="3">3 × 3 quadrados</option><option value="4">4 × 4 quadrados</option></select></label><button id="btnRotate" class="outline" title="Girar próxima imagem ou objeto 90°">↻ Girar</button></div>
         <div id="imageLibrary" class="image-library"></div><p class="hint">As imagens ficam incluídas no arquivo JSON do projeto.</p>
       </section>
-      <section class="panel"><div class="section-title"><span>IMPRESSÃO A4</span><span class="muted">05</span></div>
+      <section class="panel" data-worktab="export"><div class="section-title"><span>IMPRESSÃO A4</span><span class="muted">05</span></div>
         <div class="two"><label>Quadrado impresso <select id="cellMm"><option value="10">10 mm</option><option value="12.5">12,5 mm</option><option value="15">15 mm</option><option value="20">20 mm</option><option value="25">25 mm</option></select></label><label>Orientação <select id="orientation"><option value="portrait">Retrato</option><option value="landscape">Paisagem</option></select></label></div>
         <label>Estilo de tinta <select id="printInk"><option value="economy">Econômico (preto e branco)</option><option value="color">Colorido</option></select></label><label>Imprimir <select id="printScope"><option value="current">Somente andar atual</option><option value="all">Todos os andares</option></select></label><div id="printPages" class="print-estimate">Estimativa: — páginas A4</div>
         <button id="btnPrint" class="wide accent">▤ Imprimir / Salvar PDF</button><button id="btnPng" class="wide outline margin-top">↧ Baixar PNG do andar</button>
         <p class="hint">No diálogo de impressão: <b>A4, escala 100%, margens nenhuma</b> e <b>gráficos de fundo ativados</b>. As páginas já vêm divididas e numeradas.</p>
       </section>
-      <section class="panel" id="libraryPanel"><div class="section-title"><span>IDEIAS DO MESTRE</span><span class="muted">06</span></div>
+      <section class="panel" data-worktab="master" id="libraryPanel"><div class="section-title"><span>IDEIAS DO MESTRE</span><span class="muted">06</span></div>
         <label>Categoria <select id="contentCategory"><option value="trap">Armadilhas e perigos</option><option value="room">Tipos de salas</option></select></label>
         <div class="two"><button id="btnRollContent">⚄ Sortear</button><button id="btnPlaceContent" class="outline">◎ Marcar no mapa</button></div>
         <div class="inspiration" id="inspiration"><b>Pronto para explorar</b><span>Escolha o sistema e sorteie uma ideia para sua masmorra.</span></div>
         <p class="hint">Sugestões resumidas e adaptadas a partir dos seus PDFs do Drive; não substituem os livros. A armadilha marcada aparecerá como nota do mestre.</p>
       </section>
-      <section class="panel"><div class="section-title"><span>ANOTAÇÕES DO MESTRE</span><span class="muted">06</span></div><div id="notesList" class="notes-list"><span class="hint">Use a ferramenta Nota em um quadrado.</span></div></section>
+      <section class="panel" data-worktab="master"><div class="section-title"><span>ANOTAÇÕES DO MESTRE</span><span class="muted">07</span></div><div id="notesList" class="notes-list"><span class="hint">Use a ferramenta Nota em um quadrado.</span></div></section>
     </aside>
   </div>
 </div>
@@ -81,7 +107,7 @@
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const CANVAS=$('#mapCanvas'),CTX=CANVAS.getContext('2d');
 const T={ROCK:0,FLOOR:1,DOOR:2,WATER:3,TRAP:4,UP:5,DOWN:6};
-const TERRAIN=[['inspect','◎','Inspecionar'],['floor','▤','Piso'],['wall','▥','Parede'],['door','▯','Porta'],['water','≈','Água'],['trap','⚠','Armadilha'],['stairsUp','↥','Escada ↑'],['stairsDown','↧','Escada ↓'],['note','✎','Nota'],['eraser','⌫','Apagar']];
+const TERRAIN=[['inspect','◎','Inspecionar'],['floor','▤','Piso / Pincel'],['room','▧','Sala retangular'],['wall','▥','Parede'],['door','▯','Porta'],['water','≈','Água'],['trap','⚠','Armadilha'],['stairsUp','↥','Escada ↑'],['stairsDown','↧','Escada ↓'],['note','✎','Nota'],['eraser','⌫','Apagar']];
 const LIBRARY={
  dnd:{trap:[
   ['Poço disfarçado','Desnível coberto por tábuas ou tapeçaria. Revele pistas, peça um teste apropriado e ajuste o dano de queda à profundidade.','Livro do Mestre 2024 · armadilhas e masmorras'],
@@ -129,8 +155,8 @@ function renderContent(){
 }
 function placeContentAt(x,y){let f=getFloor();commit();let i=f.notes.findIndex(n=>n.x===x&&n.y===y);if(i>=0)f.notes.splice(i,1);const cat=$('#contentCategory').value;const line=chosenContent[0]+' — '+chosenContent[1];f.notes.push({x,y,text:line});if(cat==='trap' && tileAt(f,x,y)!==T.UP&&tileAt(f,x,y)!==T.DOWN)setTile(f,x,y,T.TRAP);renderAll();save();selectTool('inspect');toast('Ideia adicionada como nota do mestre.');}
 
-const FURN=[['table','▭','Mesa'],['chair','♧','Cadeira'],['bed','▰','Cama'],['shelf','▥','Estante'],['crate','▣','Caixote'],['barrel','◉','Barril'],['chest','✧','Baú'],['altar','◇','Altar'],['pillar','●','Coluna'],['torch','♨','Tocha'],['bones','☠','Ossos'],['statue','♟','Estátua']];
-let project,activeLevel=0,tool='inspect',rotation=0,selectedImage=null,zoom=24,showGrid=true,painting=false,lastPaint='',toastTimer=null,undoStack=[],redoStack=[],imageCache=new Map(),printStyle=null;
+const FURN=[['table','▭','Mesa'],['chair','♧','Cadeira'],['bed','▰','Cama'],['shelf','▥','Estante'],['crate','▣','Caixote'],['barrel','◉','Barril'],['chest','✧','Baú'],['altar','◇','Altar'],['pillar','●','Coluna'],['torch','♨','Tocha'],['bones','☠','Ossos'],['statue','♟','Estátua'],['mushroom','♣','Cogumelo'],['skull','☠','Crânio'],['rubble','⬟','Escombros'],['fountain','♒','Fonte'],['banner','⚑','Estandarte']];
+let project,activeLevel=0,tool='inspect',rotation=0,selectedImage=null,zoom=28,showGrid=false,painting=false,roomStart=null,roomEnd=null,hoverPoint=null,lastPaint='',toastTimer=null,undoStack=[],redoStack=[],imageCache=new Map(),printStyle=null;
 const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const floorName=l=>l===0?'Térreo':l>0?'Piso +'+l:'Subsolo '+l;
 const levelShort=l=>l>0?'+'+l:String(l);
@@ -144,7 +170,7 @@ const tileAt=(f,x,y)=>inside(f,x,y)?f.tiles[idx(f,x,y)]:T.ROCK;
 const setTile=(f,x,y,t)=>{if(inside(f,x,y))f.tiles[idx(f,x,y)]=t};
 const isWalk=t=>t!==T.ROCK;
 const getFloor=()=>project.floors[String(activeLevel)];
-function defaultProject(){return {version:1,name:'Ruínas do Eco',system:'dnd',w:32,h:24,seed:'ABISMO-042',layout:'rooms',meters:1.5,images:[],floors:{}}}
+function defaultProject(){return {version:1,name:'Ruínas do Eco',system:'dnd',w:32,h:24,seed:'ABISMO-042',layout:'rooms',meters:1.5,theme:'obsidian',visual:'pixel',images:[],floors:{}}}
 function snapshot(){return JSON.stringify({project,activeLevel})}
 function restoreSnapshot(data){let v=JSON.parse(data);project=v.project;activeLevel=v.activeLevel;primeImageCache();syncForm();renderAll()}
 function commit(){undoStack.push(snapshot());if(undoStack.length>24)undoStack.shift();redoStack=[]}
@@ -184,11 +210,11 @@ function makeFloor(level){let {w,h,layout,seed}=project;let r=rng(seed+'|FLOOR|'
  let rooms=layout==='cavern'?generateCave(f,r):generateRooms(f,r,layout);
  let anchors=getAnchors(level);if(anchors.up.x===anchors.down.x&&anchors.up.y===anchors.down.y)anchors.down.x=clamp(anchors.down.x+5,2,w-3);
  landing(f,anchors.up,r);landing(f,anchors.down,r);setTile(f,anchors.up.x,anchors.up.y,T.UP);setTile(f,anchors.down.x,anchors.down.y,T.DOWN);
- let freqs=layout==='cavern'?[12,5,1]:[18,7,5];
+ let freqs=layout==='cavern'?[8,3,1]:[3,4,4];
  for(let j=0;j<freqs[0];j++){let p=randomFloorCell(f,r,rooms);if(p&&r()>.38)setTile(f,p.x,p.y,T.WATER)}
  for(let j=0;j<freqs[1];j++){let p=randomFloorCell(f,r,rooms);if(p)setTile(f,p.x,p.y,T.TRAP)}
  const items=['table','chair','bed','shelf','crate','barrel','chest','altar','pillar','torch','bones','statue'];
- for(let i=0;i<freqs[2]+11;i++){let p=randomFloorCell(f,r,rooms);if(p)f.objects.push({...p,type:items[ri(r,0,items.length-1)],rotation:ri(r,0,3)*90,size:1})}
+ for(let i=0;i<freqs[2]+6;i++){let p=randomFloorCell(f,r,rooms);if(p)f.objects.push({...p,type:items[ri(r,0,items.length-1)],rotation:ri(r,0,3)*90,size:1})}
  let notes=['Entrada úmida: cheiro de pedra e musgo.','Porta antiga com marcas de uso recente.','Ruídos metálicos vindos das galerias.','Área de descanso ou encontro.'];
  for(let i=0;i<3;i++){let p=randomFloorCell(f,r,rooms);if(p)f.notes.push({...p,text:notes[i%notes.length]})}
  return f;
@@ -199,18 +225,176 @@ function addFloor(delta){let level=activeLevel+delta;if(Math.abs(level)>30){toas
 function moveStair(f,x,y,up){let t=up?T.UP:T.DOWN,other=up?T.DOWN:T.UP;if(tileAt(f,x,y)===other){toast('As duas escadas precisam ficar em quadrados diferentes.');return}let prev=f.tiles.indexOf(t);if(prev!==-1)f.tiles[prev]=T.FLOOR;landing(f,{x,y},rng(project.seed+'|MANUAL|'+activeLevel));setTile(f,x,y,t);f.objects=f.objects.filter(o=>o.x!==x||o.y!==y);
  const otherLevel=activeLevel+(up?1:-1),neighbor=project.floors[String(otherLevel)];if(neighbor){let tN=up?T.DOWN:T.UP,ix=neighbor.tiles.indexOf(tN);if(ix!==-1)neighbor.tiles[ix]=T.FLOOR;let p={x:clamp(x,2,neighbor.w-3),y:clamp(y,2,neighbor.h-3)};landing(neighbor,p,rng(project.seed+'|ST-'+activeLevel+'-'+otherLevel));setTile(neighbor,p.x,p.y,tN);neighbor.objects=neighbor.objects.filter(o=>o.x!==p.x||o.y!==p.y)} }
 function textTool(id){return (TERRAIN.find(x=>x[0]===id)||FURN.find(x=>x[0]===id.slice(4))||[])[2]||'Imagem'}
-function selectTool(next){tool=next;renderTools();$('#selectionStatus').textContent='FERRAMENTA: '+(tool==='preset'?'MARCAR IDEIA':tool.startsWith('img:')?'IMAGEM':tool.startsWith('obj:')?(FURN.find(e=>e[0]===tool.slice(4))||[])[2].toUpperCase():textTool(tool).toUpperCase());}
-function renderTools(){let area=$('#mainTools');area.innerHTML='';for(const [id,icon,name] of TERRAIN){let b=document.createElement('button');b.className='tool'+(tool===id?' active':'');b.title=name;b.innerHTML=`<span class="tool-icon">${icon}</span><span class="tool-name">${name}</span>`;b.onclick=()=>selectTool(id);area.appendChild(b)}
- area=$('#objectTools');area.innerHTML='';for(const [id,icon,name] of FURN){let b=document.createElement('button');b.className='tool'+(tool==='obj:'+id?' active':'');b.title=name;b.innerHTML=`<span class="tool-icon">${icon}</span><span class="tool-name">${name}</span>`;b.onclick=()=>selectTool('obj:'+id);area.appendChild(b)}
+function selectTool(next){tool=next;renderTools();$$('.quick-tool').forEach(b=>b.classList.toggle('active',b.dataset.pick===tool));if(tool.startsWith('obj:')||tool.startsWith('img:'))activateTab('objects');else if(tool==='preset')activateTab('master');else activateTab('terrain');$('#selectionStatus').textContent='FERRAMENTA: '+(tool==='preset'?'MARCAR IDEIA':tool.startsWith('img:')?'IMAGEM':tool.startsWith('obj:')?(FURN.find(e=>e[0]===tool.slice(4))||[])[2].toUpperCase():textTool(tool).toUpperCase());}
+function renderTools(){let area=$('#mainTools');area.innerHTML='';for(const [id,icon,name] of TERRAIN){let b=document.createElement('button');b.className='tool'+(tool===id?' active':'');b.title=name;b.innerHTML=`<canvas class="tool-preview" width="36" height="36"></canvas><span class="tool-name">${name}</span>`;paintPixelPreview(b.querySelector('canvas'),id);b.onclick=()=>selectTool(id);area.appendChild(b)}
+ area=$('#objectTools');area.innerHTML='';for(const [id,icon,name] of FURN){let b=document.createElement('button');b.className='tool'+(tool==='obj:'+id?' active':'');b.title=name;b.innerHTML=`<canvas class="tool-preview" width="36" height="36"></canvas><span class="tool-name">${name}</span>`;paintPixelPreview(b.querySelector('canvas'),'obj:'+id);b.onclick=()=>selectTool('obj:'+id);area.appendChild(b)}
  let lib=$('#imageLibrary');lib.innerHTML='';if(!project.images.length){lib.innerHTML='<span class="hint">Nenhuma imagem adicionada.</span>'}else for(const im of project.images){let b=document.createElement('button');b.className='image-chip'+(tool==='img:'+im.id?' active':'');b.title=im.name;b.innerHTML=`<img alt="${escapeHtml(im.name)}" src="${im.src}">`;b.onclick=()=>selectTool('img:'+im.id);lib.appendChild(b)}}
 function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
 function renderFloorList(){let el=$('#floorsList');el.innerHTML='';const levels=Object.keys(project.floors).map(Number).sort((a,b)=>b-a);$('#floorCount').textContent=levels.length+' mapas';for(const l of levels){let b=document.createElement('div');b.className='floor-item'+(l===activeLevel?' active':'');b.innerHTML=`<span class="index">${levelShort(l)}</span><span class="name">${floorName(l)}</span><span class="stairs">↥ ↧</span>`;b.onclick=()=>{activeLevel=l;renderAll();save()};el.appendChild(b)}}
 function renderNotes(){let f=getFloor(),el=$('#notesList');el.innerHTML='';for(const n of f.notes){let b=document.createElement('div');b.className='note-line';b.innerHTML=`<b>(${n.x+1},${n.y+1})</b> ${escapeHtml(n.text)}`;b.title='Clique para editar';b.onclick=()=>editNote(n.x,n.y);el.appendChild(b)}if(!f.notes.length)el.innerHTML='<span class="hint">Ainda sem notas neste andar.</span>'}
 function renderAll(){let f=getFloor();if(!f)return;$('#floorTitle').textContent=floorName(activeLevel);$('#footerScale').textContent='1 □ = '+project.meters.toLocaleString('pt-BR')+' m';$('#scaleHint').textContent=project.system==='dragonbane'?'Dragonbane usa 2 m por quadrado; o livro permite aproveitar mapas de 1,5 m considerando-os como 2 m.':'Cada quadrado do mapa representa a distância escolhida. A impressão é configurada separadamente.';renderContent();$('#floorSubtitle').textContent=`${f.w} × ${f.h} quadrados · ${f.w*project.meters} × ${f.h*project.meters} m · 1 quadrado = ${project.meters.toLocaleString('pt-BR')} m`;
- $('#mapLabel').textContent=`${project.name.toUpperCase()} / CAMADA ${levelShort(activeLevel)}`;renderFloorList();renderTools();renderNotes();renderMap();updatePrintEstimate();$('#btnUndo').disabled=!undoStack.length;$('#btnRedo').disabled=!redoStack.length;$('#zoomText').textContent=Math.round(zoom/24*100)+'%'}
-function syncForm(){$('#projectName').value=project.name;$('#system').value=project.system;$('#meters').value=String(project.meters);$('#mapW').value=project.w;$('#mapH').value=project.h;$('#layoutStyle').value=project.layout;$('#seed').value=project.seed}
+ $('#mapLabel').textContent=`${project.name.toUpperCase()} / CAMADA ${levelShort(activeLevel)}`;renderFloorList();renderTools();renderNotes();renderMap();updatePrintEstimate();$('#btnUndo').disabled=!undoStack.length;$('#btnRedo').disabled=!redoStack.length;$('#zoomText').textContent=Math.round(zoom/28*100)+'%'}
+function syncForm(){$('#projectName').value=project.name;$('#system').value=project.system;$('#meters').value=String(project.meters);$('#mapW').value=project.w;$('#mapH').value=project.h;$('#layoutStyle').value=project.layout;$('#themeStyle').value=project.theme||'obsidian';$('#visualStyle').value=project.visual||'pixel';$('#seed').value=project.seed}
 function theme(paper=false,economy=false){if(paper&&economy)return {rock:'#f7f7f5',floor:'#ffffff',water:'#ececec',line:'#787878',rockLine:'#d5d5d0',edge:'#363a38',door:'#525252',trap:'#333333',ink:'#161616',object:'#3d3d3d',note:'#555555'};return paper?{rock:'#ddddda',floor:'#fcfcf7',water:'#d9e7e9',line:'#84928a',rockLine:'#b0b6b0',edge:'#505650',door:'#b18c57',trap:'#be695b',ink:'#29312f',object:'#6d624c',note:'#715b2d'}:{rock:'#26312f',floor:'#576154',water:'#36626a',line:'#869288',rockLine:'#34433d',edge:'#a3ab85',door:'#bc8d51',trap:'#de8272',ink:'#f3ebd0',object:'#e5c38c',note:'#f2c776'}}
-function drawMap(ctx,f,px,fromX,fromY,countX,countY,opts={}){let p=theme(!!opts.paper,!!opts.economical),grid=opts.grid!==false;
+// Texturas e sprites pixel art originais, desenhados em Canvas a 32 pixels e ampliados sem interpolação.
+const PX=32;
+const PIXEL_THEMES={
+  obsidian:{void:'#101017',void2:'#1a1822',floor:'#282730',floor2:'#33313d',floor3:'#3c3d50',joint:'#181923',light:'#59647f',glow:'#828db2',wall:'#3c4054',wall2:'#515a79',wallDark:'#222333',mortar:'#151621',wood:'#6b454b',woodLight:'#a36a56',iron:'#b6b7c6',water:'#283e5b',waterLight:'#4a7892',accent:'#d9aa65',ash:'#70718c'},
+  crypt:{void:'#10141c',void2:'#172332',floor:'#283947',floor2:'#354959',floor3:'#435a68',joint:'#14212b',light:'#628197',glow:'#99afc8',wall:'#3a5266',wall2:'#597b91',wallDark:'#203849',mortar:'#15232c',wood:'#704d48',woodLight:'#b0805f',iron:'#b8c5bf',water:'#264d62',waterLight:'#4b9da8',accent:'#e5b86b',ash:'#7b9c9d'},
+  moss:{void:'#121810',void2:'#20271d',floor:'#303a31',floor2:'#3b4939',floor3:'#465747',joint:'#1d2b24',light:'#718574',glow:'#a4ad85',wall:'#405143',wall2:'#637c60',wallDark:'#233527',mortar:'#19251c',wood:'#674a36',woodLight:'#ad7d4c',iron:'#b6c0a6',water:'#265650',waterLight:'#57a18b',accent:'#e6c373',ash:'#79906f'},
+  amber:{void:'#1b1714',void2:'#29211b',floor:'#443b36',floor2:'#54483e',floor3:'#65554a',joint:'#2b241e',light:'#8d7567',glow:'#b69b84',wall:'#6a5a4d',wall2:'#a18b72',wallDark:'#3a2e2a',mortar:'#2b241e',wood:'#664032',woodLight:'#aa6d42',iron:'#e3c99f',water:'#385c64',waterLight:'#88aeb1',accent:'#efbf6b',ash:'#a08a72'}
+};
+const PIXEL_CACHE=new Map();
+function pixelC(){const c=document.createElement('canvas');c.width=PX;c.height=PX;const g=c.getContext('2d');g.imageSmoothingEnabled=false;return {c,g}}
+function pixelSprite(kind, variant=0, themeName='obsidian'){
+  const k=themeName+'|'+kind+'|'+variant; if(PIXEL_CACHE.has(k))return PIXEL_CACHE.get(k);
+  let p=PIXEL_THEMES[themeName]||PIXEL_THEMES.obsidian,{c,g}=pixelC();
+  let fill=(color,x,y,w,h)=>{g.fillStyle=color;g.fillRect(x,y,w,h)};
+  let q=(a,b)=>((hash(kind+'|'+variant+'|'+a+'|'+b)%1000)/1000);
+  if(kind==='rock'){
+    fill(p.void,0,0,32,32);
+    fill(p.void2,0,0,32,4);fill(p.void2,0,0,3,32);
+    for(let i=0;i<10;i++){
+      let x=Math.floor(q(i,0)*29),y=Math.floor(q(i,1)*28); let shade=[p.void2,p.wallDark,p.joint][i%3];
+      fill(shade,x,y,2+(i%3),i%5===0?3:1);
+    }
+  } else if(kind==='floor'){
+    fill(p.joint,0,0,32,32);fill(p.floor,1,1,30,30);
+    // Placas quadradas com linha superior iluminada e desgastes em 3 tons.
+    fill(p.floor2,2,2,28,27);fill(p.floor3,3,3,26,3);fill(p.floor,4,8,23,18);
+    fill(p.light,2,3,2,24);fill(p.joint,29,3,2,26);fill(p.joint,2,29,28,2);
+    if(variant===0||variant===4){
+      fill(p.joint,8,9,17,2);fill(p.joint,8,9,2,15);fill(p.light,11,12,2,11);
+      if(variant===4){fill(p.joint,18,15,2,10);fill(p.light,20,16,2,8)}
+    }else if(variant===1){
+      fill(p.light,10,11,12,2);fill(p.light,10,11,2,12);fill(p.joint,21,11,2,14);fill(p.joint,11,23,12,2)
+    } else if(variant===2){
+      fill(p.joint,4,14,24,2);fill(p.light,5,16,14,2);fill(p.joint,15,16,2,12);
+    }else if(variant===3){
+      fill(p.light,7,9,20,2);fill(p.joint,8,20,21,2);fill(p.joint,7,11,2,9);
+    }else{
+      fill(p.floor3,9,12,12,2); fill(p.joint,7,21,16,2);
+    }
+    if(variant===5){fill(p.joint,10,5,1,9);fill(p.joint,11,13,7,1);fill(p.joint,17,14,1,8)}
+    fill(p.floor3,25,6,3,2);
+  }else if(kind==='brick'){
+    fill(p.wallDark,0,0,32,32);fill(p.wall,0,2,32,28);
+    for(let y=2;y<32;y+=10){fill(p.mortar,0,y+7,32,2);let offset=((y/10|0)%2)*10;for(let x=-offset;x<32;x+=21){fill(p.mortar,x,y,2,8);fill(p.wall2,x+2,y+1,16,2);fill(p.wallDark,x+4,y+5,14,1)}}
+    fill(p.wall2,0,0,32,2);
+  }else if(kind==='water'){
+    fill(p.water,0,0,32,32);for(let y=3;y<32;y+=9){let s=(variant*7+y*3)%10; fill(p.waterLight,s,y,12,2);fill(p.floor3,(s+18)%29,y+3,7,1)}
+    fill(p.void2,1,27,7,2);
+  }else if(kind==='trap'){
+    // Placa de pressão com espinhos de pedra, discreta mas visível ao mestre.
+    let base=pixelSprite('floor',variant%6,themeName);g.drawImage(base,0,0);
+    fill(p.wood,7,8,18,17);fill(p.joint,9,10,14,13);fill(p.ash,10,10,4,3);fill(p.ash,16,10,4,3);fill(p.ash,13,17,4,3);fill(p.accent,11,13,2,4);
+  }else if(kind==='stairsUp'||kind==='stairsDown'){
+    g.drawImage(pixelSprite('floor',variant%6,themeName),0,0);
+    fill(p.joint,4,4,24,24);fill(p.wall,6,6,20,20);
+    for(let y=7;y<26;y+=5){fill(p.wall2,7,y,18,2);fill(p.wallDark,7,y+2,18,2)}
+    fill(p.accent,14,9,4,15);
+    if(kind==='stairsUp'){fill(p.accent,10,10,12,3);fill(p.accent,12,7,8,3)}else{fill(p.accent,10,20,12,3);fill(p.accent,12,23,8,3)}
+  }
+  PIXEL_CACHE.set(k,c);return c;
+}
+function pixelDrawObject(ctx,o,x,y,scale,p){
+  const s=scale, size=o.size||1;
+  if(o.type==='image')return;
+  ctx.save();ctx.translate(x+s*size/2,y+s*size/2);ctx.rotate((o.rotation||0)*Math.PI/180);
+  const t=PIXEL_THEMES[project.theme]||PIXEL_THEMES.obsidian;
+  const factor=(size*s)/32;ctx.scale(factor,factor);
+  const R=(color,a,b,w,h)=>{ctx.fillStyle=color;ctx.fillRect(Math.round(a),Math.round(b),Math.round(w),Math.round(h))};
+  const W=t.wood, L=t.woodLight, I=t.iron, A=t.accent, D=t.joint, G=t.glow;
+  const type=o.type;
+  if(type==='table'){
+    R(D,-13,-9,27,21);R(W,-12,-10,24,18);R(L,-11,-10,23,3);R(L,-10,-6,2,11);R(D,-1,-8,2,17);R(W,-8,8,4,4);R(W,6,8,4,4)
+  }else if(type==='chair'){
+    R(D,-8,-11,16,22);R(W,-7,-10,14,5);R(L,-5,-8,10,2);R(W,-6,-2,12,11);R(L,-6,-2,12,3)
+  }else if(type==='bed'){
+    R(D,-13,-16,26,32);R(W,-11,-15,22,30);R(L,-9,-13,18,5);R('#b4a8a0',-9,-7,18,13);R('#7d6b7a',-8,6,16,7);R(D,-7,13,14,2)
+  }else if(type==='shelf'){
+    R(D,-15,-13,30,27);R(W,-14,-12,28,25);for(let y=-9;y<=8;y+=8){R(D,-12,y,24,3);for(let z=-9;z<=8;z+=6)R(z%2?G:A,z,y-5,3,5)}
+  }else if(type==='crate'){
+    R(D,-12,-11,25,24);R(W,-11,-11,22,22);R(L,-10,-10,20,3);R(L,-10,-10,3,20);R(D,-8,-8,16,2);R(D,-8,7,16,2);R(D,-7,-6,3,14);R(D,6,-6,3,14)
+  }else if(type==='barrel'){
+    R(D,-11,-10,22,22);R(W,-10,-9,20,19);R(L,-8,-7,15,3);R('#2e292f',-8,-3,16,3);R(L,-8,3,16,3);R(I,-11,-6,3,14);R(I,8,-6,3,14)
+  }else if(type==='chest'){
+    R(D,-13,-10,26,22);R(W,-12,-8,24,18);R(L,-12,-10,24,7);R(D,-10,-4,20,2);R(A,-3,-6,6,9);R('#f5d58a',-1,-4,2,4)
+  }else if(type==='altar'){
+    R(D,-13,-13,26,28);R(t.wall2,-12,-12,24,26);R(t.wallDark,-10,-9,20,20);R(t.wall2,-8,10,16,3);R(A,-3,-8,6,17);R(A,-8,-3,16,6)
+  }else if(type==='pillar'){
+    R(D,-12,-12,24,26);R(t.wall2,-10,-10,20,20);R(t.wallDark,-7,-7,14,14);R(t.glow,-8,-9,14,2);R(t.wall2,-13,10,26,3)
+  }else if(type==='torch'){
+    R(D,-2,-5,5,21);R(L,-1,-4,3,15);R('#a94b2a',-5,-13,11,10);R(A,-3,-15,7,12);R('#f8de8c',-1,-13,3,6)
+  }else if(type==='bones'){
+    R('#928d7a',-11,2,20,3);R('#ddd3a8',-10,1,17,2);R('#c9c8aa',-4,-9,14,3);R('#dad7b6',-8,-5,18,2);R(I,-7,9,5,3)
+  }else if(type==='statue'){
+    R(t.wallDark,-9,11,18,5);R(t.wall2,-7,-2,14,13);R(t.wall2,-5,-12,10,11);R(t.glow,-5,-12,6,2);R(D,-9,8,18,3)
+  }else if(type==='mushroom'){
+    R('#90758c',-2,0,5,13);R('#a98899',-12,-8,25,10);R('#c6a7b2',-8,-11,16,4);R('#f0d6a3',-6,-7,3,2);R('#f0d6a3',3,-5,4,2)
+  }else if(type==='skull'){
+    R('#b6ac92',-8,-9,17,15);R('#d8ccac',-7,-11,14,15);R(D,-6,-3,4,5);R(D,3,-3,4,5);R(D,-2,3,4,3);R('#8d8974',-4,7,9,5)
+  }else if(type==='rubble'){
+    R(t.wallDark,-13,7,8,6);R(t.wall2,-12,4,8,6);R(t.wall,-2,-1,11,10);R(t.glow,0,-2,6,3);R(t.wall2,7,6,7,7);R(t.wallDark,8,10,8,5)
+  }else if(type==='fountain'){
+    R(t.wallDark,-13,-13,27,26);R(t.wall2,-11,-11,23,22);R(t.water,-9,-9,19,18);R(t.waterLight,-5,-5,11,3);R(t.wall2,-3,-3,7,8);R(A,-1,-5,3,9)
+  }else if(type==='banner'){
+    R(I,-2,-15,4,30);R('#7c4b5d',-11,-12,22,18);R('#b27b75',-9,-10,18,3);R(A,-3,-5,7,7);R(t.void2,-7,4,15,2)
+  }
+  ctx.restore();
+}
+function paintPixelMap(ctx,f,px,fromX,fromY,countX,countY,opts={}){
+  const pal=PIXEL_THEMES[project.theme]||PIXEL_THEMES.obsidian;
+  ctx.clearRect(0,0,countX*px,countY*px);
+  ctx.imageSmoothingEnabled=false;
+  ctx.fillStyle=pal.void;ctx.fillRect(0,0,countX*px,countY*px);
+  const cell=(x,y)=>tileAt(f,x,y);
+  for(let yy=0;yy<countY;yy++)for(let xx=0;xx<countX;xx++){
+    let x=xx+fromX,y=yy+fromY,t=cell(x,y),ox=xx*px,oy=yy*px;
+    let variant=hash(project.seed+'|'+activeLevel+'|'+x+','+y)%6;
+    ctx.drawImage(pixelSprite(t===T.ROCK?'rock':t===T.WATER?'water':t===T.TRAP?'trap':t===T.UP?'stairsUp':t===T.DOWN?'stairsDown':'floor',variant,project.theme),ox,oy,px,px);
+    if(t===T.ROCK){
+      // Paredes de alvenaria e rochas soltas ao redor da planta — a forma é obtida das células vizinhas.
+      const close= [cell(x-1,y),cell(x+1,y),cell(x,y-1),cell(x,y+1)].some(q=>q!==T.ROCK);
+      if(close){ctx.globalAlpha=.95;ctx.drawImage(pixelSprite('brick',variant,project.theme),ox,oy,px,px);ctx.globalAlpha=1;}
+    }
+    if(t!==T.ROCK){
+      let bands=[[0,-1,0,0,32,5],[0,1,0,27,32,5],[-1,0,0,0,5,32],[1,0,27,0,5,32]];
+      for(let [dx,dy,sx,sy,sw,sh] of bands){if(cell(x+dx,y+dy)!==T.ROCK)continue;
+        ctx.fillStyle=pal.wallDark;ctx.fillRect(ox+sx/32*px,oy+sy/32*px,sw/32*px,sh/32*px);
+        ctx.fillStyle=pal.wall2;let horizontal=dy!==0;
+        if(horizontal){ctx.fillRect(ox,oy+(dy<0?0:30)/32*px,px,2/32*px);for(let k=0;k<3;k++)ctx.fillRect(ox+(2+k*11)/32*px,oy+(dy<0?2:28)/32*px,7/32*px,2/32*px)}
+        else{ctx.fillRect(ox+(dx<0?0:30)/32*px,oy,2/32*px,px);for(let k=0;k<3;k++)ctx.fillRect(ox+(dx<0?2:28)/32*px,oy+(2+k*11)/32*px,2/32*px,7/32*px)}
+      }
+    }
+    if(t===T.DOOR){
+      const vertical=cell(x-1,y)!==T.ROCK && cell(x+1,y)!==T.ROCK;
+      ctx.save();ctx.translate(ox+px/2,oy+px/2);if(vertical)ctx.rotate(Math.PI/2);
+      const d=(col,sx,sy,sw,sh)=>{ctx.fillStyle=col;ctx.fillRect(sx*px/32,sy*px/32,sw*px/32,sh*px/32)};
+      d(pal.wallDark,-16,-14,32,27);d(pal.wall2,-15,-15,30,4);d(pal.wood,-10,-11,20,24);d(pal.woodLight,-8,-11,3,22);d(pal.joint,-5,-7,2,16);d(pal.joint,5,-7,2,16);d(pal.iron,-6,-4,12,2);d(pal.accent,4,4,3,3);
+      ctx.restore();
+    }
+    if(opts.grid){ctx.strokeStyle=opts.paper?'#cccccc99':'#c6d0eb35';ctx.lineWidth=Math.max(.5,px/55);ctx.strokeRect(ox+.3,oy+.3,px-.6,px-.6)}
+  }
+  for(const o of f.objects){let size=o.size||1;if(o.x+size<=fromX||o.y+size<=fromY||o.x>=fromX+countX||o.y>=fromY+countY)continue;
+    const ox=(o.x-fromX)*px,oy=(o.y-fromY)*px;
+    if(o.type==='image'){let image=imageCache.get(o.imageId);if(image?.complete && image.naturalWidth){ctx.save();ctx.translate(ox+size*px/2,oy+size*px/2);ctx.rotate((o.rotation||0)*Math.PI/180);ctx.drawImage(image,-size*px*.49,-size*px*.49,size*px*.98,size*px*.98);ctx.restore()}}
+    else pixelDrawObject(ctx,o,ox,oy,px,pal);
+  }
+  for(const n of f.notes){if(n.x<fromX||n.y<fromY||n.x>=fromX+countX||n.y>=fromY+countY)continue;
+    let ox=(n.x-fromX)*px,oy=(n.y-fromY)*px;ctx.fillStyle=pal.accent;ctx.fillRect(ox+px*.70,oy+px*.06,px*.24,px*.25);ctx.fillStyle=pal.void;ctx.font=`bold ${Math.round(px*.19)}px monospace`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('N',ox+px*.82,oy+px*.2);
+  }
+}
+function paintPixelPreview(canvas,id){let c=canvas.getContext('2d');c.clearRect(0,0,36,36);c.imageSmoothingEnabled=false;let terrain=id.replace('obj:','');
+  if(id.startsWith('obj:')){c.drawImage(pixelSprite('floor',0,project.theme),0,0,36,36);pixelDrawObject(c,{type:terrain,size:1,rotation:0},0,0,36)}
+  else if(['floor','wall','water','trap','stairsUp','stairsDown'].includes(id))c.drawImage(pixelSprite(id==='wall'?'brick':id==='floor'?'floor':id,0,project.theme),0,0,36,36);
+  else if(id==='door'){c.drawImage(pixelSprite('floor',0,project.theme),0,0,36,36);c.fillStyle=PIXEL_THEMES[project.theme]?.wood||'#65464b';c.fillRect(12,3,12,30);c.fillStyle='#b58c72';c.fillRect(12,3,3,29)}
+  else if(id==='note'){c.drawImage(pixelSprite('floor',0,project.theme),0,0,36,36);c.fillStyle='#dbb36d';c.fillRect(24,4,8,9)}
+  else if(id==='room'){c.drawImage(pixelSprite('floor',0,project.theme),0,0,36,36);c.strokeStyle='#d2b57e';c.lineWidth=3;c.strokeRect(6,6,24,24)}
+  else{c.drawImage(pixelSprite('rock',0,project.theme),0,0,36,36);c.strokeStyle='#f0ce93';c.strokeRect(10,10,16,16)}
+}
+
+function drawMap(ctx,f,px,fromX,fromY,countX,countY,opts={}){if(!opts.economical && project.visual!=='blueprint')return paintPixelMap(ctx,f,px,fromX,fromY,countX,countY,opts);let p=theme(!!opts.paper,!!opts.economical),grid=opts.grid!==false;
  ctx.clearRect(0,0,countX*px,countY*px);ctx.fillStyle=p.rock;ctx.fillRect(0,0,countX*px,countY*px);
  for(let yy=0;yy<countY;yy++)for(let xx=0;xx<countX;xx++){let x=fromX+xx,y=fromY+yy,t=tileAt(f,x,y),ox=xx*px,oy=yy*px;ctx.fillStyle=t===T.ROCK?p.rock:t===T.WATER?p.water:p.floor;ctx.fillRect(ox,oy,px,px);
   if(t===T.ROCK){let id=hash(x+':'+y+':'+project.seed);ctx.strokeStyle=p.rockLine;ctx.lineWidth=Math.max(.6,px*.018);if(id%4===0){ctx.beginPath();ctx.moveTo(ox+px*.2,oy+px*.2);ctx.lineTo(ox+px*.45,oy+px*.2);ctx.lineTo(ox+px*.52,oy+px*.37);ctx.stroke()}if(id%6===0){ctx.beginPath();ctx.moveTo(ox+px*.65,oy+px*.76);ctx.lineTo(ox+px*.85,oy+px*.85);ctx.stroke()}}
@@ -241,7 +425,10 @@ function drawObject(ctx,o,x,y,pz,p){ctx.save();let s=pz*(o.size||1);ctx.translat
  else if(type==='bones'){circle(0,-.16,.16);ctx.beginPath();ctx.moveTo(-.30*s,.25*s);ctx.lineTo(.30*s,-.05*s);ctx.moveTo(-.30*s,-.05*s);ctx.lineTo(.30*s,.25*s);ctx.stroke()}
  else if(type==='statue'){circle(0,-.24,.15);rect(-.22,-.06,.44,.37);rect(-.33,.31,.66,.11,true)}
  ctx.restore()}
-function renderMap(){let f=getFloor();CANVAS.width=f.w*zoom;CANVAS.height=f.h*zoom;drawMap(CTX,f,zoom,0,0,f.w,f.h,{grid:showGrid});}
+function renderMap(){let f=getFloor();CANVAS.width=f.w*zoom;CANVAS.height=f.h*zoom;CTX.imageSmoothingEnabled=false;drawMap(CTX,f,zoom,0,0,f.w,f.h,{grid:showGrid});
+  if(roomStart&&roomEnd&&tool==='room'){let l=Math.min(roomStart.x,roomEnd.x),t=Math.min(roomStart.y,roomEnd.y),r=Math.max(roomStart.x,roomEnd.x),b=Math.max(roomStart.y,roomEnd.y);CTX.fillStyle='#d3b06f30';CTX.fillRect(l*zoom,t*zoom,(r-l+1)*zoom,(b-t+1)*zoom);CTX.strokeStyle='#ffe1a1';CTX.lineWidth=2;CTX.strokeRect(l*zoom+1,t*zoom+1,(r-l+1)*zoom-2,(b-t+1)*zoom-2)}
+  else if(hoverPoint && tool!=='inspect'){CTX.strokeStyle='#e7d398';CTX.lineWidth=2;CTX.strokeRect(hoverPoint.x*zoom+1,hoverPoint.y*zoom+1,zoom-2,zoom-2)}
+}
 function coords(ev){let r=CANVAS.getBoundingClientRect(),x=Math.floor((ev.clientX-r.left)/r.width*getFloor().w),y=Math.floor((ev.clientY-r.top)/r.height*getFloor().h);return{x,y}}
 function editNote(x,y){let f=getFloor(),note=f.notes.find(n=>n.x===x&&n.y===y);let text=window.prompt(`Nota do mestre em (${x+1},${y+1}):\n(Dica: deixe vazio para apagar)`,note?.text||'');if(text===null)return;commit();f.notes=f.notes.filter(n=>n!==note);if(text.trim())f.notes.push({x,y,text:text.trim().slice(0,1000)});renderAll();save()}
 function inspect(x,y){let f=getFloor(),t=tileAt(f,x,y);if(t===T.UP&&project.floors[String(activeLevel+1)]){activeLevel++;renderAll();save();toast('Você subiu para '+floorName(activeLevel)+'.')}else if(t===T.DOWN&&project.floors[String(activeLevel-1)]){activeLevel--;renderAll();save();toast('Você desceu para '+floorName(activeLevel)+'.')}else{let obj=f.objects.find(o=>x>=o.x&&x<o.x+(o.size||1)&&y>=o.y&&y<o.y+(o.size||1)),n=f.notes.find(n=>n.x===x&&n.y===y);if(n)toast('Nota: '+n.text.slice(0,120));else if(obj)toast(`Objeto: ${obj.type==='image'?'imagem':obj.type} · (${x+1}, ${y+1})`);else if(t===T.UP||t===T.DOWN)toast('Crie o próximo andar pelo menu à esquerda para utilizar esta escada.');else toast('Coordenada ('+(x+1)+', '+(y+1)+') · '+['rocha','piso','porta','água','armadilha'][t])}}
@@ -252,9 +439,9 @@ function applyBrush(x,y){let f=getFloor(),key=x+','+y;if(lastPaint===key)return;
  else if(tool==='stairsUp'||tool==='stairsDown'){moveStair(f,x,y,tool==='stairsUp')}
  else{let next={floor:T.FLOOR,wall:T.ROCK,door:T.DOOR,water:T.WATER,trap:T.TRAP}[tool];if(next===undefined)return;if(t===T.UP||t===T.DOWN){toast('Use a ferramenta de escadas para mudar sua posição.');return}setTile(f,x,y,next);if(next===T.ROCK)f.objects=f.objects.filter(o=>!(x>=o.x&&x<o.x+(o.size||1)&&y>=o.y&&y<o.y+(o.size||1)))}
  renderMap()}
-function handlePointerDown(ev){if(ev.button!==0)return;let {x,y}=coords(ev),f=getFloor();if(!inside(f,x,y))return;if(tool==='inspect'){inspect(x,y);return}if(tool==='preset'){placeContentAt(x,y);return}if(tool==='note'){editNote(x,y);return}commit();painting=true;lastPaint='';CANVAS.setPointerCapture(ev.pointerId);applyBrush(x,y);$('#btnUndo').disabled=false}
-function handlePointerMove(ev){let{x,y}=coords(ev),f=getFloor();if(!inside(f,x,y))return;$('#coordText').textContent=`Quadrado (${x+1}, ${y+1}) · ${(x*project.meters).toLocaleString('pt-BR')}–${((x+1)*project.meters).toLocaleString('pt-BR')} m (X) · ${f.label}`;if(painting){applyBrush(x,y)}}
-function handlePointerUp(){if(painting){painting=false;lastPaint='';renderFloorList();renderNotes();updatePrintEstimate();save()}}
+function handlePointerDown(ev){if(ev.button!==0)return;let {x,y}=coords(ev),f=getFloor();if(!inside(f,x,y))return;if(tool==='room'){commit();painting=true;roomStart={x,y};roomEnd={x,y};CANVAS.setPointerCapture(ev.pointerId);renderMap();return}if(tool==='inspect'){inspect(x,y);return}if(tool==='preset'){placeContentAt(x,y);return}if(tool==='note'){editNote(x,y);return}commit();painting=true;lastPaint='';CANVAS.setPointerCapture(ev.pointerId);applyBrush(x,y);$('#btnUndo').disabled=false}
+function handlePointerMove(ev){let{x,y}=coords(ev),f=getFloor();if(!inside(f,x,y))return;$('#coordText').textContent=`Quadrado (${x+1}, ${y+1}) · ${(x*project.meters).toLocaleString('pt-BR')}–${((x+1)*project.meters).toLocaleString('pt-BR')} m (X) · ${f.label}`;if(!hoverPoint||hoverPoint.x!==x||hoverPoint.y!==y){hoverPoint={x,y};if(!painting)renderMap()}if(painting){if(tool==='room'){roomEnd={x,y};renderMap()}else if(!tool.startsWith('obj:')&&!tool.startsWith('img:'))applyBrush(x,y)}}
+function handlePointerUp(){if(painting){if(tool==='room' && roomStart&&roomEnd){let f=getFloor(),a=roomStart,b=roomEnd;for(let y=Math.max(1,Math.min(a.y,b.y));y<=Math.min(f.h-2,Math.max(a.y,b.y));y++)for(let x=Math.max(1,Math.min(a.x,b.x));x<=Math.min(f.w-2,Math.max(a.x,b.x));x++){if(tileAt(f,x,y)!==T.UP&&tileAt(f,x,y)!==T.DOWN)setTile(f,x,y,T.FLOOR)}toast('Sala retangular escavada.')}roomStart=null;roomEnd=null;painting=false;lastPaint='';renderFloorList();renderNotes();updatePrintEstimate();renderMap();save()}}
 function primeImageCache(){imageCache.clear();for(const im of project.images||[]){let image=new Image();image.src=im.src;image.onload=()=>renderMap();imageCache.set(im.id,image)}}
 async function loadNewImages(files){if(!files?.length)return;let success=0;commit();for(const file of [...files].slice(0,8)){if(!file.type.startsWith('image/'))continue;if(file.size>10*1024*1024){toast(file.name+': limite de 10 MB.');continue}try{let data=await readImage(file),id='im'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);project.images.push({id,name:file.name,src:data});let img=new Image();img.src=data;img.onload=renderMap;imageCache.set(id,img);success++;selectedImage=id}catch(err){toast('Não foi possível ler '+file.name)}}if(success){selectTool('img:'+selectedImage);renderAll();save();toast(success+' imagem(ns) adicionada(s).')}else{undoStack.pop()}}
 function readImage(file){return new Promise((resolve,reject)=>{let rd=new FileReader();rd.onerror=reject;rd.onload=()=>{let im=new Image();im.onerror=reject;im.onload=()=>{let scale=Math.min(1,700/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(im.width*scale));c.height=Math.max(1,Math.round(im.height*scale));c.getContext('2d').drawImage(im,0,0,c.width,c.height);resolve(c.toDataURL('image/png'))};im.src=rd.result};rd.readAsDataURL(file)})}
@@ -267,16 +454,17 @@ function download(name,blob){let a=document.createElement('a'),url=URL.createObj
 function fileName(s){return String(s).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9_-]+/g,'_').slice(0,50)}
 function exportJson(){let content=JSON.stringify({format:'Forja de Masmorras',...project},null,2);download(fileName(project.name)+'.json',new Blob([content],{type:'application/json'}));toast('Projeto JSON exportado.')}
 async function importJson(file){try{let raw=JSON.parse(await file.text());let p={...defaultProject(),...raw};if(!p.floors||!Object.keys(p.floors).length||!p.w||!p.h||!Array.isArray(p.images))throw new Error('Estrutura incompleta');if(!Object.values(p.floors).every(f=>Array.isArray(f.tiles)&&f.tiles.length===f.w*f.h&&Array.isArray(f.objects)&&Array.isArray(f.notes)))throw new Error('Andar inválido');commit();project=p;activeLevel=p.floors['0']?0:Number(Object.keys(p.floors)[0]);primeImageCache();syncForm();renderAll();save();toast('Projeto importado com sucesso.')}catch(e){toast('Não foi possível importar o JSON: '+e.message)}}
-function exportPng(){let f=getFloor(),px=64,c=document.createElement('canvas');c.width=f.w*px;c.height=f.h*px;drawMap(c.getContext('2d'),f,px,0,0,f.w,f.h,{paper:true,grid:true});c.toBlob(blob=>{if(blob)download(fileName(project.name)+'_'+fileName(floorName(activeLevel))+'.png',blob)},'image/png');toast('PNG gerado com quadriculado.')}
+function exportPng(){let f=getFloor(),px=64,c=document.createElement('canvas');c.width=f.w*px;c.height=f.h*px;drawMap(c.getContext('2d'),f,px,0,0,f.w,f.h,{paper:false,grid:showGrid});c.toBlob(blob=>{if(blob)download(fileName(project.name)+'_'+fileName(floorName(activeLevel))+'.png',blob)},'image/png');toast('PNG gerado com quadriculado.')}
 function applySettings(regenerate=false){let w=clamp(parseInt($('#mapW').value,10)||32,20,64),h=clamp(parseInt($('#mapH').value,10)||24,16,48),seed=$('#seed').value.trim()||'MASMORRA',layout=$('#layoutStyle').value;let dims=w!==project.w||h!==project.h;if(regenerate){if(dims&&!window.confirm('Alterar as dimensões irá recriar TODOS os andares, apagando suas edições. Continuar?')){syncForm();return}commit();project.w=w;project.h=h;project.seed=seed;project.layout=layout;let levels=dims?Object.keys(project.floors).map(Number):[activeLevel];if(dims)project.floors={};for(const l of levels)project.floors[String(l)]=makeFloor(l);renderAll();save();toast(dims?'Todos os andares foram recriados.':'Novo andar gerado.')}else{project.seed=seed;project.layout=layout;save()}}
 function bind(){CANVAS.addEventListener('pointerdown',handlePointerDown);CANVAS.addEventListener('pointermove',handlePointerMove);CANVAS.addEventListener('pointerup',handlePointerUp);CANVAS.addEventListener('pointercancel',handlePointerUp);
- $('#btnUndo').onclick=undo;$('#btnRedo').onclick=redo;$('#btnFloorUp').onclick=()=>addFloor(1);$('#btnFloorDown').onclick=()=>addFloor(-1);$('#btnRegenerate').onclick=()=>applySettings(true);$('#btnRandomSeed').onclick=()=>{$('#seed').value=randSeed();toast('Semente alterada. Clique em Gerar andar atual.')} ;
- $('#projectName').addEventListener('change',e=>{commit();project.name=e.target.value.trim()||'Masmorra sem nome';renderAll();save()});$('#system').addEventListener('change',e=>{commit();project.system=e.target.value;chosenContent=null;save();renderAll()});$('#meters').addEventListener('change',e=>{commit();project.meters=Number(e.target.value);save();renderAll()});$('#contentCategory').addEventListener('change',()=>{chosenContent=null;renderContent()});$('#btnRollContent').onclick=()=>{let pool=LIBRARY[project.system][$('#contentCategory').value];chosenContent=pool[Math.floor(Math.random()*pool.length)];renderContent();toast('Nova ideia sorteada.');};$('#btnPlaceContent').onclick=()=>{if(!chosenContent)renderContent();selectTool('preset');toast('Clique em um quadrado do mapa para marcar essa ideia.');};$('#layoutStyle').addEventListener('change',()=>toast('Estilo aplicado na próxima geração.'));$('#btnGrid').onclick=()=>{showGrid=!showGrid;$('#btnGrid').classList.toggle('on',showGrid);renderMap()};$('#btnZoomIn').onclick=()=>{zoom=clamp(zoom+4,12,48);renderAll()};$('#btnZoomOut').onclick=()=>{zoom=clamp(zoom-4,12,48);renderAll()};
+ $('#btnUndo').onclick=undo;$('#btnRedo').onclick=redo;$('#btnFloorUp').onclick=()=>addFloor(1);$('#btnFloorDown').onclick=()=>addFloor(-1);$('#btnRegenerate').onclick=()=>applySettings(true);$('#btnRandomSeed').onclick=()=>{$('#seed').value=randSeed();toast('Semente alterada. Clique em Gerar andar atual.')} ;$('#themeStyle').onchange=e=>{commit();project.theme=e.target.value;renderAll();save()};$('#visualStyle').onchange=e=>{commit();project.visual=e.target.value;renderAll();save()};
+ $('#projectName').addEventListener('change',e=>{commit();project.name=e.target.value.trim()||'Masmorra sem nome';renderAll();save()});$('#system').addEventListener('change',e=>{commit();project.system=e.target.value;chosenContent=null;save();renderAll()});$('#meters').addEventListener('change',e=>{commit();project.meters=Number(e.target.value);save();renderAll()});$('#contentCategory').addEventListener('change',()=>{chosenContent=null;renderContent()});$('#btnRollContent').onclick=()=>{let pool=LIBRARY[project.system][$('#contentCategory').value];chosenContent=pool[Math.floor(Math.random()*pool.length)];renderContent();toast('Nova ideia sorteada.');};$('#btnPlaceContent').onclick=()=>{if(!chosenContent)renderContent();selectTool('preset');toast('Clique em um quadrado do mapa para marcar essa ideia.');};$('#layoutStyle').addEventListener('change',()=>toast('Estilo aplicado na próxima geração.'));$('#btnGrid').onclick=()=>{showGrid=!showGrid;$('#btnGrid').classList.toggle('on',showGrid);renderMap()};$('#btnZoomIn').onclick=()=>{zoom=clamp(zoom+4,16,60);renderAll()};$('#btnZoomOut').onclick=()=>{zoom=clamp(zoom-4,16,60);renderAll()};
  $('#btnImageUpload').onclick=()=>$('#imageFile').click();$('#imageFile').onchange=e=>{loadNewImages(e.target.files);e.target.value=''};$('#btnRotate').onclick=()=>{rotation=(rotation+90)%360;toast('Rotação: '+rotation+'°. O próximo objeto será girado.')};
  ['cellMm','orientation','printScope'].forEach(id=>$('#'+id).addEventListener('change',updatePrintEstimate));$('#btnPrint').onclick=$('#btnPrintTop').onclick=async()=>{if(await preparePrint())window.print()};$('#btnPng').onclick=exportPng;$('#btnExport').onclick=exportJson;$('#btnImport').onclick=()=>$('#projectFile').click();$('#projectFile').onchange=e=>{if(e.target.files[0])importJson(e.target.files[0]);e.target.value=''};
- window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();e.shiftKey?redo():undo()}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){e.preventDefault();redo()}if(e.key.toLowerCase()==='r'&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){rotation=(rotation+90)%360;toast('Rotação '+rotation+'°')}});
+ $$('[data-worktab-button]').forEach(b=>b.addEventListener('click',()=>activateTab(b.dataset.worktabButton)));$$('[data-pick]').forEach(b=>b.addEventListener('click',()=>selectTool(b.dataset.pick)));CANVAS.addEventListener('pointerleave',()=>{hoverPoint=null;if(!painting)renderMap()});window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();e.shiftKey?redo():undo()}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){e.preventDefault();redo()}if(/^[1-9]$/.test(e.key)&&!e.ctrlKey&&!e.metaKey&&!e.altKey&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){let choices=['inspect','floor','room','wall','door','water','trap','note','eraser'];selectTool(choices[Number(e.key)-1])}if(e.key.toLowerCase()==='r'&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){rotation=(rotation+90)%360;toast('Rotação '+rotation+'°')}});
  }
-function init(){try{let saved=localStorage.getItem('forja-masmorras-v02');if(saved){let d=JSON.parse(saved);if(d.project&&d.project.floors&&Object.keys(d.project.floors).length){project=d.project;activeLevel=d.activeLevel in project.floors?d.activeLevel:Number(Object.keys(project.floors)[0]);primeImageCache();syncForm();renderAll()}else newDemo()}else newDemo()}catch(e){newDemo()}bind();selectTool('inspect');}
+function activateTab(name){$$('[data-worktab]').forEach(el=>el.classList.toggle('hidden',el.dataset.worktab!==name));$$('[data-worktab-button]').forEach(el=>{let active=el.dataset.worktabButton===name;el.classList.toggle('active',active);el.setAttribute('aria-selected',String(active))})}
+function init(){try{let saved=localStorage.getItem('forja-masmorras-v02');if(saved){let d=JSON.parse(saved);if(d.project&&d.project.floors&&Object.keys(d.project.floors).length){project=d.project;activeLevel=d.activeLevel in project.floors?d.activeLevel:Number(Object.keys(project.floors)[0]);primeImageCache();syncForm();renderAll()}else newDemo()}else newDemo()}catch(e){newDemo()}bind();activateTab('terrain');selectTool('inspect');$('#btnGrid').classList.toggle('on',showGrid);}
 window.__masmorra={getState:()=>({project,activeLevel,tool,zoom}),preparePrint,resetDemo:newDemo,renderMap,estimate};
 init();
 })();
